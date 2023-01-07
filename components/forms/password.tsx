@@ -1,8 +1,9 @@
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
-  Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  IconButton,
   Input,
   InputGroup,
   InputRightElement,
@@ -15,11 +16,15 @@ export default function PasswordForm() {
   return (
     <FormControl variant="floating" id="password" isRequired>
       <InputGroup>
-        <Input pr="5rem" type={show ? 'text' : 'password'} placeholder=" " />
-        <InputRightElement width="5rem">
-          <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
-            {show ? '숨기기' : '표시'}
-          </Button>
+        <Input pr="3rem" type={show ? 'text' : 'password'} placeholder=" " />
+        <InputRightElement width="3rem">
+          <IconButton
+            h="1.75rem"
+            size="sm"
+            aria-label={show ? '숨기기' : '표시'}
+            icon={show ? <ViewIcon /> : <ViewOffIcon />}
+            onClick={() => setShow(!show)}
+          />
         </InputRightElement>
       </InputGroup>
       <FormLabel>비밀번호</FormLabel>
