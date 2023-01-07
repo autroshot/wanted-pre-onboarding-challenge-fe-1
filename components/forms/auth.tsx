@@ -5,10 +5,9 @@ import {
   FormLabel,
   Heading,
   Input,
-  InputGroup,
-  InputRightElement,
   VStack,
 } from '@chakra-ui/react';
+import PasswordForm from './password';
 
 export default function AuthForm() {
   return (
@@ -19,18 +18,7 @@ export default function AuthForm() {
         <FormLabel>이메일</FormLabel>
         <FormErrorMessage>유효하지 않은 이메일입니다.</FormErrorMessage>
       </FormControl>
-      <FormControl variant="floating" id="password" isRequired>
-        <InputGroup>
-          <Input pr="4.5rem" type="password" placeholder=" " />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm">
-              표시
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-        <FormLabel>비밀번호</FormLabel>
-        <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
-      </FormControl>
+      <PasswordForm />
       <Button w="100%">로그인</Button>
     </VStack>
   );
