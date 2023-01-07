@@ -15,8 +15,8 @@ export default function PasswordForm() {
   return (
     <FormControl variant="floating" id="password" isRequired>
       <InputGroup>
-        <Input pr="4.5rem" type={show ? 'text' : 'password'} placeholder=" " />
-        <InputRightElement width="4.5rem">
+        <Input pr="5rem" type={show ? 'text' : 'password'} placeholder=" " />
+        <InputRightElement width="5rem">
           <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
             {show ? '숨기기' : '표시'}
           </Button>
