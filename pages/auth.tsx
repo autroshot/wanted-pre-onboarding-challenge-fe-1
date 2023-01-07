@@ -1,4 +1,11 @@
-import { Container } from '@chakra-ui/react';
+import {
+  Container,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from '@chakra-ui/react';
 import Head from 'next/head';
 import AuthForm from '../components/forms/auth';
 
@@ -9,7 +16,20 @@ export default function Auth() {
         <title>로그인 및 회원가입 | ToDo</title>
       </Head>
       <Container>
-        <AuthForm />
+        <Tabs isFitted variant="enclosed-colored">
+          <TabList>
+            <Tab>로그인</Tab>
+            <Tab>회원가입</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <AuthForm />
+            </TabPanel>
+            <TabPanel>
+              <AuthForm />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Container>
     </>
   );
