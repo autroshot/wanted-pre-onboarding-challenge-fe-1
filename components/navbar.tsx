@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   Link,
@@ -26,16 +25,16 @@ export default function Navbar() {
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
       <LinkBox>
-        <NextLink href="/auth">
+        <NextLink href="/auth" legacyBehavior>
           <LinkOverlay>
-            <Button as={Box}>로그인</Button>
+            <Button>로그인</Button>
           </LinkOverlay>
         </NextLink>
       </LinkBox>
       <LinkBox>
-        <NextLink href="/">
+        <NextLink href="/" legacyBehavior>
           <LinkOverlay>
-            <Button as={Box}>로그아웃</Button>
+            <Button>로그아웃</Button>
           </LinkOverlay>
         </NextLink>
       </LinkBox>
