@@ -21,7 +21,7 @@ export default function Navbar() {
       <Link as={NextLink} href="/">
         홈
       </Link>
-      <Link as={NextLink} href="/">
+      <Link as={NextLink} href="/todos/index">
         ToDo
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
