@@ -11,9 +11,9 @@ import NextLink from 'next/link';
 export default function Navbar() {
   return (
     <Flex
-      px={6}
-      py={3}
-      gap={5}
+      px="6"
+      py="3"
+      gap="5"
       alignItems="center"
       direction={{ base: 'column', md: 'row' }}
     >
