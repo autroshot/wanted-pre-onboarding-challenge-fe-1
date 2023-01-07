@@ -32,6 +32,13 @@ export default function Navbar() {
           </LinkOverlay>
         </NextLink>
       </LinkBox>
+      <LinkBox>
+        <NextLink href="/">
+          <LinkOverlay>
+            <Button as={Box}>로그아웃</Button>
+          </LinkOverlay>
+        </NextLink>
+      </LinkBox>
     </Flex>
   );
 }
