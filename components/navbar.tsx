@@ -26,7 +26,7 @@ export default function Navbar() {
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
       <LinkBox>
-        <NextLink href="#">
+        <NextLink href="/auth">
           <LinkOverlay>
             <Button as={Box}>로그인</Button>
           </LinkOverlay>
