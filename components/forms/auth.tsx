@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import PasswordForm from './password';
 
-export default function AuthForm() {
+export default function AuthForm({ buttonText }: Props) {
   return (
     <Box my="5">
       <VStack spacing="5">
@@ -19,8 +19,12 @@ export default function AuthForm() {
           <FormErrorMessage>유효하지 않은 이메일입니다.</FormErrorMessage>
         </FormControl>
         <PasswordForm />
-        <Button w="100%">로그인</Button>
+        <Button w="100%">{buttonText}</Button>
       </VStack>
     </Box>
   );
+}
+
+export interface Props {
+  buttonText: string;
 }

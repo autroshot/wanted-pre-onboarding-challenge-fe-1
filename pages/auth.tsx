@@ -23,10 +23,10 @@ export default function Auth() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <AuthForm />
+              <AuthForm buttonText="로그인" />
             </TabPanel>
             <TabPanel>
-              <AuthForm />
+              <AuthForm buttonText="회원가입" />
             </TabPanel>
           </TabPanels>
         </Tabs>
