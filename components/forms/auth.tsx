@@ -9,7 +9,7 @@ import PasswordForm from './password';
 export default function AuthForm({ type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
 
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>({ mode: 'onTouched' });
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
