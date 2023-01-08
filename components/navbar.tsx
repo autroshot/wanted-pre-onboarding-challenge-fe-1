@@ -1,12 +1,6 @@
-import {
-  Button,
-  Flex,
-  Link,
-  LinkBox,
-  LinkOverlay,
-  Spacer,
-} from '@chakra-ui/react';
+import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
   return (
@@ -24,20 +18,8 @@ export default function Navbar() {
         ToDo
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
-      <LinkBox>
-        <NextLink href="/auth" legacyBehavior>
-          <LinkOverlay>
-            <Button>로그인</Button>
-          </LinkOverlay>
-        </NextLink>
-      </LinkBox>
-      <LinkBox>
-        <NextLink href="/" legacyBehavior>
-          <LinkOverlay>
-            <Button>로그아웃</Button>
-          </LinkOverlay>
-        </NextLink>
-      </LinkBox>
+      <ButtonAsLink href="/auth" text="로그인" />
+      <Button>로그아웃</Button>
     </Flex>
   );
 }
