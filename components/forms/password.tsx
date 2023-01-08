@@ -20,9 +20,18 @@ export default function PasswordForm<T>({
   register,
 }: Props<T>) {
   const [show, setShow] = useState(false);
-  const registerOptions: RegisterOptions = {
-    required: { value: true, message: '필숫값입니다.' },
-  };
+
+  let registerOptions: RegisterOptions = {};
+  if (type === 'login') {
+    registerOptions = {
+      required: { value: true, message: '필숫값입니다.' },
+    };
+  } else {
+    registerOptions = {
+      required: { value: true, message: '필숫값입니다.' },
+      minLength: { value: 8, message: '8자 이상만 가능합니다.' },
+    };
+  }
 
   return (
     <FormControl
