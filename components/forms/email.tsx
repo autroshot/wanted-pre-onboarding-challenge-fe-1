@@ -19,7 +19,9 @@ export default function EmailForm<T>({
     >
       <Input
         placeholder=" "
-        {...register(name, { required: '필숫값입니다.' })}
+        {...register(name, {
+          required: { value: true, message: '필숫값입니다.' },
+        })}
       />
       <FormLabel>이메일</FormLabel>
       {errorMessage ? (
