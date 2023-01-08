@@ -5,6 +5,7 @@ import MyStorage from '../utils/myStorage';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
+  const myStorage = new MyStorage(localStorage);
   const router = useRouter();
 
   return (
@@ -28,7 +29,7 @@ export default function Navbar() {
   );
 
   function handleLogout() {
-    new MyStorage(localStorage).removeLoginToken();
+    myStorage.removeLoginToken();
     router.push('/');
   }
 }
