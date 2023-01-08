@@ -48,11 +48,11 @@ export default function PasswordForm<T>({
           />
         </InputRightElement>
       </InputGroup>
-      {type === 'signUp' ? (
-        <FormHelperText>비밀번호는 8자 이상만 가능합니다.</FormHelperText>
-      ) : null}
       {errorMessage ? (
         <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      ) : null}
+      {type === 'signUp' ? (
+        <FormHelperText>비밀번호는 8자 이상만 가능합니다.</FormHelperText>
       ) : null}
     </FormControl>
   );
