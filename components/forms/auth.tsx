@@ -2,6 +2,7 @@ import { Box, Button, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import MyStorage from '../../utils/myStorage';
 import EmailForm from './email';
 import PasswordForm from './password';
 
@@ -18,8 +19,13 @@ export default function AuthForm({ type }: Props) {
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
         console.log(res);
-        localStorage.setItem('loginToken', res.data.token);
-        router.push('/');
+
+        if (type === 'login') {
+          new MyStorage(localStorage).setLoginToken(res.data.token);
+          router.push('/');
+        } else {
+          console.log('회원가입 완료');
+        }
       })
       .catch((err) => {
         console.log(err);
