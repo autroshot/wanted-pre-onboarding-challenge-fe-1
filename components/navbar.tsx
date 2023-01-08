@@ -1,8 +1,12 @@
 import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import MyStorage from '../utils/myStorage';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <Flex
       px="6"
@@ -19,7 +23,12 @@ export default function Navbar() {
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
       <ButtonAsLink href="/auth" text="로그인" />
-      <Button>로그아웃</Button>
+      <Button onClick={handleLogout}>로그아웃</Button>
     </Flex>
   );
+
+  function handleLogout() {
+    new MyStorage(localStorage).removeLoginToken();
+    router.push('/');
+  }
 }

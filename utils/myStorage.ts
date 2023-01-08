@@ -11,12 +11,18 @@ export default class MyStorage {
   setLoginToken(loginToken: string) {
     this.#set('loginToken', loginToken);
   }
+  removeLoginToken() {
+    this.#remove('loginToken');
+  }
 
   #get(key: myStorageKeys): null | string {
     return this.#storage.getItem(key);
   }
   #set(key: myStorageKeys, value: string): void {
     return this.#storage.setItem(key, value);
+  }
+  #remove(key: myStorageKeys): void {
+    return this.#storage.removeItem(key);
   }
 }
 
