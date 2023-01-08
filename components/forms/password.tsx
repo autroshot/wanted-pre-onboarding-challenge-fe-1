@@ -9,14 +9,20 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Path, UseFormRegister } from 'react-hook-form';
 
-export default function PasswordForm() {
+export default function PasswordForm<T>({ name, register }: Props<T>) {
   const [show, setShow] = useState(false);
 
   return (
-    <FormControl variant="floating" id="password" isRequired>
+    <FormControl variant="floating" isRequired>
       <InputGroup>
-        <Input pr="3rem" type={show ? 'text' : 'password'} placeholder=" " />
+        <Input
+          pr="3rem"
+          type={show ? 'text' : 'password'}
+          placeholder=" "
+          {...register(name)}
+        />
         <InputRightElement width="3rem">
           <IconButton
             h="1.75rem"
@@ -31,4 +37,9 @@ export default function PasswordForm() {
       <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
     </FormControl>
   );
+}
+
+interface Props<T> {
+  name: Path<T>;
+  register: UseFormRegister<T>;
 }
