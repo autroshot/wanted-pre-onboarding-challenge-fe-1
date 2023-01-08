@@ -2,6 +2,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   IconButton,
   Input,
@@ -11,7 +12,11 @@ import {
 import { useState } from 'react';
 import { Path, UseFormRegister } from 'react-hook-form';
 
-export default function PasswordForm<T>({ name, register }: Props<T>) {
+export default function PasswordForm<T>({
+  name,
+  showFormHelperText,
+  register,
+}: Props<T>) {
   const [show, setShow] = useState(false);
 
   return (
@@ -25,7 +30,6 @@ export default function PasswordForm<T>({ name, register }: Props<T>) {
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
         <FormLabel>비밀번호</FormLabel>
-        <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
         <InputRightElement width="3rem">
           <IconButton
             h="1.75rem"
@@ -36,11 +40,14 @@ export default function PasswordForm<T>({ name, register }: Props<T>) {
           />
         </InputRightElement>
       </InputGroup>
+      {showFormHelperText ? <FormHelperText>8자 이상</FormHelperText> : null}
+      <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
     </FormControl>
   );
 }
 
 interface Props<T> {
   name: Path<T>;
+  showFormHelperText: boolean;
   register: UseFormRegister<T>;
 }

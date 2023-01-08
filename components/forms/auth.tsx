@@ -37,7 +37,11 @@ export default function AuthForm({ type }: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="5">
           <EmailForm name="email" register={register} />
-          <PasswordForm name="password" register={register} />
+          <PasswordForm
+            name="password"
+            showFormHelperText={type === 'signUp'}
+            register={register}
+          />
           <Button w="100%" type="submit">
             {buttonText}
           </Button>
