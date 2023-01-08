@@ -23,6 +23,8 @@ export default function PasswordForm<T>({ name, register }: Props<T>) {
           placeholder=" "
           {...register(name)}
         />
+        <FormLabel>비밀번호</FormLabel>
+        <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
         <InputRightElement width="3rem">
           <IconButton
             h="1.75rem"
@@ -33,8 +35,6 @@ export default function PasswordForm<T>({ name, register }: Props<T>) {
           />
         </InputRightElement>
       </InputGroup>
-      <FormLabel>비밀번호</FormLabel>
-      <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
     </FormControl>
   );
 }
