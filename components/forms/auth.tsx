@@ -50,6 +50,11 @@ export default function AuthForm({ type }: Props) {
           <PasswordForm
             name="password"
             showFormHelperText={type === 'signUp'}
+            errorMessage={
+              errors.password?.message === undefined
+                ? null
+                : errors.password.message
+            }
             register={register}
           />
           <Button w="100%" type="submit">

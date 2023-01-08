@@ -15,18 +15,25 @@ import { Path, UseFormRegister } from 'react-hook-form';
 export default function PasswordForm<T>({
   name,
   showFormHelperText,
+  errorMessage,
   register,
 }: Props<T>) {
   const [show, setShow] = useState(false);
 
   return (
-    <FormControl variant="floating" isRequired>
+    <FormControl
+      variant="floating"
+      isRequired
+      isInvalid={Boolean(errorMessage)}
+    >
       <InputGroup>
         <Input
           pr="3rem"
           type={show ? 'text' : 'password'}
           placeholder=" "
-          {...register(name)}
+          {...register(name, {
+            required: { value: true, message: '필숫값입니다.' },
+          })}
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
         <FormLabel>비밀번호</FormLabel>
@@ -41,7 +48,9 @@ export default function PasswordForm<T>({
         </InputRightElement>
       </InputGroup>
       {showFormHelperText ? <FormHelperText>8자 이상</FormHelperText> : null}
-      <FormErrorMessage>유효하지 않은 비밀번호입니다.</FormErrorMessage>
+      {errorMessage ? (
+        <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      ) : null}
     </FormControl>
   );
 }
@@ -49,5 +58,6 @@ export default function PasswordForm<T>({
 interface Props<T> {
   name: Path<T>;
   showFormHelperText: boolean;
+  errorMessage: null | string;
   register: UseFormRegister<T>;
 }
