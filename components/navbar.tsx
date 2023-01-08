@@ -1,12 +1,17 @@
 import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import MyStorage from '../utils/myStorage';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
-  const myStorage = new MyStorage(localStorage);
+  const [myStorage, setMyStorage] = useState<null | MyStorage>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    setMyStorage(new MyStorage(localStorage));
+  }, []);
 
   return (
     <Flex
@@ -23,13 +28,22 @@ export default function Navbar() {
         ToDo
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
-      <ButtonAsLink href="/auth" text="로그인" />
-      <Button onClick={handleLogout}>로그아웃</Button>
+      {isLogined() ? (
+        <Button
+          onClick={() => {
+            (myStorage as MyStorage).removeLoginToken();
+            router.push('/');
+          }}
+        >
+          로그아웃
+        </Button>
+      ) : (
+        <ButtonAsLink href="/auth" text="로그인" />
+      )}
     </Flex>
   );
 
-  function handleLogout() {
-    myStorage.removeLoginToken();
-    router.push('/');
+  function isLogined() {
+    return myStorage && myStorage.getLoginToken() !== null;
   }
 }
