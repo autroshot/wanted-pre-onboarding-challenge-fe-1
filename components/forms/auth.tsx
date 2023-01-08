@@ -42,19 +42,13 @@ export default function AuthForm({ type }: Props) {
         <VStack spacing="5">
           <EmailForm
             name="email"
-            errorMessage={
-              errors.email?.message === undefined ? null : errors.email.message
-            }
+            errorMessage={undefinedToNull(errors.email?.message)}
             register={register}
           />
           <PasswordForm
             name="password"
             showFormHelperText={type === 'signUp'}
-            errorMessage={
-              errors.password?.message === undefined
-                ? null
-                : errors.password.message
-            }
+            errorMessage={undefinedToNull(errors.password?.message)}
             register={register}
           />
           <Button w="100%" type="submit">
@@ -77,6 +71,11 @@ export default function AuthForm({ type }: Props) {
         buttonText: '회원가입',
       };
     }
+  }
+
+  function undefinedToNull<T>(param: T) {
+    if (typeof param === 'undefined') return null;
+    return param as Exclude<T, undefined>;
   }
 
   interface Inputs {
