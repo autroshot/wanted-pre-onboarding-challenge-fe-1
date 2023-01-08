@@ -6,7 +6,7 @@ import EmailForm from './email';
 import PasswordForm from './password';
 
 export default function AuthForm({ type }: Props) {
-  const { APIURL, buttonText } = getArgs(type);
+  const { APIURL, buttonText } = getArguments(type);
 
   const { register, handleSubmit } = useForm<Inputs>();
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function AuthForm({ type }: Props) {
     </Box>
   );
 
-  function getArgs(type: type): Args {
+  function getArguments(type: type): Args {
     if (type === 'login') {
       return {
         APIURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
