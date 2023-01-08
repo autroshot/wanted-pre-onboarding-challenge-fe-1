@@ -9,7 +9,11 @@ import PasswordForm from './password';
 export default function AuthForm({ type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
 
-  const { register, handleSubmit } = useForm<Inputs>({ mode: 'onTouched' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({ mode: 'onTouched' });
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -34,9 +38,15 @@ export default function AuthForm({ type }: Props) {
 
   return (
     <Box my="5">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="5">
-          <EmailForm name="email" register={register} />
+          <EmailForm
+            name="email"
+            errorMessage={
+              errors.email?.message === undefined ? null : errors.email.message
+            }
+            register={register}
+          />
           <PasswordForm
             name="password"
             showFormHelperText={type === 'signUp'}
