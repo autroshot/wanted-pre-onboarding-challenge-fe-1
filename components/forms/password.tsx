@@ -10,7 +10,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Path, UseFormRegister } from 'react-hook-form';
+import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 import { FormType } from './auth';
 
 export default function PasswordForm<T>({
@@ -20,6 +20,9 @@ export default function PasswordForm<T>({
   register,
 }: Props<T>) {
   const [show, setShow] = useState(false);
+  const registerOptions: RegisterOptions = {
+    required: { value: true, message: '필숫값입니다.' },
+  };
 
   return (
     <FormControl
@@ -32,9 +35,7 @@ export default function PasswordForm<T>({
           pr="3rem"
           type={show ? 'text' : 'password'}
           placeholder=" "
-          {...register(name, {
-            required: { value: true, message: '필숫값입니다.' },
-          })}
+          {...register(name, registerOptions)}
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
         <FormLabel>비밀번호</FormLabel>
