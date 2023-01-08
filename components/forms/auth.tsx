@@ -5,7 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import EmailForm from './email';
 import PasswordForm from './password';
 
-export default function AuthForm({ APIURL, buttonText }: Props) {
+export default function AuthForm({ type }: Props) {
+  const { APIURL, buttonText } = getArgs(type);
+
   const { register, handleSubmit } = useForm<Inputs>();
   const router = useRouter();
 
@@ -38,6 +40,20 @@ export default function AuthForm({ APIURL, buttonText }: Props) {
     </Box>
   );
 
+  function getArgs(type: type): Args {
+    if (type === 'login') {
+      return {
+        APIURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
+        buttonText: '로그인',
+      };
+    } else {
+      return {
+        APIURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/users/create`,
+        buttonText: '회원가입',
+      };
+    }
+  }
+
   interface Inputs {
     email: string;
     password: string;
@@ -47,9 +63,15 @@ export default function AuthForm({ APIURL, buttonText }: Props) {
     message: string;
     token: string;
   }
+
+  interface Args {
+    APIURL: string;
+    buttonText: string;
+  }
 }
 
+type type = 'login' | 'signUp';
+
 export interface Props {
-  APIURL: string;
-  buttonText: string;
+  type: type;
 }

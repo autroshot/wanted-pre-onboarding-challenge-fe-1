@@ -23,16 +23,10 @@ export default function Auth() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <AuthForm
-                APIURL={`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`}
-                buttonText="로그인"
-              />
+              <AuthForm type="login" />
             </TabPanel>
             <TabPanel>
-              <AuthForm
-                APIURL={`${process.env.NEXT_PUBLIC_SERVER_URL}/users/create`}
-                buttonText="회원가입"
-              />
+              <AuthForm type="signUp" />
             </TabPanel>
           </TabPanels>
         </Tabs>
