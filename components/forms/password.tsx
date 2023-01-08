@@ -11,10 +11,11 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Path, UseFormRegister } from 'react-hook-form';
+import { FormType } from './auth';
 
 export default function PasswordForm<T>({
   name,
-  showFormHelperText,
+  type,
   errorMessage,
   register,
 }: Props<T>) {
@@ -47,7 +48,9 @@ export default function PasswordForm<T>({
           />
         </InputRightElement>
       </InputGroup>
-      {showFormHelperText ? <FormHelperText>8자 이상</FormHelperText> : null}
+      {type === 'signUp' ? (
+        <FormHelperText>비밀번호는 8자 이상만 가능합니다.</FormHelperText>
+      ) : null}
       {errorMessage ? (
         <FormErrorMessage>{errorMessage}</FormErrorMessage>
       ) : null}
@@ -57,7 +60,7 @@ export default function PasswordForm<T>({
 
 interface Props<T> {
   name: Path<T>;
-  showFormHelperText: boolean;
+  type: FormType;
   errorMessage: null | string;
   register: UseFormRegister<T>;
 }

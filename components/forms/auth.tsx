@@ -47,7 +47,7 @@ export default function AuthForm({ type }: Props) {
           />
           <PasswordForm
             name="password"
-            showFormHelperText={type === 'signUp'}
+            type={type}
             errorMessage={undefinedToNull(errors.password?.message)}
             register={register}
           />
@@ -59,7 +59,7 @@ export default function AuthForm({ type }: Props) {
     </Box>
   );
 
-  function getArguments(type: type): Args {
+  function getArguments(type: FormType): Args {
     if (type === 'login') {
       return {
         APIURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
@@ -94,8 +94,8 @@ export default function AuthForm({ type }: Props) {
   }
 }
 
-type type = 'login' | 'signUp';
+export type FormType = 'login' | 'signUp';
 
-export interface Props {
-  type: type;
+interface Props {
+  type: FormType;
 }
