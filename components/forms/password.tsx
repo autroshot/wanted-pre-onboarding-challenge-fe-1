@@ -2,7 +2,6 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   IconButton,
   Input,
@@ -11,27 +10,18 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { FormType } from './auth';
 
 export default function PasswordForm<T>({
   name,
-  type,
   errorMessage,
   register,
 }: Props<T>) {
   const [show, setShow] = useState(false);
 
-  let registerOptions: RegisterOptions = {};
-  if (type === 'login') {
-    registerOptions = {
-      required: { value: true, message: '필숫값입니다.' },
-    };
-  } else {
-    registerOptions = {
-      required: { value: true, message: '필숫값입니다.' },
-      minLength: { value: 8, message: '8자 이상만 가능합니다.' },
-    };
-  }
+  let registerOptions: RegisterOptions = {
+    required: { value: true, message: '필숫값입니다.' },
+    minLength: { value: 8, message: '8자 이상만 가능합니다.' },
+  };
 
   return (
     <FormControl
@@ -61,16 +51,12 @@ export default function PasswordForm<T>({
       {errorMessage ? (
         <FormErrorMessage>{errorMessage}</FormErrorMessage>
       ) : null}
-      {type === 'signUp' ? (
-        <FormHelperText>비밀번호는 8자 이상만 가능합니다.</FormHelperText>
-      ) : null}
     </FormControl>
   );
 }
 
 interface Props<T> {
   name: Path<T>;
-  type: FormType;
   errorMessage: null | string;
   register: UseFormRegister<T>;
 }

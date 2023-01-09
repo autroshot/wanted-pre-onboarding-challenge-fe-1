@@ -60,7 +60,6 @@ export default function AuthForm({ type }: Props) {
             />
             <PasswordForm
               name="password"
-              type={type}
               errorMessage={undefinedToNull(errors.password?.message)}
               register={register}
             />
