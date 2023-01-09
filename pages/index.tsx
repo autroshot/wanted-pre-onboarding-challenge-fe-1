@@ -1,7 +1,7 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import MyStorage from '../utils/myStorage';
+import { MyStorage } from '../utils/myStorage';
 
 export default function Home() {
   const [myStorage, setMyStorage] = useState<null | MyStorage>(null);

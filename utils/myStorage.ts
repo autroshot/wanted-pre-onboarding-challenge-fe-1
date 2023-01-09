@@ -1,4 +1,6 @@
-export default class MyStorage {
+import { useEffect, useState } from 'react';
+
+export class MyStorage {
   readonly #storage: Storage;
 
   constructor(storage: Storage) {
@@ -24,6 +26,16 @@ export default class MyStorage {
   #remove(key: myStorageKeys): void {
     return this.#storage.removeItem(key);
   }
+}
+
+export function useStorage() {
+  const [myStorage, setMyStorage] = useState<null | MyStorage>(null);
+
+  useEffect(() => {
+    setMyStorage(new MyStorage(localStorage));
+  }, []);
+
+  return myStorage;
 }
 
 type myStorageKeys = 'loginToken';

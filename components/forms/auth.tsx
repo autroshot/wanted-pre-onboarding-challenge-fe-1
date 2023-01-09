@@ -19,7 +19,7 @@ import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import MyStorage from '../../utils/myStorage';
+import { MyStorage } from '../../utils/myStorage';
 import EmailForm from './email';
 import PasswordForm from './password';
 

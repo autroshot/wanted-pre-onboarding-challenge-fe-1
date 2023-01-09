@@ -2,7 +2,7 @@ import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import MyStorage from '../utils/myStorage';
+import { MyStorage } from '../utils/myStorage';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
