@@ -36,8 +36,6 @@ export default function AuthForm({ type }: Props) {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-
     axios
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
