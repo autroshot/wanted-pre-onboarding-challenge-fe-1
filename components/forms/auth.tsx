@@ -25,7 +25,7 @@ import PasswordForm from './password';
 
 export default function AuthForm({ type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
-  const { isOpen, onOpen } = useDisclosure();
+  const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
   const [alert, setAlert] = useState<null | string>(null);
 
   const {
@@ -45,7 +45,7 @@ export default function AuthForm({ type }: Props) {
           new MyStorage(localStorage).setLoginToken(res.data.token);
           router.push('/');
         } else {
-          onOpen();
+          onModalOpen();
         }
       })
       .catch((err: AxiosError<ErrorResponseData>) => {
@@ -87,7 +87,7 @@ export default function AuthForm({ type }: Props) {
         <Modal
           size="sm"
           closeOnOverlayClick={false}
-          isOpen={isOpen}
+          isOpen={isModalOpen}
           onClose={handleModalClose}
         >
           <ModalOverlay />
