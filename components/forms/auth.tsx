@@ -55,7 +55,6 @@ export default function AuthForm({ type }: Props) {
           <VStack spacing="5">
             <EmailForm
               name="email"
-              type={type}
               errorMessage={undefinedToNull(errors.email?.message)}
               register={register}
             />

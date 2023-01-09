@@ -5,30 +5,21 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { FormType } from './auth';
 
 export default function EmailForm<T>({
   name,
-  type,
   errorMessage,
   register,
 }: Props<T>) {
   const EMAIL_REG_EXP =
     /^[a-zA-Z0-9!#$%&'*+\-/=?^_`{|}~\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+$/;
-  let registerOptions: RegisterOptions = {};
-  if (type === 'login') {
-    registerOptions = {
-      required: { value: true, message: '필숫값입니다.' },
-    };
-  } else {
-    registerOptions = {
-      required: { value: true, message: '필숫값입니다.' },
-      pattern: {
-        value: EMAIL_REG_EXP,
-        message: '유효하지 않은 이메일 형식입니다.',
-      },
-    };
-  }
+  let registerOptions: RegisterOptions = {
+    required: { value: true, message: '필숫값입니다.' },
+    pattern: {
+      value: EMAIL_REG_EXP,
+      message: '유효하지 않은 이메일 형식입니다.',
+    },
+  };
 
   return (
     <FormControl
@@ -47,7 +38,6 @@ export default function EmailForm<T>({
 
 interface Props<T> {
   name: Path<T>;
-  type: FormType;
   errorMessage: null | string;
   register: UseFormRegister<T>;
 }
