@@ -1,4 +1,17 @@
-import { Box, Button, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -8,6 +21,7 @@ import PasswordForm from './password';
 
 export default function AuthForm({ type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
+  const { isOpen, onOpen } = useDisclosure();
 
   const {
     register,
@@ -28,7 +42,7 @@ export default function AuthForm({ type }: Props) {
           new MyStorage(localStorage).setLoginToken(res.data.token);
           router.push('/');
         } else {
-          console.log('회원가입 완료');
+          onOpen();
         }
       })
       .catch((err) => {
@@ -37,28 +51,54 @@ export default function AuthForm({ type }: Props) {
   };
 
   return (
-    <Box my="5">
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <VStack spacing="5">
-          <EmailForm
-            name="email"
-            type={type}
-            errorMessage={undefinedToNull(errors.email?.message)}
-            register={register}
-          />
-          <PasswordForm
-            name="password"
-            type={type}
-            errorMessage={undefinedToNull(errors.password?.message)}
-            register={register}
-          />
-          <Button w="100%" type="submit">
-            {buttonText}
-          </Button>
-        </VStack>
-      </form>
-    </Box>
+    <>
+      <Box my="5">
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <VStack spacing="5">
+            <EmailForm
+              name="email"
+              type={type}
+              errorMessage={undefinedToNull(errors.email?.message)}
+              register={register}
+            />
+            <PasswordForm
+              name="password"
+              type={type}
+              errorMessage={undefinedToNull(errors.password?.message)}
+              register={register}
+            />
+            <Button w="100%" type="submit">
+              {buttonText}
+            </Button>
+          </VStack>
+        </form>
+      </Box>
+      {type === 'login' ? null : (
+        <Modal
+          size="sm"
+          closeOnOverlayClick={false}
+          isOpen={isOpen}
+          onClose={handleModalClose}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>알림</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Center>🎉 회원가입 완료 🎉</Center>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={handleModalClose}>확인</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+    </>
   );
+
+  function handleModalClose() {
+    router.push('/');
+  }
 
   function getArguments(type: FormType): Args {
     if (type === 'login') {
