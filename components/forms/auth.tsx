@@ -19,7 +19,7 @@ import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { MyStorage } from '../../utils/storage';
+import { login } from '../../utils/auth';
 import EmailForm from './email';
 import PasswordForm from './password';
 
@@ -40,7 +40,7 @@ export default function AuthForm({ type }: Props) {
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
         if (type === 'login') {
-          new MyStorage(localStorage).setLoginToken(res.data.token);
+          login(localStorage, res.data.token);
           router.push('/');
         } else {
           onModalOpen();
