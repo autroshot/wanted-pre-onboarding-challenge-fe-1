@@ -26,6 +26,7 @@ import PasswordForm from './password';
 export default function AuthForm({ formType: type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
     null
   );
@@ -38,6 +39,8 @@ export default function AuthForm({ formType: type }: Props) {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setIsLoading(true);
+
     axios
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
@@ -51,7 +54,8 @@ export default function AuthForm({ formType: type }: Props) {
       .catch((err: AxiosError<ErrorResponseData>) => {
         const message = err.response?.data.details;
         setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다');
-      });
+      })
+      .then(() => setIsLoading(false));
   };
 
   return (
@@ -77,7 +81,12 @@ export default function AuthForm({ formType: type }: Props) {
               </Alert>
             ) : null}
 
-            <Button w="100%" type="submit" disabled={!isValid}>
+            <Button
+              w="100%"
+              type="submit"
+              disabled={!isValid || isLoading}
+              isLoading={isLoading}
+            >
               {buttonText}
             </Button>
           </VStack>
