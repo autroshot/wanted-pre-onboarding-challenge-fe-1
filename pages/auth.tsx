@@ -15,7 +15,7 @@ export default function Auth() {
       <Head>
         <title>로그인 및 회원가입 | ToDo</title>
       </Head>
-      <Container>
+      <Container my="5">
         <Tabs isFitted variant="enclosed-colored">
           <TabList>
             <Tab>로그인</Tab>
