@@ -26,7 +26,9 @@ import PasswordForm from './password';
 export default function AuthForm({ formType: type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
-  const [alert, setAlert] = useState<null | string>(null);
+  const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
+    null
+  );
 
   const {
     register,
@@ -48,7 +50,7 @@ export default function AuthForm({ formType: type }: Props) {
       })
       .catch((err: AxiosError<ErrorResponseData>) => {
         const message = err.response?.data.details;
-        setAlert(message ? `${message}.` : '오류가 발생했습니다');
+        setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다');
       });
   };
 
@@ -68,10 +70,10 @@ export default function AuthForm({ formType: type }: Props) {
               register={register}
             />
 
-            {alert ? (
+            {serverErrorMessage ? (
               <Alert status="error">
                 <AlertIcon />
-                <AlertDescription>{alert}</AlertDescription>
+                <AlertDescription>{serverErrorMessage}</AlertDescription>
               </Alert>
             ) : null}
 
