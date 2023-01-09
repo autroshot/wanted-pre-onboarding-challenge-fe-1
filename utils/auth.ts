@@ -1,4 +1,4 @@
-import { useStorage } from './myStorage';
+import { useStorage } from './storage';
 
 export function useIsLogined() {
   const myStorage = useStorage();
