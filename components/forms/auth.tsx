@@ -23,7 +23,7 @@ import { login } from '../../utils/auth';
 import EmailForm from './email';
 import PasswordForm from './password';
 
-export default function AuthForm({ type }: Props) {
+export default function AuthForm({ formType: type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
   const [alert, setAlert] = useState<null | string>(null);
@@ -149,5 +149,5 @@ export default function AuthForm({ type }: Props) {
 export type FormType = 'login' | 'signUp';
 
 interface Props {
-  type: FormType;
+  formType: FormType;
 }

@@ -23,10 +23,10 @@ export default function Auth() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <AuthForm type="login" />
+              <AuthForm formType="login" />
             </TabPanel>
             <TabPanel>
-              <AuthForm type="signUp" />
+              <AuthForm formType="signUp" />
             </TabPanel>
           </TabPanels>
         </Tabs>
