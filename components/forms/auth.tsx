@@ -31,7 +31,7 @@ export default function AuthForm({ formType: type }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<Inputs>({ mode: 'onTouched' });
   const router = useRouter();
 
@@ -75,7 +75,7 @@ export default function AuthForm({ formType: type }: Props) {
               </Alert>
             ) : null}
 
-            <Button w="100%" type="submit">
+            <Button w="100%" type="submit" disabled={!isValid}>
               {buttonText}
             </Button>
           </VStack>
