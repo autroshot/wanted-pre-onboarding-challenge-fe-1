@@ -11,8 +11,14 @@ export default function EmailForm<T>({
   errorMessage,
   register,
 }: Props<T>) {
+  const EMAIL_REG_EXP =
+    /^[a-zA-Z0-9!#$%&'*+\-/=?^_`{|}~\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+$/;
   const registerOptions: RegisterOptions = {
     required: { value: true, message: '필숫값입니다.' },
+    pattern: {
+      value: EMAIL_REG_EXP,
+      message: '유효하지 않은 이메일 형식입니다.',
+    },
   };
 
   return (
