@@ -1,4 +1,8 @@
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react';
+import {
+  extendTheme,
+  StyleFunctionProps,
+  withDefaultColorScheme,
+} from '@chakra-ui/react';
 
 const activeLabelStyles = {
   transform: 'scale(0.85) translateY(-24px)',
@@ -8,7 +12,7 @@ export const theme = extendTheme(
     components: {
       Form: {
         variants: {
-          floating: {
+          floating: (props: StyleFunctionProps) => ({
             container: {
               _focusWithin: {
                 label: {
@@ -24,7 +28,8 @@ export const theme = extendTheme(
                 left: 0,
                 zIndex: 2,
                 position: 'absolute',
-                backgroundColor: 'white',
+                backgroundColor:
+                  props.colorMode === 'light' ? 'white' : 'gray.800',
                 pointerEvents: 'none',
                 mx: 3,
                 px: 1,
@@ -32,7 +37,7 @@ export const theme = extendTheme(
                 transformOrigin: 'left top',
               },
             },
-          },
+          }),
         },
       },
     },

@@ -1,10 +1,19 @@
-import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import {
+  Button,
+  Flex,
+  IconButton,
+  Link,
+  Spacer,
+  useColorMode,
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { logout, useIsLogined } from '../utils/auth';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
+  const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
 
   return (
@@ -22,6 +31,11 @@ export default function Navbar() {
         ToDo
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
+      <IconButton
+        aria-label="다크 모드"
+        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        onClick={toggleColorMode}
+      />
       {useIsLogined() ? (
         <Button
           onClick={() => {
