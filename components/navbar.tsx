@@ -23,6 +23,7 @@ export default function Navbar() {
       gap="5"
       alignItems="center"
       direction={{ base: 'column', md: 'row' }}
+      data-cy="navbar"
     >
       <Link as={NextLink} href="/">
         홈
