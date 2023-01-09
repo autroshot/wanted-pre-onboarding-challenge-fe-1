@@ -2,6 +2,7 @@ import { Button, Flex, Link, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useIsLogined } from '../utils/auth';
 import { MyStorage } from '../utils/storage';
 import ButtonAsLink from './buttonAsLink';
 
@@ -28,7 +29,7 @@ export default function Navbar() {
         ToDo
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
-      {isLogined() ? (
+      {useIsLogined() ? (
         <Button
           onClick={() => {
             (myStorage as MyStorage).removeLoginToken();
@@ -42,8 +43,4 @@ export default function Navbar() {
       )}
     </Flex>
   );
-
-  function isLogined() {
-    return myStorage && myStorage.getLoginToken() !== null;
-  }
 }
