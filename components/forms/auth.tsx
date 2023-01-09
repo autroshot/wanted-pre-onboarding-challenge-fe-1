@@ -36,8 +36,6 @@ export default function AuthForm({ type }: Props) {
     axios
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
-        console.log(res);
-
         if (type === 'login') {
           new MyStorage(localStorage).setLoginToken(res.data.token);
           router.push('/');
