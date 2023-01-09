@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Box,
   Button,
   Center,
@@ -12,8 +15,9 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import MyStorage from '../../utils/myStorage';
 import EmailForm from './email';
@@ -22,6 +26,7 @@ import PasswordForm from './password';
 export default function AuthForm({ type }: Props) {
   const { APIURL, buttonText } = getArguments(type);
   const { isOpen, onOpen } = useDisclosure();
+  const [alert, setAlert] = useState<null | string>(null);
 
   const {
     register,
@@ -43,8 +48,9 @@ export default function AuthForm({ type }: Props) {
           onOpen();
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err: AxiosError<ErrorResponseData>) => {
+        const message = err.response?.data.details;
+        setAlert(message ? `${message}.` : '오류가 발생했습니다');
       });
   };
 
@@ -63,6 +69,14 @@ export default function AuthForm({ type }: Props) {
               errorMessage={undefinedToNull(errors.password?.message)}
               register={register}
             />
+
+            {alert ? (
+              <Alert status="error">
+                <AlertIcon />
+                <AlertDescription>{alert}</AlertDescription>
+              </Alert>
+            ) : null}
+
             <Button w="100%" type="submit">
               {buttonText}
             </Button>
@@ -123,6 +137,9 @@ export default function AuthForm({ type }: Props) {
   interface UsersResponseData {
     message: string;
     token: string;
+  }
+  interface ErrorResponseData {
+    details: string;
   }
 
   interface Args {
