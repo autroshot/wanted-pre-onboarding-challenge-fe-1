@@ -23,8 +23,8 @@ import { login } from '../../utils/auth';
 import EmailForm from './email';
 import PasswordForm from './password';
 
-export default function AuthForm({ formType: type }: Props) {
-  const { APIURL, buttonText } = getArguments(type);
+export default function AuthForm({ formType }: Props) {
+  const { APIURL, buttonText } = getArguments(formType);
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
@@ -44,7 +44,7 @@ export default function AuthForm({ formType: type }: Props) {
     axios
       .post<UsersResponseData>(APIURL, { ...data })
       .then((res) => {
-        if (type === 'login') {
+        if (formType === 'login') {
           login(localStorage, res.data.token);
           router.push('/');
         } else {
@@ -64,7 +64,7 @@ export default function AuthForm({ formType: type }: Props) {
         <form
           noValidate
           onSubmit={handleSubmit(onSubmit)}
-          data-cy={type === 'login' ? 'loginForm' : 'signUpForm'}
+          data-cy={formType === 'login' ? 'loginForm' : 'signUpForm'}
         >
           <VStack spacing="5">
             <EmailForm
@@ -96,7 +96,7 @@ export default function AuthForm({ formType: type }: Props) {
           </VStack>
         </form>
       </Box>
-      {type === 'login' ? null : (
+      {formType === 'login' ? null : (
         <Modal
           size="sm"
           closeOnOverlayClick={false}
