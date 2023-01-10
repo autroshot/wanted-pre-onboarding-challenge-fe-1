@@ -9,3 +9,5 @@ describe('페이지', () => {
     cy.visit('/auth');
   });
 });
+
+export {};

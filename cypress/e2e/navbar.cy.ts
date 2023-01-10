@@ -32,3 +32,5 @@ describe('네비바 다크 모드', () => {
     cy.get('html').should('have.css', 'color-scheme', 'light');
   });
 });
+
+export {};
