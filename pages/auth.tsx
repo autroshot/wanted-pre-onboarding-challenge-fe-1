@@ -7,7 +7,8 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import AuthForm from '../components/forms/auth';
+import LoginForm from '../components/forms/login';
+import SignUpForm from '../components/forms/signUp';
 
 export default function Auth() {
   return (
@@ -23,10 +24,10 @@ export default function Auth() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <AuthForm formType="login" />
+              <LoginForm />
             </TabPanel>
             <TabPanel>
-              <AuthForm formType="signUp" />
+              <SignUpForm />
             </TabPanel>
           </TabPanels>
         </Tabs>
