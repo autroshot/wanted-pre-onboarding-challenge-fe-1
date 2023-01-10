@@ -61,7 +61,11 @@ export default function AuthForm({ formType: type }: Props) {
   return (
     <>
       <Box my="5">
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          data-cy={type === 'login' ? 'loginForm' : 'signUpForm'}
+        >
           <VStack spacing="5">
             <EmailForm
               name="email"
