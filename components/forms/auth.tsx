@@ -90,6 +90,7 @@ export default function AuthForm({ formType }: Props) {
               type="submit"
               disabled={!isValid || isLoading}
               isLoading={isLoading}
+              data-cy="submitButton"
             >
               {buttonText}
             </Button>
