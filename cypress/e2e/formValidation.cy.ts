@@ -83,7 +83,7 @@ describe('로그인 폼 유효성 검사', () => {
   });
 
   it('제출 버튼 비활성화', () => {
-    cy.get('[data-cy="submitButton"]').as('submitButton');
+    cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').as('submitButton');
 
     cy.get('@submitButton').should('have.attr', 'disabled');
 
