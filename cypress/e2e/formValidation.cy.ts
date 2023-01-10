@@ -67,6 +67,21 @@ describe('로그인 폼 유효성 검사', () => {
     );
   });
 
+  it('비밀번호 최소 길이', () => {
+    cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').type('1234567');
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').click();
+    cy.get('[data-cy="loginForm"] [data-cy="passwordErrorMessage"]').should(
+      'have.text',
+      ERROR_MESSAGE.PASSWORD_MIN_LENGTH
+    );
+
+    cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').type('8');
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').click();
+    cy.get('[data-cy="loginForm"] [data-cy="passwordErrorMessage"]').should(
+      'not.exist'
+    );
+  });
+
   it('제출 버튼 비활성화', () => {
     cy.get('[data-cy="submitButton"]').as('submitButton');
 
