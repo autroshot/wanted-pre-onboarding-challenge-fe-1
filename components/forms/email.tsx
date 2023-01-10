@@ -5,6 +5,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { ERROR_MESSAGE } from '../../utils/validation';
 
 export default function EmailForm<T>({
   name,
@@ -14,10 +15,10 @@ export default function EmailForm<T>({
   const EMAIL_REG_EXP =
     /^[a-zA-Z0-9!#$%&'*+\-/=?^_`{|}~\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+$/;
   let registerOptions: RegisterOptions = {
-    required: { value: true, message: '필숫값입니다.' },
+    required: { value: true, message: ERROR_MESSAGE.REQUIRED },
     pattern: {
       value: EMAIL_REG_EXP,
-      message: '유효하지 않은 이메일 형식입니다.',
+      message: ERROR_MESSAGE.EMAIL_PATTERN,
     },
   };
 

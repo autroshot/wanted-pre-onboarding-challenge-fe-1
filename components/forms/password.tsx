@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import { ERROR_MESSAGE } from '../../utils/validation';
 
 export default function PasswordForm<T>({
   name,
@@ -19,8 +20,8 @@ export default function PasswordForm<T>({
   const [show, setShow] = useState(false);
 
   let registerOptions: RegisterOptions = {
-    required: { value: true, message: '필숫값입니다.' },
-    minLength: { value: 8, message: '8자 이상만 가능합니다.' },
+    required: { value: true, message: ERROR_MESSAGE.REQUIRED },
+    minLength: { value: 8, message: ERROR_MESSAGE.PASSWORD_MIN_LENGTH },
   };
 
   return (
