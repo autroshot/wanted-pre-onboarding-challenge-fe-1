@@ -19,6 +19,7 @@ import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
 import PasswordForm from './password';
 
@@ -113,11 +114,6 @@ export default function SignUpForm() {
 
   function handleModalClose() {
     router.push('/');
-  }
-
-  function undefinedToNull<T>(param: T) {
-    if (typeof param === 'undefined') return null;
-    return param as Exclude<T, undefined>;
   }
 
   interface Inputs {

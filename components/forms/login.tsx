@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { login } from '../../utils/auth';
+import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
 import PasswordForm from './password';
 
@@ -82,11 +83,6 @@ export default function LoginForm() {
         setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
       })
       .then(() => setIsLoading(false));
-  }
-
-  function undefinedToNull<T>(param: T) {
-    if (typeof param === 'undefined') return null;
-    return param as Exclude<T, undefined>;
   }
 
   interface Inputs {
