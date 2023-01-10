@@ -27,10 +27,16 @@ export default function EmailForm<T>({
       isRequired
       isInvalid={Boolean(errorMessage)}
     >
-      <Input placeholder=" " {...register(name, registerOptions)} />
+      <Input
+        placeholder=" "
+        {...register(name, registerOptions)}
+        data-cy="emailInput"
+      />
       <FormLabel>이메일</FormLabel>
       {errorMessage ? (
-        <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        <FormErrorMessage data-cy="emailErrorMessage">
+          {errorMessage}
+        </FormErrorMessage>
       ) : null}
     </FormControl>
   );

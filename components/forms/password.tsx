@@ -35,6 +35,7 @@ export default function PasswordForm<T>({
           type={show ? 'text' : 'password'}
           placeholder=" "
           {...register(name, registerOptions)}
+          data-cy="passwordInput"
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
         <FormLabel>비밀번호</FormLabel>
@@ -49,7 +50,9 @@ export default function PasswordForm<T>({
         </InputRightElement>
       </InputGroup>
       {errorMessage ? (
-        <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        <FormErrorMessage data-cy="passwordErrorMessage">
+          {errorMessage}
+        </FormErrorMessage>
       ) : null}
     </FormControl>
   );
