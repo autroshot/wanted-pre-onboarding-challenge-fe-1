@@ -44,5 +44,23 @@ describe('인증', () => {
 
   it('회원가입 및 로그인', () => {
     const newUser = { email: 'dummy@gmail.com', password: 'abcd1234' };
+
+    cy.contains('회원가입').click();
+    cy.get('[data-cy="signUpForm"] [data-cy="emailInput"]').type(newUser.email);
+    cy.get('[data-cy="signUpForm"] [data-cy="passwordInput"]').type(
+      newUser.password
+    );
+    cy.get('[data-cy="signUpForm"] [data-cy="submitButton"]').click();
+    cy.contains('회원가입 완료');
+    cy.contains('확인').click();
+
+    cy.visit('/auth');
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(newUser.email);
+    cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').type(
+      newUser.password
+    );
+    cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').click();
+
+    cy.get('[data-cy="navbar"]').contains('로그아웃');
   });
 });
