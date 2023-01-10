@@ -58,7 +58,14 @@ describe('로그인 폼 유효성 검사', () => {
     });
   });
 
-  it('비밀번호', () => {});
+  it('비밀번호 필숫값', () => {
+    cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').click();
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').click();
+    cy.get('[data-cy="loginForm"] [data-cy="passwordErrorMessage"]').should(
+      'have.text',
+      ERROR_MESSAGE.REQUIRED
+    );
+  });
 
   it('제출 버튼 비활성화', () => {});
 });
