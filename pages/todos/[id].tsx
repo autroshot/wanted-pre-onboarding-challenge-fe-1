@@ -15,6 +15,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import Detail from '../../components/todo/detail';
 import Item from '../../components/todo/item';
@@ -24,6 +25,8 @@ export default function ToDo() {
   const router = useRouter();
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
+
+  const { register, setValue } = useForm<Inputs>();
 
   useEffect(() => {
     axios
@@ -84,7 +87,12 @@ export default function ToDo() {
               </Box>
             </Box>
             <Box p="3" borderWidth="1px" borderRadius="lg">
-              <Detail todos={todos} selectedTodoId={selectedTodoId} />
+              <Detail
+                todos={todos}
+                selectedTodoId={selectedTodoId}
+                register={register}
+                setValue={setValue}
+              />
             </Box>
           </SimpleGrid>
         </Container>
@@ -103,4 +111,9 @@ export interface Todo {
   content: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Inputs {
+  title: string;
+  content: string;
 }

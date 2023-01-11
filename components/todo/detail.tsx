@@ -9,9 +9,15 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { Todo } from '../../pages/todos/[id]';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Inputs, Todo } from '../../pages/todos/[id]';
 
-export default function Detail({ todos, selectedTodoId }: Props) {
+export default function Detail({
+  todos,
+  selectedTodoId,
+  register,
+  setValue,
+}: Props) {
   if (
     !todos ||
     !selectedTodoId ||
@@ -24,10 +30,21 @@ export default function Detail({ todos, selectedTodoId }: Props) {
       </Flex>
     );
   } else {
+    const selectedTodo = todos.find(
+      (todo) => todo.id === selectedTodoId
+    ) as Todo;
+    setValue('title', selectedTodo.title);
+    setValue('content', selectedTodo.content);
+
     return (
       <VStack spacing="2" h="100%">
-        <Input placeholder="제목" />
-        <Textarea h="100%" placeholder="내용" resize="none" />
+        <Input placeholder="제목" {...register('title')} />
+        <Textarea
+          h="100%"
+          placeholder="내용"
+          resize="none"
+          {...register('content')}
+        />
         <Box w="100%">
           <Text fontSize="xs">생성된 시간:</Text>
         </Box>
@@ -58,4 +75,6 @@ export default function Detail({ todos, selectedTodoId }: Props) {
 export interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
+  register: UseFormRegister<Inputs>;
+  setValue: UseFormSetValue<Inputs>;
 }
