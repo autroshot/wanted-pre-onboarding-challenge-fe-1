@@ -98,5 +98,3 @@ export default function LoginForm() {
     details: string;
   }
 }
-
-export type FormType = 'login' | 'signUp';
