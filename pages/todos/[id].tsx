@@ -50,8 +50,8 @@ export default function ToDo() {
   }, [router]);
 
   useEffect(() => {
-    if (!selectedTodoId) return;
-    if (!todos || todos.length === 0 || isValidTodoId(selectedTodoId, todos)) {
+    if (!todos || !selectedTodoId) return;
+    if (todos.length === 0 || !isValidTodoId(selectedTodoId, todos)) {
       setSelectedTodoId(null);
     }
 
