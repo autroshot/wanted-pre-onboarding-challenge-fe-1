@@ -29,6 +29,7 @@ import { getLoginToken } from '../../utils/auth';
 export default function ToDo() {
   const router = useRouter();
   const [todos, setTodos] = useState<null | Todo[]>(null);
+  const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
 
   useEffect(() => {
     axios
@@ -41,6 +42,12 @@ export default function ToDo() {
         console.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setSelectedTodoId(router.query.id as string);
+    }
+  }, [router]);
 
   return (
     <>
