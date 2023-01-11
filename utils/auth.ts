@@ -6,6 +6,10 @@ export function useIsLogined() {
   return myStorage !== null && myStorage.getLoginToken() !== null;
 }
 
+export function getLoginToken(storage: Storage) {
+  return new MyStorage(storage).getLoginToken();
+}
+
 export function login(storage: Storage, loginToken: string) {
   new MyStorage(storage).setLoginToken(loginToken);
 }

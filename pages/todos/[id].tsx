@@ -18,13 +18,29 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import Item from '../../components/todo/item';
+import { getLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
   const router = useRouter();
+  const [todos, setTodos] = useState<null | Todo[]>(null);
+
+  useEffect(() => {
+    axios
+      .get<TodosResponseData>(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos`, {
+        headers: { authorization: getLoginToken(localStorage) },
+      })
+      .then((res) => setTodos(res.data.data.reverse()))
+      .catch((err) => {
+        //TODO
+        console.error(err);
+      });
+  }, []);
 
   return (
     <>
@@ -58,19 +74,13 @@ export default function ToDo() {
                   <AddIcon />
                 </Button>
               </Box>
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 " />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
-              <Item title="할 일 1" />
+              <Box>
+                {todos
+                  ? todos.map((todo) => {
+                      return <Item key={todo.id} title={todo.title} />;
+                    })
+                  : null}
+              </Box>
             </Box>
             <Box p="3" borderWidth="1px" borderRadius="lg">
               <VStack spacing="2" h="100%">
@@ -98,4 +108,16 @@ export default function ToDo() {
       </BlockUnloginedUser>
     </>
   );
+
+  interface TodosResponseData {
+    data: Todo[];
+  }
+}
+
+export interface Todo {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
 }
