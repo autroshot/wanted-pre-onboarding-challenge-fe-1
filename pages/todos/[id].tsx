@@ -49,6 +49,20 @@ export default function ToDo() {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (!selectedTodoId) return;
+    if (!todos || todos.length === 0 || isValidTodoId(selectedTodoId, todos)) {
+      setSelectedTodoId(null);
+    }
+
+    function isValidTodoId(todoId: string, todos: Todo[]) {
+      if (todoId.length !== 21) return false;
+      return todos.some((todo) => {
+        return todo.id === todoId;
+      });
+    }
+  }, [selectedTodoId, todos]);
+
   return (
     <>
       <Head>
