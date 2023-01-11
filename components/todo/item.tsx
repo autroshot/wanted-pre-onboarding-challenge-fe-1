@@ -1,8 +1,15 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 
-export default function Item({ title }: Props) {
+export default function Item({ title, isSelected, onClick }: Props) {
   return (
-    <Button colorScheme="gray" variant="ghost" w="100%" borderRadius="0">
+    <Button
+      colorScheme="gray"
+      variant="ghost"
+      isActive={isSelected ? true : false}
+      w="100%"
+      borderRadius="0"
+      onClick={onClick}
+    >
       <Box w="100%">
         <Text
           align="start"
@@ -19,4 +26,6 @@ export default function Item({ title }: Props) {
 
 interface Props {
   title: string;
+  isSelected: boolean;
+  onClick: () => void;
 }

@@ -45,6 +45,7 @@ export default function ToDo() {
       setSelectedTodoId(router.query.id as string);
     }
   }, [router]);
+  console.log('render');
 
   return (
     <>
@@ -81,7 +82,14 @@ export default function ToDo() {
               <Box>
                 {todos
                   ? todos.map((todo) => {
-                      return <Item key={todo.id} title={todo.title} />;
+                      return (
+                        <Item
+                          key={todo.id}
+                          title={todo.title}
+                          isSelected={todo.id === selectedTodoId}
+                          onClick={() => handleItemClick(todo.id)}
+                        />
+                      );
                     })
                   : null}
               </Box>
@@ -99,6 +107,10 @@ export default function ToDo() {
       </BlockUnloginedUser>
     </>
   );
+
+  function handleItemClick(todoId: string) {
+    router.push(`/todos/${todoId}`);
+  }
 
   interface TodosResponseData {
     data: Todo[];
