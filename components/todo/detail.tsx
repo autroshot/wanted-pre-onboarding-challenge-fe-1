@@ -38,11 +38,12 @@ export default function Detail({
 
     return (
       <VStack spacing="2" h="100%">
-        <Input placeholder="제목" {...register('title')} />
+        <Input placeholder="제목" readOnly {...register('title')} />
         <Textarea
           h="100%"
           placeholder="내용"
           resize="none"
+          readOnly
           {...register('content')}
         />
         <Box w="100%">
