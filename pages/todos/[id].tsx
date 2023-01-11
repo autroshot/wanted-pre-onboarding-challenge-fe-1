@@ -2,27 +2,21 @@ import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
-  ButtonGroup,
   Container,
-  Flex,
   HStack,
-  Input,
   Menu,
   MenuButton,
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
   SimpleGrid,
-  Spacer,
-  Text,
-  Textarea,
-  VStack,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
+import Detail from '../../components/todo/detail';
 import Item from '../../components/todo/item';
 import { getLoginToken } from '../../utils/auth';
 
@@ -48,52 +42,6 @@ export default function ToDo() {
       setSelectedTodoId(router.query.id as string);
     }
   }, [router]);
-
-  let component: React.ReactNode;
-  const select = (
-    <Flex h="100%" justify="center" align="center">
-      <Text>목록에서 ToDo를 선택하세요.</Text>
-    </Flex>
-  );
-  const detail = (
-    <VStack spacing="2" h="100%">
-      <Input placeholder="제목" />
-      <Textarea h="100%" placeholder="내용" resize="none" />
-      <Box w="100%">
-        <Text fontSize="xs">생성된 시간:</Text>
-      </Box>
-      <Box w="100%">
-        <Text fontSize="xs">수정된 시간:</Text>
-      </Box>
-      <Flex w="100%">
-        <Spacer />
-        <ButtonGroup>
-          <Button colorScheme="red" size="sm">
-            삭제
-          </Button>
-          <Button size="sm">수정</Button>
-        </ButtonGroup>
-      </Flex>
-    </VStack>
-  );
-  if (
-    !todos ||
-    !selectedTodoId ||
-    todos.length === 0 ||
-    !isValidTodoId(selectedTodoId, todos)
-  ) {
-    component = select;
-  } else {
-    component = detail;
-  }
-  console.log('render');
-
-  function isValidTodoId(todoId: string, todos: Todo[]) {
-    if (todoId.length !== 21) return false;
-    return todos.some((todo) => {
-      return todo.id === todoId;
-    });
-  }
 
   return (
     <>
@@ -136,7 +84,7 @@ export default function ToDo() {
               </Box>
             </Box>
             <Box p="3" borderWidth="1px" borderRadius="lg">
-              {component}
+              <Detail todos={todos} selectedTodoId={selectedTodoId} />
             </Box>
           </SimpleGrid>
         </Container>
