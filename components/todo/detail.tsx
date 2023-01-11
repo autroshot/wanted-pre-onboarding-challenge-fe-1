@@ -46,10 +46,14 @@ export default function Detail({
           {...register('content')}
         />
         <Box w="100%">
-          <Text fontSize="xs">생성된 시간:</Text>
+          <Text fontSize="xs">
+            생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
+          </Text>
         </Box>
         <Box w="100%">
-          <Text fontSize="xs">수정된 시간:</Text>
+          <Text fontSize="xs">
+            수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
+          </Text>
         </Box>
         <Flex w="100%">
           <Spacer />
@@ -69,6 +73,13 @@ export default function Detail({
     return todos.some((todo) => {
       return todo.id === todoId;
     });
+  }
+
+  function toKoreanTime(ISOString: string) {
+    const date = new Date(Date.parse(ISOString));
+    return `${date.getFullYear()}년 ${
+      date.getMonth() + 1
+    }월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
   }
 }
 
