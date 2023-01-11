@@ -21,6 +21,7 @@ import {
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
+import Item from '../../components/todo/item';
 
 export default function ToDo() {
   const router = useRouter();
@@ -57,56 +58,19 @@ export default function ToDo() {
                   <AddIcon />
                 </Button>
               </Box>
-              <Button
-                colorScheme="gray"
-                variant="ghost"
-                w="100%"
-                borderRadius="0"
-              >
-                <Box textAlign="start" w="100%">
-                  할 일 1
-                </Box>
-              </Button>
-              <Button
-                colorScheme="gray"
-                variant="ghost"
-                w="100%"
-                borderRadius="0"
-              >
-                <Box textAlign="start" w="100%">
-                  할 일 1
-                </Box>
-              </Button>
-              <Button
-                colorScheme="gray"
-                variant="ghost"
-                w="100%"
-                borderRadius="0"
-              >
-                <Box textAlign="start" w="100%">
-                  할 일 1
-                </Box>
-              </Button>
-              <Button
-                colorScheme="gray"
-                variant="ghost"
-                w="100%"
-                borderRadius="0"
-              >
-                <Box textAlign="start" w="100%">
-                  할 일 1
-                </Box>
-              </Button>
-              <Button
-                colorScheme="gray"
-                variant="ghost"
-                w="100%"
-                borderRadius="0"
-              >
-                <Box textAlign="start" w="100%">
-                  할 일 1
-                </Box>
-              </Button>
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 할 일 1 " />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
+              <Item title="할 일 1" />
             </Box>
             <Box p="3" borderWidth="1px" borderRadius="lg">
               <VStack spacing="2" h="100%">
