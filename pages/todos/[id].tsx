@@ -79,7 +79,11 @@ export default function ToDo() {
                   <AddIcon />
                 </Button>
               </Box>
-              <Box>
+              <Box
+                h={{ md: '25rem' }}
+                maxH={{ base: '25rem' }}
+                overflowY="auto"
+              >
                 {todos
                   ? todos.map((todo) => {
                       return (
@@ -94,7 +98,7 @@ export default function ToDo() {
                   : null}
               </Box>
             </Box>
-            <Box p="3" borderWidth="1px" borderRadius="lg">
+            <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
               <Detail
                 todos={todos}
                 selectedTodoId={selectedTodoId}
