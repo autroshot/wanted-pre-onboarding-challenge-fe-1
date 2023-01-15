@@ -1,4 +1,4 @@
-import { Box, Container, SimpleGrid } from '@chakra-ui/react';
+import { Container, SimpleGrid } from '@chakra-ui/react';
 import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -48,14 +48,12 @@ export default function ToDo() {
               selectedTodoId={selectedTodoId}
               router={router}
             />
-            <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
-              <Detail
-                todos={todos}
-                selectedTodoId={selectedTodoId}
-                register={register}
-                setValue={setValue}
-              />
-            </Box>
+            <Detail
+              todos={todos}
+              selectedTodoId={selectedTodoId}
+              register={register}
+              setValue={setValue}
+            />
           </SimpleGrid>
         </Container>
       </BlockUnloginedUser>

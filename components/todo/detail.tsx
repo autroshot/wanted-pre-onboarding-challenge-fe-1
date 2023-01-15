@@ -37,35 +37,37 @@ export default function Detail({
     setValue('content', selectedTodo.content);
 
     return (
-      <VStack spacing="2" h="100%">
-        <Input placeholder="제목" readOnly {...register('title')} />
-        <Textarea
-          h="100%"
-          placeholder="내용"
-          resize="none"
-          readOnly
-          {...register('content')}
-        />
-        <Box w="100%">
-          <Text fontSize="xs">
-            생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
-          </Text>
-        </Box>
-        <Box w="100%">
-          <Text fontSize="xs">
-            수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
-          </Text>
-        </Box>
-        <Flex w="100%">
-          <Spacer />
-          <ButtonGroup>
-            <Button colorScheme="red" size="sm">
-              삭제
-            </Button>
-            <Button size="sm">수정</Button>
-          </ButtonGroup>
-        </Flex>
-      </VStack>
+      <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
+        <VStack spacing="2" h="100%">
+          <Input placeholder="제목" readOnly {...register('title')} />
+          <Textarea
+            h="100%"
+            placeholder="내용"
+            resize="none"
+            readOnly
+            {...register('content')}
+          />
+          <Box w="100%">
+            <Text fontSize="xs">
+              생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
+            </Text>
+          </Box>
+          <Box w="100%">
+            <Text fontSize="xs">
+              수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
+            </Text>
+          </Box>
+          <Flex w="100%">
+            <Spacer />
+            <ButtonGroup>
+              <Button colorScheme="red" size="sm">
+                삭제
+              </Button>
+              <Button size="sm">수정</Button>
+            </ButtonGroup>
+          </Flex>
+        </VStack>
+      </Box>
     );
   }
 
