@@ -76,7 +76,9 @@ export default function Detail({
                 >
                   삭제
                 </Button>
-                <Button size="sm">수정</Button>
+                <Button size="sm" type="submit">
+                  수정
+                </Button>
               </ButtonGroup>
             </Flex>
           </VStack>
