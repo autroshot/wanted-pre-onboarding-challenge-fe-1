@@ -1,5 +1,5 @@
 import { Container, SimpleGrid } from '@chakra-ui/react';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -18,9 +18,10 @@ export default function ToDo() {
 
   useEffect(() => {
     axios
-      .get<GetResponseData>(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos`, {
-        headers: { authorization: getLoginToken(localStorage) },
-      })
+      .get<GetResponseData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`,
+        createAxiosRequestConfig(localStorage)
+      )
       .then((res) => setTodos(res.data.data.reverse()))
       .catch((err) => {
         //TODO
@@ -72,9 +73,7 @@ export default function ToDo() {
       .post<PostResponseData>(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`,
         { title: '', content: '' },
-        {
-          headers: { authorization: getLoginToken(localStorage) },
-        }
+        createAxiosRequestConfig(localStorage)
       )
       .then((res) => {
         const newTodo = res.data.data;
@@ -86,6 +85,12 @@ export default function ToDo() {
         //TODO
         console.error(err);
       });
+  }
+
+  function createAxiosRequestConfig(storage: Storage): AxiosRequestConfig {
+    return {
+      headers: { authorization: getLoginToken(storage) },
+    };
   }
 
   interface GetResponseData {
