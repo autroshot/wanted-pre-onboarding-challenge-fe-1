@@ -46,7 +46,7 @@ export default function ToDo() {
             <List
               todos={todos}
               selectedTodoId={selectedTodoId}
-              router={router}
+              onItemClick={handleItemClick}
             />
             <Detail
               todos={todos}
@@ -59,6 +59,10 @@ export default function ToDo() {
       </BlockUnloginedUser>
     </>
   );
+
+  function handleItemClick(todoId: string) {
+    router.push(`/todos/${todoId}`, undefined, { scroll: false });
+  }
 
   interface TodosResponseData {
     data: Todo[];

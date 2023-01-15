@@ -9,11 +9,10 @@ import {
   MenuList,
   MenuOptionGroup,
 } from '@chakra-ui/react';
-import { NextRouter } from 'next/router';
 import { Todo } from '../../pages/todos/[id]';
 import Item from './item';
 
-export default function List({ todos, selectedTodoId, router }: Props) {
+export default function List({ todos, selectedTodoId, onItemClick }: Props) {
   return (
     <Box>
       <HStack mb="2">
@@ -56,7 +55,7 @@ export default function List({ todos, selectedTodoId, router }: Props) {
                   key={todo.id}
                   title={todo.title}
                   isSelected={todo.id === selectedTodoId}
-                  onClick={() => handleItemClick(todo.id)}
+                  onClick={() => onItemClick(todo.id)}
                 />
               );
             })
@@ -64,14 +63,10 @@ export default function List({ todos, selectedTodoId, router }: Props) {
       </Box>
     </Box>
   );
-
-  function handleItemClick(todoId: string) {
-    router.push(`/todos/${todoId}`, undefined, { scroll: false });
-  }
 }
 
 interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
-  router: NextRouter;
+  onItemClick: (todoId: string) => void;
 }
