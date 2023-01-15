@@ -44,45 +44,50 @@ export default function Detail({
     setValue('content', selectedTodo.content);
 
     return (
-      <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
-        <form onSubmit={handleSubmit}>
-          <VStack spacing="2" h="100%">
-            <input type="hidden" {...register('id')} />
-            <Input placeholder="제목" readOnly {...register('title')} />
-            <Textarea
-              h="100%"
-              placeholder="내용"
-              resize="none"
-              readOnly
-              {...register('content')}
-            />
-            <Box w="100%">
-              <Text fontSize="xs">
-                생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
-              </Text>
-            </Box>
-            <Box w="100%">
-              <Text fontSize="xs">
-                수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
-              </Text>
-            </Box>
-            <Flex w="100%">
-              <Spacer />
-              <ButtonGroup>
-                <Button
-                  colorScheme="red"
-                  size="sm"
-                  onClick={() => onTodoDelete(selectedTodoId)}
-                >
-                  삭제
-                </Button>
-                <Button size="sm" type="submit">
-                  수정
-                </Button>
-              </ButtonGroup>
-            </Flex>
-          </VStack>
-        </form>
+      <Box
+        as="form"
+        p="3"
+        borderWidth="1px"
+        borderRadius="lg"
+        minH="16rem"
+        onSubmit={handleSubmit}
+      >
+        <VStack spacing="2" h="100%">
+          <input type="hidden" {...register('id')} />
+          <Input placeholder="제목" readOnly {...register('title')} />
+          <Textarea
+            h="100%"
+            placeholder="내용"
+            resize="none"
+            readOnly
+            {...register('content')}
+          />
+          <Box w="100%">
+            <Text fontSize="xs">
+              생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
+            </Text>
+          </Box>
+          <Box w="100%">
+            <Text fontSize="xs">
+              수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
+            </Text>
+          </Box>
+          <Flex w="100%">
+            <Spacer />
+            <ButtonGroup>
+              <Button
+                colorScheme="red"
+                size="sm"
+                onClick={() => onTodoDelete(selectedTodoId)}
+              >
+                삭제
+              </Button>
+              <Button size="sm" type="submit">
+                수정
+              </Button>
+            </ButtonGroup>
+          </Flex>
+        </VStack>
       </Box>
     );
   }
