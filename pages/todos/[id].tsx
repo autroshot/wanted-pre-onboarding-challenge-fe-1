@@ -56,7 +56,7 @@ export default function ToDo() {
               register={register}
               setValue={setValue}
               onTodoDelete={handleTodoDelete}
-              onSubmit={() => handleSubmit(onSubmit)}
+              handleSubmit={handleSubmit(onSubmit)}
             />
           </SimpleGrid>
         </Container>

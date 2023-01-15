@@ -22,7 +22,7 @@ export default function Detail({
   register,
   setValue,
   onTodoDelete,
-  onSubmit,
+  handleSubmit,
 }: Props) {
   if (
     !todos ||
@@ -45,7 +45,7 @@ export default function Detail({
 
     return (
       <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
-        <form onSubmit={() => onSubmit}>
+        <form onSubmit={handleSubmit}>
           <VStack spacing="2" h="100%">
             <input type="hidden" {...register('id')} />
             <Input placeholder="제목" readOnly {...register('title')} />
@@ -108,5 +108,5 @@ export interface Props {
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
   onTodoDelete: (id: string) => void;
-  onSubmit: UseFormHandleSubmit<Inputs>;
+  handleSubmit: ReturnType<UseFormHandleSubmit<Inputs>>;
 }
