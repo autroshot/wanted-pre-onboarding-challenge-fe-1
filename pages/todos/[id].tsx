@@ -10,12 +10,13 @@ import List from '../../components/todo/list';
 import { getLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
-  const router = useRouter();
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+
   const titleRef = useRef<null | HTMLInputElement>(null);
 
+  const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<Inputs>();
 
   useEffect(() => {
