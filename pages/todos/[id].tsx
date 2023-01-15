@@ -34,7 +34,6 @@ export default function ToDo() {
       setSelectedTodoId(router.query.id as string);
     }
   }, [router]);
-  console.log('render');
 
   return (
     <>
