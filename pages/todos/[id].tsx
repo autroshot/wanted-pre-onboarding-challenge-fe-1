@@ -47,6 +47,7 @@ export default function ToDo() {
               todos={todos}
               selectedTodoId={selectedTodoId}
               onItemClick={handleItemClick}
+              onCreateTodoClick={handleTodoCreate}
             />
             <Detail
               todos={todos}
@@ -64,8 +65,34 @@ export default function ToDo() {
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 
+  function handleTodoCreate() {
+    if (todos === null) return;
+
+    axios
+      .post<PostResponseData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`,
+        { title: '', content: '' },
+        {
+          headers: { authorization: getLoginToken(localStorage) },
+        }
+      )
+      .then((res) => {
+        const newTodo = res.data.data;
+
+        setTodos([newTodo, ...todos]);
+        setSelectedTodoId(newTodo.id);
+      })
+      .catch((err) => {
+        //TODO
+        console.error(err);
+      });
+  }
+
   interface TodosResponseData {
     data: Todo[];
+  }
+  interface PostResponseData {
+    data: Todo;
   }
 }
 

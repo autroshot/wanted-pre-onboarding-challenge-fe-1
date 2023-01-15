@@ -12,7 +12,12 @@ import {
 import { Todo } from '../../pages/todos/[id]';
 import Item from './item';
 
-export default function List({ todos, selectedTodoId, onItemClick }: Props) {
+export default function List({
+  todos,
+  selectedTodoId,
+  onItemClick,
+  onCreateTodoClick,
+}: Props) {
   return (
     <Box>
       <HStack mb="2">
@@ -43,7 +48,12 @@ export default function List({ todos, selectedTodoId, onItemClick }: Props) {
         </Box>
       </HStack>
       <Box mb="2">
-        <Button size="sm" w="100%" aria-label="할 일 추가">
+        <Button
+          size="sm"
+          w="100%"
+          aria-label="할 일 추가"
+          onClick={onCreateTodoClick}
+        >
           <AddIcon />
         </Button>
       </Box>
@@ -69,4 +79,5 @@ interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
   onItemClick: (todoId: string) => void;
+  onCreateTodoClick: () => void;
 }
