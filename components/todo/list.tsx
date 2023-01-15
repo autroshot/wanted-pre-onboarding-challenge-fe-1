@@ -66,7 +66,7 @@ export default function List({ todos, selectedTodoId, router }: Props) {
   );
 
   function handleItemClick(todoId: string) {
-    router.push(`/todos/${todoId}`);
+    router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 }
 
