@@ -9,7 +9,11 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import {
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 import { Inputs, Todo } from '../../pages/todos/[id]';
 
 export default function Detail({
@@ -18,6 +22,7 @@ export default function Detail({
   register,
   setValue,
   onTodoDelete,
+  onSubmit,
 }: Props) {
   if (
     !todos ||
@@ -34,44 +39,48 @@ export default function Detail({
     const selectedTodo = todos.find(
       (todo) => todo.id === selectedTodoId
     ) as Todo;
+    setValue('id', selectedTodo.id);
     setValue('title', selectedTodo.title);
     setValue('content', selectedTodo.content);
 
     return (
       <Box p="3" borderWidth="1px" borderRadius="lg" minH="16rem">
-        <VStack spacing="2" h="100%">
-          <Input placeholder="제목" readOnly {...register('title')} />
-          <Textarea
-            h="100%"
-            placeholder="내용"
-            resize="none"
-            readOnly
-            {...register('content')}
-          />
-          <Box w="100%">
-            <Text fontSize="xs">
-              생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
-            </Text>
-          </Box>
-          <Box w="100%">
-            <Text fontSize="xs">
-              수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
-            </Text>
-          </Box>
-          <Flex w="100%">
-            <Spacer />
-            <ButtonGroup>
-              <Button
-                colorScheme="red"
-                size="sm"
-                onClick={() => onTodoDelete(selectedTodoId)}
-              >
-                삭제
-              </Button>
-              <Button size="sm">수정</Button>
-            </ButtonGroup>
-          </Flex>
-        </VStack>
+        <form onSubmit={() => onSubmit}>
+          <VStack spacing="2" h="100%">
+            <input type="hidden" {...register('id')} />
+            <Input placeholder="제목" readOnly {...register('title')} />
+            <Textarea
+              h="100%"
+              placeholder="내용"
+              resize="none"
+              readOnly
+              {...register('content')}
+            />
+            <Box w="100%">
+              <Text fontSize="xs">
+                생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
+              </Text>
+            </Box>
+            <Box w="100%">
+              <Text fontSize="xs">
+                수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
+              </Text>
+            </Box>
+            <Flex w="100%">
+              <Spacer />
+              <ButtonGroup>
+                <Button
+                  colorScheme="red"
+                  size="sm"
+                  onClick={() => onTodoDelete(selectedTodoId)}
+                >
+                  삭제
+                </Button>
+                <Button size="sm">수정</Button>
+              </ButtonGroup>
+            </Flex>
+          </VStack>
+        </form>
       </Box>
     );
   }
@@ -97,4 +106,5 @@ export interface Props {
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
   onTodoDelete: (id: string) => void;
+  onSubmit: UseFormHandleSubmit<Inputs>;
 }

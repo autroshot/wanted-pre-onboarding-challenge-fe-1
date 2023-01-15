@@ -14,7 +14,7 @@ export default function ToDo() {
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
 
-  const { register, setValue } = useForm<Inputs>();
+  const { register, handleSubmit, setValue } = useForm<Inputs>();
 
   useEffect(() => {
     axios
@@ -56,6 +56,7 @@ export default function ToDo() {
               register={register}
               setValue={setValue}
               onTodoDelete={handleTodoDelete}
+              onSubmit={() => handleSubmit(onSubmit)}
             />
           </SimpleGrid>
         </Container>
@@ -65,6 +66,10 @@ export default function ToDo() {
 
   function handleItemClick(todoId: string) {
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
+  }
+
+  function onSubmit(data: Inputs): any | Promise<any> {
+    handleTodoUpdate({ ...data });
   }
 
   function handleTodoCreate() {
@@ -81,6 +86,29 @@ export default function ToDo() {
 
         setTodos([newTodo, ...todos]);
         setSelectedTodoId(newTodo.id);
+      })
+      .catch((err) => {
+        //TODO
+        console.error(err);
+      });
+  }
+  function handleTodoUpdate(inputs: Inputs) {
+    if (todos === null) return;
+
+    axios
+      .put<PutResponseData>(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${selectedTodoId}`,
+        { title: inputs.title, content: inputs.content },
+        createAxiosRequestConfig(localStorage)
+      )
+      .then((res) => {
+        const updatedTodos = todos.map((todo) => {
+          if (todo.id !== inputs.id) return todo;
+
+          const updatedTodo = res.data.data;
+          return updatedTodo;
+        });
+        setTodos(updatedTodos);
       })
       .catch((err) => {
         //TODO
@@ -116,6 +144,9 @@ export default function ToDo() {
   interface PostResponseData {
     data: Todo;
   }
+  interface PutResponseData {
+    data: Todo;
+  }
 }
 
 export interface Todo {
@@ -127,6 +158,7 @@ export interface Todo {
 }
 
 export interface Inputs {
+  id: string;
   title: string;
   content: string;
 }
