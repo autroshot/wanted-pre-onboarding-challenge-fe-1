@@ -2,7 +2,7 @@ import { Container, SimpleGrid } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import Detail from '../../components/todo/detail';
@@ -14,6 +14,7 @@ export default function ToDo() {
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const titleRef = useRef<null | HTMLInputElement>(null);
 
   const { register, handleSubmit, setValue } = useForm<Inputs>();
 
@@ -55,6 +56,7 @@ export default function ToDo() {
               selectedTodoId={selectedTodoId}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
+              titleRef={titleRef}
               register={register}
               setValue={setValue}
               onTodoDelete={handleTodoDelete}
@@ -90,6 +92,7 @@ export default function ToDo() {
         setTodos([newTodo, ...todos]);
         setSelectedTodoId(newTodo.id);
         setIsEditMode(true);
+        titleRef.current?.focus();
       })
       .catch((err) => {
         //TODO

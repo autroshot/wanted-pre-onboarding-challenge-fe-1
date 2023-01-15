@@ -9,7 +9,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -21,6 +21,7 @@ export default function Detail({
   todos,
   selectedTodoId,
   isEditMode,
+  titleRef,
   setIsEditMode,
   register,
   setValue,
@@ -46,6 +47,8 @@ export default function Detail({
     setValue('title', selectedTodo.title);
     setValue('content', selectedTodo.content);
 
+    const { ref, ...rest } = register('title');
+
     return (
       <Box
         as="form"
@@ -60,7 +63,11 @@ export default function Detail({
           <Input
             placeholder="제목"
             readOnly={isEditMode ? false : true}
-            {...register('title')}
+            ref={(e) => {
+              ref(e);
+              titleRef.current = e;
+            }}
+            {...rest}
           />
           <Textarea
             h="100%"
@@ -136,6 +143,7 @@ export interface Props {
   selectedTodoId: null | string;
   isEditMode: boolean;
   setIsEditMode: Dispatch<SetStateAction<boolean>>;
+  titleRef: MutableRefObject<null | HTMLInputElement>;
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
   onTodoDelete: (id: string) => void;
