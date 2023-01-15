@@ -9,6 +9,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -19,6 +20,8 @@ import { Inputs, Todo } from '../../pages/todos/[id]';
 export default function Detail({
   todos,
   selectedTodoId,
+  isEditMode,
+  setIsEditMode,
   register,
   setValue,
   onTodoDelete,
@@ -54,12 +57,16 @@ export default function Detail({
       >
         <VStack spacing="2" h="100%">
           <input type="hidden" {...register('id')} />
-          <Input placeholder="제목" readOnly {...register('title')} />
+          <Input
+            placeholder="제목"
+            readOnly={isEditMode ? false : true}
+            {...register('title')}
+          />
           <Textarea
             h="100%"
             placeholder="내용"
             resize="none"
-            readOnly
+            readOnly={isEditMode ? false : true}
             {...register('content')}
           />
           <Box w="100%">
@@ -75,16 +82,33 @@ export default function Detail({
           <Flex w="100%">
             <Spacer />
             <ButtonGroup>
-              <Button
-                colorScheme="red"
-                size="sm"
-                onClick={() => onTodoDelete(selectedTodoId)}
-              >
-                삭제
-              </Button>
-              <Button size="sm" type="submit">
-                수정
-              </Button>
+              {isEditMode ? (
+                <>
+                  <Button size="sm" type="submit">
+                    확인
+                  </Button>
+                  <Button
+                    colorScheme="gray"
+                    size="sm"
+                    onClick={() => setIsEditMode(false)}
+                  >
+                    취소
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    onClick={() => onTodoDelete(selectedTodoId)}
+                  >
+                    삭제
+                  </Button>
+                  <Button size="sm" onClick={() => setIsEditMode(true)}>
+                    수정
+                  </Button>
+                </>
+              )}
             </ButtonGroup>
           </Flex>
         </VStack>
@@ -110,6 +134,8 @@ export default function Detail({
 export interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
+  isEditMode: boolean;
+  setIsEditMode: Dispatch<SetStateAction<boolean>>;
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
   onTodoDelete: (id: string) => void;

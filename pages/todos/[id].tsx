@@ -13,6 +13,7 @@ export default function ToDo() {
   const router = useRouter();
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const { register, handleSubmit, setValue } = useForm<Inputs>();
 
@@ -52,6 +53,8 @@ export default function ToDo() {
             <Detail
               todos={todos}
               selectedTodoId={selectedTodoId}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
               register={register}
               setValue={setValue}
               onTodoDelete={handleTodoDelete}
@@ -64,6 +67,7 @@ export default function ToDo() {
   );
 
   function handleItemClick(todoId: string) {
+    setIsEditMode(false);
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 
@@ -85,6 +89,7 @@ export default function ToDo() {
 
         setTodos([newTodo, ...todos]);
         setSelectedTodoId(newTodo.id);
+        setIsEditMode(true);
       })
       .catch((err) => {
         //TODO
@@ -93,6 +98,8 @@ export default function ToDo() {
   }
   function handleTodoUpdate(inputs: Inputs) {
     if (todos === null) return;
+
+    setIsEditMode(false);
 
     axios
       .put<PutResponseData>(
