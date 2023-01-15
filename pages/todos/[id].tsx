@@ -18,7 +18,7 @@ export default function ToDo() {
 
   useEffect(() => {
     axios
-      .get<TodosResponseData>(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos`, {
+      .get<GetResponseData>(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos`, {
         headers: { authorization: getLoginToken(localStorage) },
       })
       .then((res) => setTodos(res.data.data.reverse()))
@@ -88,7 +88,7 @@ export default function ToDo() {
       });
   }
 
-  interface TodosResponseData {
+  interface GetResponseData {
     data: Todo[];
   }
   interface PostResponseData {
