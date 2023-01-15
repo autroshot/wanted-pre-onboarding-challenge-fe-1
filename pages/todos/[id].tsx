@@ -55,6 +55,7 @@ export default function ToDo() {
               selectedTodoId={selectedTodoId}
               register={register}
               setValue={setValue}
+              onTodoDelete={handleTodoDelete}
             />
           </SimpleGrid>
         </Container>
@@ -80,6 +81,22 @@ export default function ToDo() {
 
         setTodos([newTodo, ...todos]);
         setSelectedTodoId(newTodo.id);
+      })
+      .catch((err) => {
+        //TODO
+        console.error(err);
+      });
+  }
+  function handleTodoDelete(id: string) {
+    if (todos === null) return;
+
+    axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${selectedTodoId}`,
+        createAxiosRequestConfig(localStorage)
+      )
+      .then(() => {
+        setTodos(todos.filter((todo) => todo.id !== id));
       })
       .catch((err) => {
         //TODO

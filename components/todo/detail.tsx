@@ -17,6 +17,7 @@ export default function Detail({
   selectedTodoId,
   register,
   setValue,
+  onTodoDelete,
 }: Props) {
   if (
     !todos ||
@@ -60,7 +61,11 @@ export default function Detail({
           <Flex w="100%">
             <Spacer />
             <ButtonGroup>
-              <Button colorScheme="red" size="sm">
+              <Button
+                colorScheme="red"
+                size="sm"
+                onClick={() => onTodoDelete(selectedTodoId)}
+              >
                 삭제
               </Button>
               <Button size="sm">수정</Button>
@@ -91,4 +96,5 @@ export interface Props {
   selectedTodoId: null | string;
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
+  onTodoDelete: (id: string) => void;
 }
