@@ -1,4 +1,4 @@
-import { Container, SimpleGrid } from '@chakra-ui/react';
+import { Container, SimpleGrid, useDisclosure } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -13,6 +13,11 @@ export default function ToDo() {
   const [todos, setTodos] = useState<null | Todo[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const {
+    isOpen: isAlertDialogOpen,
+    onOpen: onAlertDialogOpen,
+    onClose: onAlertDialogClose,
+  } = useDisclosure();
 
   const titleRef = useRef<null | HTMLInputElement>(null);
 
@@ -56,9 +61,12 @@ export default function ToDo() {
               todos={todos}
               selectedTodoId={selectedTodoId}
               isEditMode={isEditMode}
+              titleRef={titleRef}
+              isAlertDialogOpen={isAlertDialogOpen}
+              onAlertDialogOpen={onAlertDialogOpen}
+              onAlertDialogClose={onAlertDialogClose}
               onActivateEditModeClick={() => setIsEditMode(true)}
               onDeactivateEditModeClick={() => setIsEditMode(false)}
-              titleRef={titleRef}
               register={register}
               setValue={setValue}
               onTodoDelete={handleTodoDelete}

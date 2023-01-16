@@ -7,7 +7,6 @@ import {
   Spacer,
   Text,
   Textarea,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
@@ -24,6 +23,9 @@ export default function Detail({
   selectedTodoId,
   isEditMode,
   titleRef,
+  isAlertDialogOpen,
+  onAlertDialogOpen,
+  onAlertDialogClose,
   onActivateEditModeClick,
   onDeactivateEditModeClick,
   register,
@@ -31,12 +33,6 @@ export default function Detail({
   onTodoDelete,
   handleSubmit,
 }: Props) {
-  const {
-    isOpen: isAlertDialogOpen,
-    onOpen: onAlertDialogOpen,
-    onClose: onAlertDialogClose,
-  } = useDisclosure();
-
   if (
     !todos ||
     !selectedTodoId ||
@@ -165,6 +161,9 @@ export interface Props {
   selectedTodoId: null | string;
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
+  isAlertDialogOpen: boolean;
+  onAlertDialogOpen: () => void;
+  onAlertDialogClose: () => void;
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
   onActivateEditModeClick: () => void;
