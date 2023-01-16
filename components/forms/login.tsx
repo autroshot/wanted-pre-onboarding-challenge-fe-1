@@ -70,7 +70,7 @@ export default function LoginForm() {
     setIsLoading(true);
 
     axios
-      .post<UsersResponseData>(
+      .post<PostResponseData>(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
         { ...data }
       )
@@ -90,7 +90,7 @@ export default function LoginForm() {
     password: string;
   }
 
-  interface UsersResponseData {
+  interface PostResponseData {
     message: string;
     token: string;
   }

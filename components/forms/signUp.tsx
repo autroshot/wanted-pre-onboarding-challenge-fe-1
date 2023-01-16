@@ -98,7 +98,7 @@ export default function SignUpForm() {
     setIsLoading(true);
 
     axios
-      .post<UsersResponseData>(
+      .post<PostResponseData>(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/create`,
         { ...data }
       )
@@ -121,7 +121,7 @@ export default function SignUpForm() {
     password: string;
   }
 
-  interface UsersResponseData {
+  interface PostResponseData {
     message: string;
     token: string;
   }
