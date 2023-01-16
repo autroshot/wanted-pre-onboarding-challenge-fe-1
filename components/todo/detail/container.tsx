@@ -17,6 +17,7 @@ import {
 } from 'react-hook-form';
 import { Inputs, Todo } from '../../../pages/todos/[id]';
 import DeleteAlertDialog from '../deleteAlertDialog';
+import DefaultText from './defaultText';
 
 export default function Container({
   todos,
@@ -39,11 +40,7 @@ export default function Container({
     todos.length === 0 ||
     !isValidTodoId(selectedTodoId, todos)
   ) {
-    return (
-      <Flex h="100%" justify="center" align="center">
-        <Text>목록에서 ToDo를 선택하세요.</Text>
-      </Flex>
-    );
+    return <DefaultText />;
   } else {
     const selectedTodo = todos.find(
       (todo) => todo.id === selectedTodoId
