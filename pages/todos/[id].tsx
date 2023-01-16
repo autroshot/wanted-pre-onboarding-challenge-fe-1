@@ -144,6 +144,7 @@ export default function ToDo() {
       )
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
+        onAlertDialogClose();
       })
       .catch((err) => {
         //TODO
