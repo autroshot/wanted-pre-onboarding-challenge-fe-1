@@ -56,7 +56,8 @@ export default function ToDo() {
               todos={todos}
               selectedTodoId={selectedTodoId}
               isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
+              onActivateEditModeClick={() => setIsEditMode(true)}
+              onDeactivateEditModeClick={() => setIsEditMode(false)}
               titleRef={titleRef}
               register={register}
               setValue={setValue}

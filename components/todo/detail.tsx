@@ -9,7 +9,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+import { MutableRefObject } from 'react';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -22,7 +22,8 @@ export default function Detail({
   selectedTodoId,
   isEditMode,
   titleRef,
-  setIsEditMode,
+  onActivateEditModeClick,
+  onDeactivateEditModeClick,
   register,
   setValue,
   onTodoDelete,
@@ -91,16 +92,16 @@ export default function Detail({
             <ButtonGroup>
               {isEditMode ? (
                 <>
-                  <Button size="sm" type="submit">
-                    확인
-                  </Button>
                   <Button
                     colorScheme="gray"
                     size="sm"
                     type="button"
-                    onClick={() => setIsEditMode(false)}
+                    onClick={onDeactivateEditModeClick}
                   >
                     취소
+                  </Button>
+                  <Button size="sm" type="submit">
+                    완료
                   </Button>
                 </>
               ) : (
@@ -116,9 +117,9 @@ export default function Detail({
                   <Button
                     size="sm"
                     type="button"
-                    onClick={() => setIsEditMode(true)}
+                    onClick={onActivateEditModeClick}
                   >
-                    수정
+                    수정 모드
                   </Button>
                 </>
               )}
@@ -148,10 +149,11 @@ export interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
   isEditMode: boolean;
-  setIsEditMode: Dispatch<SetStateAction<boolean>>;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   register: UseFormRegister<Inputs>;
   setValue: UseFormSetValue<Inputs>;
+  onActivateEditModeClick: () => void;
+  onDeactivateEditModeClick: () => void;
   onTodoDelete: (id: string) => void;
   handleSubmit: ReturnType<UseFormHandleSubmit<Inputs>>;
 }
