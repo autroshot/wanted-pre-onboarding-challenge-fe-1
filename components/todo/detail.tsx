@@ -134,6 +134,7 @@ export default function Detail({
 
         <DeleteAlertDialog
           isOpen={isAlertDialogOpen}
+          todoTitle={selectedTodo.title}
           onClose={onAlertDialogClose}
           onDelete={() => onTodoDelete(selectedTodoId)}
         />

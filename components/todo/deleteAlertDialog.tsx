@@ -11,6 +11,7 @@ import { useRef } from 'react';
 
 export default function DeleteAlertDialog({
   isOpen,
+  todoTitle,
   onClose,
   onDelete,
 }: Props) {
@@ -28,7 +29,10 @@ export default function DeleteAlertDialog({
             ToDo 삭제
           </AlertDialogHeader>
 
-          <AlertDialogBody>해당 ToDo를 정말 삭제하시겠습니까?</AlertDialogBody>
+          <AlertDialogBody>
+            {todoTitle.length === 0 ? '해당 ToDo를' : `${todoTitle}을(를)`} 정말
+            삭제하시겠습니까?
+          </AlertDialogBody>
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose}>
@@ -46,6 +50,7 @@ export default function DeleteAlertDialog({
 
 interface Props {
   isOpen: boolean;
+  todoTitle: string;
   onClose: () => void;
   onDelete: () => void;
 }
