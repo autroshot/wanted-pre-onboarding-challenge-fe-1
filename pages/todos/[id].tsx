@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
-import Detail from '../../components/todo/detail';
+import DetailContainer from '../../components/todo/detail/container';
 import List from '../../components/todo/list';
 import { getLoginToken } from '../../utils/auth';
 
@@ -57,7 +57,7 @@ export default function ToDo() {
               onItemClick={handleItemClick}
               onCreateTodoClick={handleTodoCreate}
             />
-            <Detail
+            <DetailContainer
               todos={todos}
               selectedTodoId={selectedTodoId}
               isEditMode={isEditMode}

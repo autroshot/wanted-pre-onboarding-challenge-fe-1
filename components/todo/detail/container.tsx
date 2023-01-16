@@ -15,10 +15,10 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { Inputs, Todo } from '../../pages/todos/[id]';
-import DeleteAlertDialog from './deleteAlertDialog';
+import { Inputs, Todo } from '../../../pages/todos/[id]';
+import DeleteAlertDialog from '../deleteAlertDialog';
 
-export default function Detail({
+export default function Container({
   todos,
   selectedTodoId,
   isEditMode,
