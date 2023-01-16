@@ -7,6 +7,7 @@ import {
   Spacer,
   Text,
   Textarea,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
@@ -16,6 +17,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { Inputs, Todo } from '../../pages/todos/[id]';
+import DeleteAlertDialog from './deleteAlertDialog';
 
 export default function Detail({
   todos,
@@ -29,6 +31,12 @@ export default function Detail({
   onTodoDelete,
   handleSubmit,
 }: Props) {
+  const {
+    isOpen: isAlertDialogOpen,
+    onOpen: onAlertDialogOpen,
+    onClose: onAlertDialogClose,
+  } = useDisclosure();
+
   if (
     !todos ||
     !selectedTodoId ||
@@ -51,81 +59,89 @@ export default function Detail({
     const { ref, ...rest } = register('title');
 
     return (
-      <Box
-        as="form"
-        p="3"
-        borderWidth="1px"
-        borderRadius="lg"
-        minH="16rem"
-        onSubmit={handleSubmit}
-      >
-        <VStack spacing="2" h="100%">
-          <input type="hidden" {...register('id')} />
-          <Input
-            placeholder="제목"
-            readOnly={isEditMode ? false : true}
-            ref={(e) => {
-              ref(e);
-              titleRef.current = e;
-            }}
-            {...rest}
-          />
-          <Textarea
-            h="100%"
-            placeholder="내용"
-            resize="none"
-            readOnly={isEditMode ? false : true}
-            {...register('content')}
-          />
-          <Box w="100%">
-            <Text fontSize="xs">
-              생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
-            </Text>
-          </Box>
-          <Box w="100%">
-            <Text fontSize="xs">
-              수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
-            </Text>
-          </Box>
-          <Flex w="100%">
-            <Spacer />
-            <ButtonGroup>
-              {isEditMode ? (
-                <>
-                  <Button
-                    colorScheme="gray"
-                    size="sm"
-                    type="button"
-                    onClick={onDeactivateEditModeClick}
-                  >
-                    취소
-                  </Button>
-                  <Button size="sm" type="submit">
-                    완료
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    colorScheme="red"
-                    size="sm"
-                    type="button"
-                    onClick={() => onTodoDelete(selectedTodoId)}
-                  >
-                    삭제
-                  </Button>
-                  {/* onClick을 Button에서 지정하면 해당 함수가 무시되고 onSubmit이 트리거됩니다. */}
-                  <Box onClick={onActivateEditModeClick}>
-                    <Button size="sm" type="button">
-                      수정 모드
+      <>
+        <Box
+          as="form"
+          p="3"
+          borderWidth="1px"
+          borderRadius="lg"
+          minH="16rem"
+          onSubmit={handleSubmit}
+        >
+          <VStack spacing="2" h="100%">
+            <input type="hidden" {...register('id')} />
+            <Input
+              placeholder="제목"
+              readOnly={isEditMode ? false : true}
+              ref={(e) => {
+                ref(e);
+                titleRef.current = e;
+              }}
+              {...rest}
+            />
+            <Textarea
+              h="100%"
+              placeholder="내용"
+              resize="none"
+              readOnly={isEditMode ? false : true}
+              {...register('content')}
+            />
+            <Box w="100%">
+              <Text fontSize="xs">
+                생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
+              </Text>
+            </Box>
+            <Box w="100%">
+              <Text fontSize="xs">
+                수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
+              </Text>
+            </Box>
+            <Flex w="100%">
+              <Spacer />
+              <ButtonGroup>
+                {isEditMode ? (
+                  <>
+                    <Button
+                      colorScheme="gray"
+                      size="sm"
+                      type="button"
+                      onClick={onDeactivateEditModeClick}
+                    >
+                      취소
                     </Button>
-                  </Box>
-                </>
-              )}
-            </ButtonGroup>
-          </Flex>
-        </VStack>
-      </Box>
+                    <Button size="sm" type="submit">
+                      완료
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      colorScheme="red"
+                      size="sm"
+                      type="button"
+                      onClick={() => onAlertDialogOpen()}
+                    >
+                      삭제
+                    </Button>
+                    {/* onClick을 Button에서 지정하면 해당 함수가 무시되고 onSubmit이 트리거됩니다. */}
+                    <Box onClick={onActivateEditModeClick}>
+                      <Button size="sm" type="button">
+                        수정 모드
+                      </Button>
+                    </Box>
+                  </>
+                )}
+              </ButtonGroup>
+            </Flex>
+          </VStack>
+        </Box>
+
+        <DeleteAlertDialog
+          isOpen={isAlertDialogOpen}
+          onClose={onAlertDialogClose}
+          onDelete={() => onTodoDelete(selectedTodoId)}
+        />
+      </>
     );
   }
 
