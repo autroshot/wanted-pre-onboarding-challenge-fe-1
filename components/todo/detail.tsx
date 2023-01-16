@@ -97,6 +97,7 @@ export default function Detail({
                   <Button
                     colorScheme="gray"
                     size="sm"
+                    type="button"
                     onClick={() => setIsEditMode(false)}
                   >
                     취소
@@ -107,11 +108,16 @@ export default function Detail({
                   <Button
                     colorScheme="red"
                     size="sm"
+                    type="button"
                     onClick={() => onTodoDelete(selectedTodoId)}
                   >
                     삭제
                   </Button>
-                  <Button size="sm" onClick={() => setIsEditMode(true)}>
+                  <Button
+                    size="sm"
+                    type="button"
+                    onClick={() => setIsEditMode(true)}
+                  >
                     수정
                   </Button>
                 </>
