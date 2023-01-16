@@ -4,7 +4,6 @@ import {
   ButtonGroup,
   Flex,
   Spacer,
-  Text,
   VStack,
 } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
@@ -16,6 +15,7 @@ import {
 import { Inputs, Todo } from '../../../pages/todos/[id]';
 import DeleteAlertDialog from '../deleteAlertDialog';
 import DefaultText from './defaultText';
+import DisplayTime from './displayTime';
 import InputsComponent from './inputs';
 
 export default function Container({
@@ -67,14 +67,16 @@ export default function Container({
               register={register}
             />
             <Box w="100%">
-              <Text fontSize="xs">
-                생성된 시간: {toKoreanTime(selectedTodo.createdAt)}
-              </Text>
+              <DisplayTime
+                title="생성된 시간"
+                ISOString={selectedTodo.createdAt}
+              />
             </Box>
             <Box w="100%">
-              <Text fontSize="xs">
-                수정된 시간: {toKoreanTime(selectedTodo.updatedAt)}
-              </Text>
+              <DisplayTime
+                title="수정된 시간"
+                ISOString={selectedTodo.updatedAt}
+              />
             </Box>
             <Flex w="100%">
               <Spacer />
