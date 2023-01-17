@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
-import List from '../../components/todo/list';
+import ListContainer from '../../components/todo/list/container';
 import { getLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
@@ -51,7 +51,7 @@ export default function ToDo() {
       <BlockUnloginedUser router={router}>
         <Container maxW="container.md" my="5">
           <SimpleGrid columns={[1, null, 2]} spacing="5">
-            <List
+            <ListContainer
               todos={todos}
               selectedTodoId={selectedTodoId}
               onItemClick={handleItemClick}

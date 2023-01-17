@@ -9,10 +9,10 @@ import {
   MenuList,
   MenuOptionGroup,
 } from '@chakra-ui/react';
-import { Todo } from '../../pages/todos/[id]';
-import Item from './item';
+import { Todo } from '../../../pages/todos/[id]';
+import Item from '../item';
 
-export default function List({
+export default function Container({
   todos,
   selectedTodoId,
   onItemClick,
