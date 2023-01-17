@@ -10,7 +10,7 @@ import {
   MenuOptionGroup,
 } from '@chakra-ui/react';
 import { Todo } from '../../../pages/todos/[id]';
-import Item from '../item';
+import Item from './item';
 
 export default function Container({
   todos,
