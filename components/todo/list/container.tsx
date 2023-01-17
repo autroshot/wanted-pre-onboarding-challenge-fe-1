@@ -1,6 +1,6 @@
-import { AddIcon } from '@chakra-ui/icons';
-import { Box, Button, HStack } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import { Todo } from '../../../pages/todos/[id]';
+import AddButton from './addButton';
 import Item from './item';
 import SortingMenu from './sortingMenu';
 
@@ -18,14 +18,7 @@ export default function Container({
         </Box>
       </HStack>
       <Box mb="2">
-        <Button
-          size="sm"
-          w="100%"
-          aria-label="할 일 추가"
-          onClick={onCreateTodoClick}
-        >
-          <AddIcon />
-        </Button>
+        <AddButton onClick={onCreateTodoClick} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
         {todos
