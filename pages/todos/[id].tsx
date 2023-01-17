@@ -22,7 +22,7 @@ export default function ToDo() {
   const titleRef = useRef<null | HTMLInputElement>(null);
 
   const router = useRouter();
-  const { register, handleSubmit, setValue } = useForm<Inputs>();
+  const { register, handleSubmit, setValue } = useForm<InputsType>();
 
   useEffect(() => {
     axios
@@ -83,7 +83,7 @@ export default function ToDo() {
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 
-  function onSubmit(data: Inputs): any | Promise<any> {
+  function onSubmit(data: InputsType): any | Promise<any> {
     handleTodoUpdate({ ...data });
   }
 
@@ -109,7 +109,7 @@ export default function ToDo() {
         console.error(err);
       });
   }
-  function handleTodoUpdate(inputs: Inputs) {
+  function handleTodoUpdate(inputs: InputsType) {
     if (todos === null) return;
 
     setIsEditMode(false);
@@ -177,7 +177,8 @@ export interface Todo {
   updatedAt: string;
 }
 
-export interface Inputs {
+// Inputs 컴포넌트와의 이름 충돌 때문에 타입명으로 InputsType을 사용합니다.
+export interface InputsType {
   id: string;
   title: string;
   content: string;

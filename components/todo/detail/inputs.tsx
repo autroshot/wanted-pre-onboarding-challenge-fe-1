@@ -1,7 +1,7 @@
 import { Input, Textarea } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { Inputs } from '../../../pages/todos/[id]';
+import { InputsType } from '../../../pages/todos/[id]';
 
 // 다른 모듈과의 이름 충돌 때문에 컴포넌트 이름으로 Inputs 대신 InputsComponent를 사용합니다.
 export default function InputsComponent({
@@ -37,5 +37,5 @@ export default function InputsComponent({
 export interface Props {
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
-  register: UseFormRegister<Inputs>;
+  register: UseFormRegister<InputsType>;
 }
