@@ -11,14 +11,19 @@ export default function Container({
   onTodoClick,
   onTodoCreate,
 }: Props) {
-  const [sortBy, setSortBy] = useState<'default' | keyof TodoType>('default');
-  const [order, setOrder] = useState<'ascending' | 'descending'>('ascending');
+  const [sortBy, setSortBy] = useState<SortBy>('default');
+  const [order, setOrder] = useState<Order>('ascending');
 
   return (
     <Box>
       <HStack mb="2">
         <Box>
-          <SortingMenu />
+          <SortingMenu
+            sortBy={sortBy}
+            order={order}
+            onSortByChange={handleSortByChange}
+            onOrderChange={handleOrderChange}
+          />
         </Box>
       </HStack>
       <Box mb="2">
@@ -33,6 +38,13 @@ export default function Container({
       </Box>
     </Box>
   );
+
+  function handleSortByChange(sortBy: SortBy) {
+    setSortBy(sortBy);
+  }
+  function handleOrderChange(order: Order) {
+    setOrder(order);
+  }
 }
 
 interface Props {
@@ -41,3 +53,6 @@ interface Props {
   onTodoClick: (todoId: string) => void;
   onTodoCreate: () => void;
 }
+
+export type SortBy = 'default' | keyof TodoType;
+export type Order = 'ascending' | 'descending';
