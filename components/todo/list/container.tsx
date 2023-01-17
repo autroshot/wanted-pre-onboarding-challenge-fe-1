@@ -54,5 +54,7 @@ interface Props {
   onTodoCreate: () => void;
 }
 
-export type SortBy = 'default' | keyof TodoType;
+export type SortBy =
+  | 'default'
+  | Extract<'title' | 'createdAt' | 'updatedAt', keyof TodoType>;
 export type Order = 'ascending' | 'descending';

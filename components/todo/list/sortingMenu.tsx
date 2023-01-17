@@ -17,9 +17,7 @@ export default function SortingMenu({
 }: Props) {
   const SORT_BY = {
     default: '기본',
-    id: '아이디',
     title: '제목',
-    content: '내용',
     createdAt: '생성된 시간',
     updatedAt: '수정된 시간',
   };
