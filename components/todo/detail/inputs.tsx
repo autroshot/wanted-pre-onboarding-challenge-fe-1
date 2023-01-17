@@ -3,12 +3,7 @@ import { MutableRefObject } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { InputsType } from '../../../pages/todos/[id]';
 
-// 다른 모듈과의 이름 충돌 때문에 컴포넌트 이름으로 Inputs 대신 InputsComponent를 사용합니다.
-export default function InputsComponent({
-  isEditMode,
-  titleRef,
-  register,
-}: Props) {
+export default function Inputs({ isEditMode, titleRef, register }: Props) {
   const { ref, ...rest } = register('title');
 
   return (

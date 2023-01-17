@@ -10,7 +10,7 @@ import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DeleteAlertDialog from './deleteAlertDialog';
 import DisplayTime from './displayTime';
-import InputsComponent from './inputs';
+import Inputs from './inputs';
 
 export default function Container({
   todos,
@@ -53,7 +53,7 @@ export default function Container({
           onSubmit={handleSubmit}
         >
           <VStack spacing="2" h="100%">
-            <InputsComponent
+            <Inputs
               isEditMode={isEditMode}
               titleRef={titleRef}
               register={register}
