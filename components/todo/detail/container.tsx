@@ -25,7 +25,7 @@ export default function Container({
   register,
   setValue,
   onTodoDelete,
-  handleSubmit,
+  onSubmit,
 }: Props) {
   if (
     !todos ||
@@ -50,7 +50,7 @@ export default function Container({
           borderWidth="1px"
           borderRadius="lg"
           minH="16rem"
-          onSubmit={handleSubmit}
+          onSubmit={onSubmit}
         >
           <VStack spacing="2" h="100%">
             <Inputs
@@ -113,5 +113,5 @@ export interface Props {
   onActivateEditModeClick: () => void;
   onDeactivateEditModeClick: () => void;
   onTodoDelete: (id: string) => void;
-  handleSubmit: ReturnType<UseFormHandleSubmit<InputsType>>;
+  onSubmit: ReturnType<UseFormHandleSubmit<InputsType>>;
 }
