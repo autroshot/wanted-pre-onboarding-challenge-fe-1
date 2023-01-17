@@ -22,6 +22,8 @@ export default function SortingMenu() {
         <MenuOptionGroup defaultValue="default" type="radio" title="기준">
           <MenuItemOption value="default">기본</MenuItemOption>
           <MenuItemOption value="title">제목</MenuItemOption>
+          <MenuItemOption value="createdAt">생성된 시간</MenuItemOption>
+          <MenuItemOption value="updatedAt">수정된 시간</MenuItemOption>
         </MenuOptionGroup>
         <MenuOptionGroup defaultValue="ascending" type="radio" title="정렬">
           <MenuItemOption value="ascending">오름차순</MenuItemOption>
