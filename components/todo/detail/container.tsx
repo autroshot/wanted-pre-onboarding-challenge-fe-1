@@ -42,8 +42,6 @@ export default function Container({
     setValue('title', selectedTodo.title);
     setValue('content', selectedTodo.content);
 
-    const { ref, ...rest } = register('title');
-
     return (
       <>
         <Box
