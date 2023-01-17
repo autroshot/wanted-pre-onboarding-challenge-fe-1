@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Spacer,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Flex, Spacer, VStack } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import {
   UseFormHandleSubmit,
@@ -14,6 +7,7 @@ import {
 } from 'react-hook-form';
 import { Inputs, Todo } from '../../../pages/todos/[id]';
 import DeleteAlertDialog from '../deleteAlertDialog';
+import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DisplayTime from './displayTime';
 import InputsComponent from './inputs';
@@ -78,40 +72,12 @@ export default function Container({
             </VStack>
             <Flex w="100%">
               <Spacer />
-              <ButtonGroup>
-                {isEditMode ? (
-                  <>
-                    <Button
-                      colorScheme="gray"
-                      size="sm"
-                      type="button"
-                      onClick={onDeactivateEditModeClick}
-                    >
-                      취소
-                    </Button>
-                    <Button size="sm" type="submit">
-                      완료
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button
-                      colorScheme="red"
-                      size="sm"
-                      type="button"
-                      onClick={() => onAlertDialogOpen()}
-                    >
-                      삭제
-                    </Button>
-                    {/* onClick을 Button에서 지정하면 해당 함수가 무시되고 onSubmit이 트리거됩니다. */}
-                    <Box onClick={onActivateEditModeClick}>
-                      <Button size="sm" type="button">
-                        수정 모드
-                      </Button>
-                    </Box>
-                  </>
-                )}
-              </ButtonGroup>
+              <Buttons
+                isEditMode={isEditMode}
+                onAlertDialogOpen={onAlertDialogOpen}
+                onActivateEditModeClick={onActivateEditModeClick}
+                onDeactivateEditModeClick={onDeactivateEditModeClick}
+              />
             </Flex>
           </VStack>
         </Box>
@@ -131,13 +97,6 @@ export default function Container({
     return todos.some((todo) => {
       return todo.id === todoId;
     });
-  }
-
-  function toKoreanTime(ISOString: string) {
-    const date = new Date(Date.parse(ISOString));
-    return `${date.getFullYear()}년 ${
-      date.getMonth() + 1
-    }월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`;
   }
 }
 
