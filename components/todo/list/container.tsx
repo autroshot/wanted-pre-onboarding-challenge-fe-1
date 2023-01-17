@@ -1,4 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
+import { useState } from 'react';
 import { TodoType } from '../../../pages/todos/[id]';
 import CreateButton from './createButton';
 import SortingMenu from './sortingMenu';
@@ -10,6 +11,9 @@ export default function Container({
   onTodoClick,
   onTodoCreate,
 }: Props) {
+  const [sortBy, setSortBy] = useState<'default' | keyof TodoType>('default');
+  const [order, setOrder] = useState<'ascending' | 'descending'>('ascending');
+
   return (
     <Box>
       <HStack mb="2">
