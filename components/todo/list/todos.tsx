@@ -1,7 +1,7 @@
 import { TodoType } from '../../../pages/todos/[id]';
 import Todo from './todo';
 
-export default function Todos({ todos, selectedTodoId, onItemClick }: Props) {
+export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {
   return (
     <>
       {todos
@@ -11,7 +11,7 @@ export default function Todos({ todos, selectedTodoId, onItemClick }: Props) {
                 key={todo.id}
                 title={todo.title}
                 isSelected={todo.id === selectedTodoId}
-                onClick={() => onItemClick(todo.id)}
+                onClick={() => onTodoClick(todo.id)}
               />
             );
           })
@@ -23,5 +23,5 @@ export default function Todos({ todos, selectedTodoId, onItemClick }: Props) {
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
-  onItemClick: (todoId: string) => void;
+  onTodoClick: (todoId: string) => void;
 }

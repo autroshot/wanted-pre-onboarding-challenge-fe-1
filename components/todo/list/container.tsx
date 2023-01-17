@@ -7,7 +7,7 @@ import Todos from './todos';
 export default function Container({
   todos,
   selectedTodoId,
-  onItemClick,
+  onTodoClick,
   onCreateButtonClick,
 }: Props) {
   return (
@@ -24,7 +24,7 @@ export default function Container({
         <Todos
           todos={todos}
           selectedTodoId={selectedTodoId}
-          onItemClick={onItemClick}
+          onTodoClick={onTodoClick}
         />
       </Box>
     </Box>
@@ -34,6 +34,6 @@ export default function Container({
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
-  onItemClick: (todoId: string) => void;
+  onTodoClick: (todoId: string) => void;
   onCreateButtonClick: () => void;
 }

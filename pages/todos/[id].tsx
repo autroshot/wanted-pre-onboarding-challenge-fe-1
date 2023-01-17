@@ -54,7 +54,7 @@ export default function ToDo() {
             <ListContainer
               todos={todos}
               selectedTodoId={selectedTodoId}
-              onItemClick={handleItemClick}
+              onTodoClick={handleTodoClick}
               onCreateButtonClick={handleTodoCreate}
             />
             <DetailContainer
@@ -78,7 +78,7 @@ export default function ToDo() {
     </>
   );
 
-  function handleItemClick(todoId: string) {
+  function handleTodoClick(todoId: string) {
     setIsEditMode(false);
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
