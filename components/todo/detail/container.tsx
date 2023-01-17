@@ -58,6 +58,7 @@ export default function Container({
               titleRef={titleRef}
               register={register}
             />
+
             <VStack w="100%" spacing="2" align="start">
               <DisplayTime
                 title="생성된 시간"
@@ -68,6 +69,7 @@ export default function Container({
                 ISOString={selectedTodo.updatedAt}
               />
             </VStack>
+
             <Flex w="100%">
               <Spacer />
               <Buttons
