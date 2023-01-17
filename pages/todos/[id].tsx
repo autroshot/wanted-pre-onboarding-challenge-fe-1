@@ -55,7 +55,7 @@ export default function ToDo() {
               todos={todos}
               selectedTodoId={selectedTodoId}
               onItemClick={handleItemClick}
-              onCreateTodoClick={handleTodoCreate}
+              onCreateButtonClick={handleTodoCreate}
             />
             <DetailContainer
               todos={todos}

@@ -8,7 +8,7 @@ export default function Container({
   todos,
   selectedTodoId,
   onItemClick,
-  onCreateTodoClick,
+  onCreateButtonClick,
 }: Props) {
   return (
     <Box>
@@ -18,7 +18,7 @@ export default function Container({
         </Box>
       </HStack>
       <Box mb="2">
-        <AddButton onClick={onCreateTodoClick} />
+        <AddButton onClick={onCreateButtonClick} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
         <Items
@@ -35,5 +35,5 @@ interface Props {
   todos: null | Todo[];
   selectedTodoId: null | string;
   onItemClick: (todoId: string) => void;
-  onCreateTodoClick: () => void;
+  onCreateButtonClick: () => void;
 }
