@@ -1,4 +1,4 @@
-import { Todo } from '../../../pages/todos/[id]';
+import { TodoType } from '../../../pages/todos/[id]';
 import Item from './item';
 
 export default function Items({ todos, selectedTodoId, onItemClick }: Props) {
@@ -21,7 +21,7 @@ export default function Items({ todos, selectedTodoId, onItemClick }: Props) {
 }
 
 interface Props {
-  todos: null | Todo[];
+  todos: null | TodoType[];
   selectedTodoId: null | string;
   onItemClick: (todoId: string) => void;
 }

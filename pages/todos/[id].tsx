@@ -10,7 +10,7 @@ import ListContainer from '../../components/todo/list/container';
 import { getLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
-  const [todos, setTodos] = useState<null | Todo[]>(null);
+  const [todos, setTodos] = useState<null | TodoType[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const {
@@ -159,17 +159,18 @@ export default function ToDo() {
   }
 
   interface GetResponseData {
-    data: Todo[];
+    data: TodoType[];
   }
   interface PostResponseData {
-    data: Todo;
+    data: TodoType;
   }
   interface PutResponseData {
-    data: Todo;
+    data: TodoType;
   }
 }
 
-export interface Todo {
+// Todo 컴포넌트와의 이름 충돌 때문에 이름으로 TodoType을 사용합니다.
+export interface TodoType {
   id: string;
   title: string;
   content: string;
@@ -177,7 +178,7 @@ export interface Todo {
   updatedAt: string;
 }
 
-// Inputs 컴포넌트와의 이름 충돌 때문에 타입명으로 InputsType을 사용합니다.
+// Inputs 컴포넌트와의 이름 충돌 때문에 이름으로 InputsType을 사용합니다.
 export interface InputsType {
   id: string;
   title: string;

@@ -1,5 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
-import { Todo } from '../../../pages/todos/[id]';
+import { TodoType } from '../../../pages/todos/[id]';
 import CreateButton from './createButton';
 import Items from './items';
 import SortingMenu from './sortingMenu';
@@ -32,7 +32,7 @@ export default function Container({
 }
 
 interface Props {
-  todos: null | Todo[];
+  todos: null | TodoType[];
   selectedTodoId: null | string;
   onItemClick: (todoId: string) => void;
   onCreateButtonClick: () => void;
