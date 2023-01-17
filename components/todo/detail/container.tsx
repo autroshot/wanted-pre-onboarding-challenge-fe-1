@@ -6,9 +6,9 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { Inputs, Todo } from '../../../pages/todos/[id]';
-import DeleteAlertDialog from '../deleteAlertDialog';
 import Buttons from './buttons';
 import DefaultText from './defaultText';
+import DeleteAlertDialog from './deleteAlertDialog';
 import DisplayTime from './displayTime';
 import InputsComponent from './inputs';
 
