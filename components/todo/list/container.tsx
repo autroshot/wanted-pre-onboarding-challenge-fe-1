@@ -1,8 +1,8 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { TodoType } from '../../../pages/todos/[id]';
 import CreateButton from './createButton';
-import Items from './items';
 import SortingMenu from './sortingMenu';
+import Todos from './todos';
 
 export default function Container({
   todos,
@@ -21,7 +21,7 @@ export default function Container({
         <CreateButton onClick={onCreateButtonClick} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
-        <Items
+        <Todos
           todos={todos}
           selectedTodoId={selectedTodoId}
           onItemClick={onItemClick}

@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 
-export default function Item({ title, isSelected, onClick }: Props) {
+export default function Todo({ title, isSelected, onClick }: Props) {
   return (
     <Button
       colorScheme="gray"

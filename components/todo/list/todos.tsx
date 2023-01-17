@@ -1,13 +1,13 @@
 import { TodoType } from '../../../pages/todos/[id]';
-import Item from './item';
+import Todo from './todo';
 
-export default function Items({ todos, selectedTodoId, onItemClick }: Props) {
+export default function Todos({ todos, selectedTodoId, onItemClick }: Props) {
   return (
     <>
       {todos
         ? todos.map((todo) => {
             return (
-              <Item
+              <Todo
                 key={todo.id}
                 title={todo.title}
                 isSelected={todo.id === selectedTodoId}
