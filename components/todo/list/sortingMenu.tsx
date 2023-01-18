@@ -45,10 +45,11 @@ export default function SortingMenu({
           title="기준"
           onChange={(value) => onSortByChange(value as SortBy)}
         >
-          <MenuItemOption value="default">기본</MenuItemOption>
-          <MenuItemOption value="title">제목</MenuItemOption>
-          <MenuItemOption value="createdAt">생성된 시간</MenuItemOption>
-          <MenuItemOption value="updatedAt">수정된 시간</MenuItemOption>
+          {Object.entries(SORT_BY).map((entry) => (
+            <MenuItemOption key={entry[0]} value={entry[0]}>
+              {entry[1]}
+            </MenuItemOption>
+          ))}
         </MenuOptionGroup>
         <MenuOptionGroup
           defaultValue="ascending"
@@ -56,8 +57,11 @@ export default function SortingMenu({
           title="정렬"
           onChange={(value) => onOrderChange(value as Order)}
         >
-          <MenuItemOption value="ascending">오름차순</MenuItemOption>
-          <MenuItemOption value="descending">내림차순</MenuItemOption>
+          {Object.entries(ORDER).map((entry) => (
+            <MenuItemOption key={entry[0]} value={entry[0]}>
+              {entry[1]}
+            </MenuItemOption>
+          ))}
         </MenuOptionGroup>
       </MenuList>
     </Menu>
