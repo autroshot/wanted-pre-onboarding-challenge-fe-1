@@ -15,13 +15,13 @@ export default function SortingMenu({
   onSortByChange,
   onOrderChange,
 }: Props) {
-  const SORT_BY = {
+  const SORT_BY: Dictionary = {
     default: '기본',
     title: '제목',
     createdAt: '생성된 시간',
     updatedAt: '수정된 시간',
   };
-  const ORDER = {
+  const ORDER: Dictionary = {
     ascending: '오름차순',
     descending: '내림차순',
   };
@@ -67,12 +67,13 @@ export default function SortingMenu({
     </Menu>
   );
 
-  function getValueFromDictonary(
-    key: string,
-    dictionary: { [index: string]: string }
-  ) {
+  function getValueFromDictonary(key: string, dictionary: Dictionary) {
     if (!Object.keys(dictionary).includes(key)) return key;
     return dictionary[key];
+  }
+
+  interface Dictionary {
+    [index: string]: string;
   }
 }
 
