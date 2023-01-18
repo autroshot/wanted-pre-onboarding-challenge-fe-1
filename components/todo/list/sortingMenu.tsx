@@ -33,7 +33,10 @@ export default function SortingMenu({
         rightIcon={<ChevronDownIcon />}
         colorScheme="gray"
       >
-        {SORT_BY[sortBy]} {ORDER[order]}
+        {`${getValueFromDictonary(sortBy, SORT_BY)} ${getValueFromDictonary(
+          order,
+          ORDER
+        )}`}
       </MenuButton>
       <MenuList minWidth="240px">
         <MenuOptionGroup
@@ -59,6 +62,14 @@ export default function SortingMenu({
       </MenuList>
     </Menu>
   );
+
+  function getValueFromDictonary(
+    key: string,
+    dictionary: { [index: string]: string }
+  ) {
+    if (!Object.keys(dictionary).includes(key)) return key;
+    return dictionary[key];
+  }
 }
 
 interface Props {
