@@ -14,6 +14,8 @@ export default function Container({
   const [sortBy, setSortBy] = useState<SortBy>('default');
   const [order, setOrder] = useState<Order>('ascending');
 
+  const sortedTodos = sortTodos(todos, sortBy, order);
+
   return (
     <Box>
       <HStack mb="2">
@@ -31,7 +33,7 @@ export default function Container({
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
         <Todos
-          todos={todos}
+          todos={sortedTodos}
           selectedTodoId={selectedTodoId}
           onTodoClick={onTodoClick}
         />
@@ -44,6 +46,16 @@ export default function Container({
   }
   function handleOrderChange(order: Order) {
     setOrder(order);
+  }
+
+  function sortTodos(todos: null | TodoType[], sortBy: SortBy, order: Order) {
+    if (todos === null || sortBy === 'default') return todos;
+    return [...todos].sort((a, b) => {
+      const localeCompareValue = a[sortBy].localeCompare(b[sortBy]);
+
+      if (order === 'ascending') return localeCompareValue;
+      return localeCompareValue * -1;
+    });
   }
 }
 
