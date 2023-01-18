@@ -45,11 +45,7 @@ export default function SortingMenu({
           title="기준"
           onChange={(value) => onSortByChange(value as SortBy)}
         >
-          {Object.entries(SORT_BY).map((entry) => (
-            <MenuItemOption key={entry[0]} value={entry[0]}>
-              {entry[1]}
-            </MenuItemOption>
-          ))}
+          {createMenuItemOptions(SORT_BY)}
         </MenuOptionGroup>
         <MenuOptionGroup
           defaultValue="ascending"
@@ -57,11 +53,7 @@ export default function SortingMenu({
           title="정렬"
           onChange={(value) => onOrderChange(value as Order)}
         >
-          {Object.entries(ORDER).map((entry) => (
-            <MenuItemOption key={entry[0]} value={entry[0]}>
-              {entry[1]}
-            </MenuItemOption>
-          ))}
+          {createMenuItemOptions(ORDER)}
         </MenuOptionGroup>
       </MenuList>
     </Menu>
@@ -70,6 +62,14 @@ export default function SortingMenu({
   function getValueFromDictonary(key: string, dictionary: Dictionary) {
     if (!Object.keys(dictionary).includes(key)) return key;
     return dictionary[key];
+  }
+
+  function createMenuItemOptions(dictionary: Dictionary) {
+    return Object.entries(dictionary).map((entry) => (
+      <MenuItemOption key={entry[0]} value={entry[0]}>
+        {entry[1]}
+      </MenuItemOption>
+    ));
   }
 
   interface Dictionary {
