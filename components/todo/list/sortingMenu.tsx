@@ -16,10 +16,9 @@ export default function SortingMenu({
   onOrderChange,
 }: Props) {
   const SORT_BY: Dictionary = {
-    default: '기본',
-    title: '제목',
     createdAt: '생성된 시간',
     updatedAt: '수정된 시간',
+    title: '제목',
   };
   const ORDER: Dictionary = {
     ascending: '오름차순',
@@ -40,7 +39,7 @@ export default function SortingMenu({
       </MenuButton>
       <MenuList minWidth="240px">
         <MenuOptionGroup
-          defaultValue="default"
+          defaultValue="createdAt"
           type="radio"
           title="기준"
           onChange={(value) => onSortByChange(value as SortBy)}
@@ -48,7 +47,7 @@ export default function SortingMenu({
           {createMenuItemOptions(SORT_BY)}
         </MenuOptionGroup>
         <MenuOptionGroup
-          defaultValue="ascending"
+          defaultValue="descending"
           type="radio"
           title="정렬"
           onChange={(value) => onOrderChange(value as Order)}

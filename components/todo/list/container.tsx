@@ -11,8 +11,8 @@ export default function Container({
   onTodoClick,
   onTodoCreate,
 }: Props) {
-  const [sortBy, setSortBy] = useState<SortBy>('default');
-  const [order, setOrder] = useState<Order>('ascending');
+  const [sortBy, setSortBy] = useState<SortBy>('createdAt');
+  const [order, setOrder] = useState<Order>('descending');
 
   const sortedTodos = sortTodos(todos, sortBy, order);
 
@@ -49,7 +49,7 @@ export default function Container({
   }
 
   function sortTodos(todos: null | TodoType[], sortBy: SortBy, order: Order) {
-    if (todos === null || sortBy === 'default') return todos;
+    if (todos === null) return todos;
     return [...todos].sort((a, b) => {
       const localeCompareValue = a[sortBy].localeCompare(b[sortBy]);
 
@@ -66,7 +66,8 @@ interface Props {
   onTodoCreate: () => void;
 }
 
-export type SortBy =
-  | 'default'
-  | Extract<'title' | 'createdAt' | 'updatedAt', keyof TodoType>;
+export type SortBy = Extract<
+  'title' | 'createdAt' | 'updatedAt',
+  keyof TodoType
+>;
 export type Order = 'ascending' | 'descending';
