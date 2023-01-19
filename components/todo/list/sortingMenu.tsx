@@ -10,6 +10,8 @@ import {
 import { Order, SortBy } from './container';
 
 export default function SortingMenu({
+  defaultSortBy,
+  defaultOrder,
   sortBy,
   order,
   onSortByChange,
@@ -39,7 +41,7 @@ export default function SortingMenu({
       </MenuButton>
       <MenuList minWidth="240px">
         <MenuOptionGroup
-          defaultValue="createdAt"
+          defaultValue={defaultSortBy}
           type="radio"
           title="기준"
           onChange={(value) => onSortByChange(value as SortBy)}
@@ -47,7 +49,7 @@ export default function SortingMenu({
           {createMenuItemOptions(SORT_BY)}
         </MenuOptionGroup>
         <MenuOptionGroup
-          defaultValue="descending"
+          defaultValue={defaultOrder}
           type="radio"
           title="정렬"
           onChange={(value) => onOrderChange(value as Order)}
@@ -77,6 +79,8 @@ export default function SortingMenu({
 }
 
 interface Props {
+  defaultSortBy: SortBy;
+  defaultOrder: Order;
   sortBy: SortBy;
   order: Order;
   onSortByChange: (soryBy: SortBy) => void;

@@ -11,8 +11,11 @@ export default function Container({
   onTodoClick,
   onTodoCreate,
 }: Props) {
-  const [sortBy, setSortBy] = useState<SortBy>('createdAt');
-  const [order, setOrder] = useState<Order>('descending');
+  const DEFAULT_SORT_BY: SortBy = 'createdAt';
+  const DEFAULT_ORDER: Order = 'descending';
+
+  const [sortBy, setSortBy] = useState<SortBy>(DEFAULT_SORT_BY);
+  const [order, setOrder] = useState<Order>(DEFAULT_ORDER);
 
   const sortedTodos = sortTodos(todos, sortBy, order);
 
@@ -21,6 +24,8 @@ export default function Container({
       <HStack mb="2">
         <Box>
           <SortingMenu
+            defaultSortBy={DEFAULT_SORT_BY}
+            defaultOrder={DEFAULT_ORDER}
             sortBy={sortBy}
             order={order}
             onSortByChange={handleSortByChange}
