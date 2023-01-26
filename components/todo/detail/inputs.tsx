@@ -17,6 +17,7 @@ export default function Inputs({ isEditMode, titleRef, register }: Props) {
           titleRef.current = e;
         }}
         {...rest}
+        data-cy="title"
       />
       <Textarea
         h="100%"
@@ -24,6 +25,7 @@ export default function Inputs({ isEditMode, titleRef, register }: Props) {
         resize="none"
         readOnly={isEditMode ? false : true}
         {...register('content')}
+        data-cy="content"
       />
     </>
   );

@@ -63,10 +63,12 @@ export default function Container({
               <DisplayTime
                 title="생성된 시간"
                 ISOString={selectedTodo.createdAt}
+                dataCy="createdAt"
               />
               <DisplayTime
                 title="수정된 시간"
                 ISOString={selectedTodo.updatedAt}
+                dataCy="updatedAt"
               />
             </VStack>
 
