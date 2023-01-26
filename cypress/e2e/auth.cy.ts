@@ -55,3 +55,5 @@ describe('인증', () => {
     cy.get('[data-cy="navbar"]').contains('로그아웃');
   });
 });
+
+export {};
