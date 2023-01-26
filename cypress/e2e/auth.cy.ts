@@ -1,5 +1,3 @@
-import { login } from '../../utils/auth';
-
 describe('인증', () => {
   const seededUser = { email: 'hong@gamil.com', password: '12345678' };
 
@@ -25,14 +23,7 @@ describe('인증', () => {
   });
 
   it('로그아웃', () => {
-    cy.request(
-      'POST',
-      `${Cypress.env('server_url')}/users/login`,
-      seededUser
-    ).then((res) => {
-      login(localStorage, res.body.token);
-      cy.visit('/');
-    });
+    cy.seededUserLogin();
     cy.get('[data-cy="navbar"]').contains('로그아웃').click();
 
     cy.get('[data-cy="navbar"]').contains('로그인');
