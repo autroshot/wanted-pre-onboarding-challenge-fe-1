@@ -103,6 +103,7 @@ export default function ToDo() {
         setSelectedTodoId(newTodo.id);
         setIsEditMode(true);
         titleRef.current?.focus();
+        router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
       })
       .catch((err) => {
         //TODO
