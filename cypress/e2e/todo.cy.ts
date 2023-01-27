@@ -24,6 +24,11 @@ describe('ToDo', () => {
 
     cy.contains(seededTodo10.title).click();
 
+    cy.get('[data-cy="todo10"]').then(($todo) => {
+      const id = $todo.attr('data-cy-todo-id');
+
+      cy.url().should('include', id);
+    });
     cy.get('[data-cy="title"]').should('have.value', seededTodo10.title);
     cy.get('[data-cy="content"]').should('have.value', seededTodo10.content);
     cy.get('[data-cy="createdAt"]').should(
@@ -43,7 +48,12 @@ describe('ToDo', () => {
     };
 
     cy.get('[data-cy="addTodo"]').click();
-    cy.get('[data-cy="todo14"]');
+
+    cy.get('[data-cy="todo14"]').then(($todo) => {
+      const id = $todo.attr('data-cy-todo-id');
+
+      cy.url().should('include', id);
+    });
 
     cy.get('[data-cy="title"]').type(newTodo.title);
   });

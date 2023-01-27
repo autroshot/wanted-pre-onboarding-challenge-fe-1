@@ -13,6 +13,7 @@ export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {
                 isSelected={todo.id === selectedTodoId}
                 onClick={() => onTodoClick(todo.id)}
                 dataCy={`todo${array.length - index}`}
+                dataCyTodoId={todo.id}
               />
             );
           })

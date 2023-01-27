@@ -1,6 +1,12 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 
-export default function Todo({ title, isSelected, onClick, dataCy }: Props) {
+export default function Todo({
+  title,
+  isSelected,
+  onClick,
+  dataCy,
+  dataCyTodoId,
+}: Props) {
   return (
     <Button
       colorScheme="gray"
@@ -10,6 +16,7 @@ export default function Todo({ title, isSelected, onClick, dataCy }: Props) {
       borderRadius="0"
       onClick={onClick}
       data-cy={dataCy}
+      data-cy-todo-id={dataCyTodoId}
     >
       <Box w="100%">
         <Text
@@ -30,4 +37,5 @@ interface Props {
   isSelected: boolean;
   onClick: () => void;
   dataCy: string;
+  dataCyTodoId: string;
 }
