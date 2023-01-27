@@ -6,6 +6,7 @@ describe('ToDo', () => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
     cy.visit('/todos/index');
+    cy.get('[data-cy="todo1"]');
   });
 
   it('페이지', () => {
@@ -33,5 +34,17 @@ describe('ToDo', () => {
       'contain',
       toKoreanTime(seededTodo10.updatedAt)
     );
+  });
+
+  it('C', () => {
+    const newTodo: Pick<TodoType, 'title' | 'content'> = {
+      title: '새 할 일',
+      content: '이것은 새 할 일의 내용입니다.',
+    };
+
+    cy.get('[data-cy="addTodo"]').click();
+    cy.get('[data-cy="todo14"]');
+
+    cy.get('[data-cy="title"]').type(newTodo.title);
   });
 });
