@@ -48,6 +48,7 @@ describe('ToDo', () => {
     };
 
     cy.get('[data-cy="addTodo"]').click();
+    const nowISOString = new Date().toISOString();
 
     cy.get('[data-cy="todo14"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
@@ -56,5 +57,20 @@ describe('ToDo', () => {
     });
 
     cy.get('[data-cy="title"]').type(newTodo.title);
+    cy.get('[data-cy="content"]').type(newTodo.content);
+    cy.get('[data-cy="submit"]').click();
+
+    cy.visit('/todos/index');
+    cy.contains(newTodo.title).click();
+    cy.get('[data-cy="title"]').should('have.value', newTodo.title);
+    cy.get('[data-cy="content"]').should('have.value', newTodo.content);
+    cy.get('[data-cy="createdAt"]').should(
+      'contain',
+      toKoreanTime(nowISOString)
+    );
+    cy.get('[data-cy="updatedAt"]').should(
+      'contain',
+      toKoreanTime(nowISOString)
+    );
   });
 });

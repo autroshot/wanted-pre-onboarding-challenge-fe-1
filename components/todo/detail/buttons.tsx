@@ -18,7 +18,7 @@ export default function Buttons({
           >
             취소
           </Button>
-          <Button size="sm" type="submit">
+          <Button size="sm" type="submit" data-cy="submit">
             완료
           </Button>
         </>
