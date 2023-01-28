@@ -48,7 +48,7 @@ describe('ToDo', () => {
     };
 
     cy.get('[data-cy="addTodo"]').click();
-    const nowISOString = new Date().toISOString();
+    const createdISOString = new Date().toISOString();
 
     cy.get('[data-cy="todo14"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
@@ -66,11 +66,11 @@ describe('ToDo', () => {
     cy.get('[data-cy="content"]').should('have.value', newTodo.content);
     cy.get('[data-cy="createdAt"]').should(
       'contain',
-      toKoreanTime(nowISOString)
+      toKoreanTime(createdISOString)
     );
     cy.get('[data-cy="updatedAt"]').should(
       'contain',
-      toKoreanTime(nowISOString)
+      toKoreanTime(createdISOString)
     );
   });
 
