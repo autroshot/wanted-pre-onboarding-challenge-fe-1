@@ -146,6 +146,7 @@ export default function ToDo() {
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
         onAlertDialogClose();
+        router.push('/todos/index');
       })
       .catch((err) => {
         //TODO
