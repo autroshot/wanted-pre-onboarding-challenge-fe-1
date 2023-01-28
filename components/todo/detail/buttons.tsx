@@ -29,6 +29,7 @@ export default function Buttons({
             size="sm"
             type="button"
             onClick={() => onAlertDialogOpen()}
+            data-cy="delete"
           >
             삭제
           </Button>

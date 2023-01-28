@@ -103,4 +103,10 @@ describe('ToDo', () => {
       toKoreanTime(updatedISOString)
     );
   });
+
+  it('D', () => {
+    cy.contains('할 일 1').click();
+    cy.get('[data-cy="delete"]').click();
+    cy.get('[data-cy="confirmDelete"]').click();
+  });
 });
