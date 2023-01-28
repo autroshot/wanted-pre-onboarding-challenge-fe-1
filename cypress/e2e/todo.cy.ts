@@ -73,4 +73,34 @@ describe('ToDo', () => {
       toKoreanTime(nowISOString)
     );
   });
+
+  it('U', () => {
+    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+      title: '수정된 할 일',
+      content: '이것은 수정된 할 일의 내용입니다.',
+    };
+    const createdISOString = '2023-01-11T06:25:37.463Z';
+
+    cy.contains('할 일 10').click();
+    cy.get('[data-cy="editMode"]').click();
+    cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
+    cy.get('[data-cy="content"]').type(
+      `{selectAll}{del}${updatedTodo.content}`
+    );
+    cy.get('[data-cy="submit"]').click();
+    const updatedISOString = new Date().toISOString();
+
+    cy.visit('/todos/index');
+    cy.contains(updatedTodo.title).click();
+    cy.get('[data-cy="title"]').should('have.value', updatedTodo.title);
+    cy.get('[data-cy="content"]').should('have.value', updatedTodo.content);
+    cy.get('[data-cy="createdAt"]').should(
+      'contain',
+      toKoreanTime(createdISOString)
+    );
+    cy.get('[data-cy="updatedAt"]').should(
+      'contain',
+      toKoreanTime(updatedISOString)
+    );
+  });
 });

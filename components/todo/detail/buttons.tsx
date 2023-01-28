@@ -34,7 +34,7 @@ export default function Buttons({
           </Button>
           {/* onClick을 Button에서 지정하면 해당 함수가 무시되고 onSubmit이 트리거됩니다. */}
           <Box onClick={onActivateEditModeClick}>
-            <Button size="sm" type="button">
+            <Button size="sm" type="button" data-cy="editMode">
               수정 모드
             </Button>
           </Box>
