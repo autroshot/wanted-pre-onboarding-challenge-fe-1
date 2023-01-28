@@ -105,8 +105,15 @@ describe('ToDo', () => {
   });
 
   it('D', () => {
-    cy.contains('할 일 1').click();
+    const deletedTodo: Pick<TodoType, 'title'> = {
+      title: '할 일 7',
+    };
+
+    cy.contains(deletedTodo.title).click();
     cy.get('[data-cy="delete"]').click();
     cy.get('[data-cy="confirmDelete"]').click();
+
+    cy.url().should('include', 'index');
+    cy.contains(deletedTodo.title).should('not.exist');
   });
 });
