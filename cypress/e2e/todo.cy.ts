@@ -1,7 +1,7 @@
 import { TodoType } from '../../pages/todos/[id]';
 import { toKoreanTime } from '../../utils/time';
 
-describe('ToDo', () => {
+describe('ToDo 페이지와 CRUD', () => {
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
