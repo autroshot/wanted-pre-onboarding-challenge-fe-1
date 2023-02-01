@@ -35,7 +35,7 @@ export default function DeleteAlertDialog({
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
+            <Button ref={cancelRef} onClick={onClose} data-cy="cancel">
               취소
             </Button>
             <Button

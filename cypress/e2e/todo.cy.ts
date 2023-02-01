@@ -310,6 +310,17 @@ describe('취소', () => {
     cy.get('[data-cy="title"]').should('have.value', seededTodo13.title);
     cy.get('[data-cy="content"]').should('have.value', seededTodo13.content);
   });
+
+  it('삭제 취소', () => {
+    const seededTodo11 = DUMMY_TODOS[10];
+
+    cy.contains(seededTodo11.title).click();
+    cy.get('[data-cy="delete"]').click();
+    cy.get('[data-cy="cancel"]').click();
+
+    cy.contains(seededTodo11.title);
+    cy.get('[data-cy="title"]').should('have.value', seededTodo11.title);
+  });
 });
 
 export {};
