@@ -267,6 +267,19 @@ describe('ToDo 정렬', () => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
   });
+
+  it('제목 오름차순', () => {
+    cy.get('[data-cy="sortingButton"]').click();
+    cy.contains(SORT_BY.title).click();
+    cy.contains(ORDER.ascending).click();
+
+    const sortedTodos = [...DUMMY_TODOS].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+    sortedTodos.forEach((todo, index) => {
+      cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
+    });
+  });
 });
 
 export {};
