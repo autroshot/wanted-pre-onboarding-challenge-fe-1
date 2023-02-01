@@ -4,7 +4,7 @@ export default function Todo({
   title,
   isSelected,
   onClick,
-  dataCy,
+  dataCyTodoNo,
   dataCyTodoId,
 }: Props) {
   return (
@@ -15,7 +15,8 @@ export default function Todo({
       w="100%"
       borderRadius="0"
       onClick={onClick}
-      data-cy={dataCy}
+      data-cy="todo"
+      data-cy-todo-no={dataCyTodoNo}
       data-cy-todo-id={dataCyTodoId}
     >
       <Box w="100%">
@@ -36,6 +37,6 @@ interface Props {
   title: string;
   isSelected: boolean;
   onClick: () => void;
-  dataCy: string;
+  dataCyTodoNo: number;
   dataCyTodoId: string;
 }

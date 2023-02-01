@@ -6,7 +6,7 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
     cy.visit('/todos/index');
-    cy.get('[data-cy="todo1"]');
+    cy.get('[data-cy="todo"]');
   });
 
   it('페이지', () => {
@@ -24,7 +24,7 @@ describe('ToDo 페이지와 CRUD', () => {
 
     cy.contains(seededTodo10.title).click();
 
-    cy.get('[data-cy="todo10"]').then(($todo) => {
+    cy.get('[data-cy-todo-no="10"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
@@ -50,7 +50,7 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.get('[data-cy="addTodo"]').click();
     const createdISOString = new Date().toISOString();
 
-    cy.get('[data-cy="todo14"]').then(($todo) => {
+    cy.get('[data-cy-todo-no="14"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
@@ -226,7 +226,7 @@ describe('ToDo 정렬', () => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
     cy.visit('/todos/index');
-    cy.get('[data-cy="todo1"]');
+    cy.get('[data-cy="todo"]');
   });
 
   it('기본 정렬', () => {
