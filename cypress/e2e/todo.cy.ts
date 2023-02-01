@@ -242,8 +242,8 @@ describe('ToDo 정렬', () => {
       `${SORT_BY.createdAt} ${ORDER.descending}`
     );
 
-    const reversedDummyTodos = [...DUMMY_TODOS].reverse();
-    reversedDummyTodos.forEach((todo, index) => {
+    const sortedTodos = [...DUMMY_TODOS].reverse();
+    sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
   });
@@ -251,7 +251,9 @@ describe('ToDo 정렬', () => {
   it('생성된 시간 오름차순', () => {
     cy.get('[data-cy="sortingButton"]').click();
     cy.contains(ORDER.ascending).click();
-    DUMMY_TODOS.forEach((todo, index) => {
+
+    const sortedTodos = [...DUMMY_TODOS];
+    sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
   });
