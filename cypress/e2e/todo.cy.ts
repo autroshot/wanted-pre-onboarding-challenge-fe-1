@@ -236,7 +236,7 @@ describe('ToDo 정렬', () => {
     cy.get('[data-cy="todo"]');
   });
 
-  it('기본 정렬', () => {
+  it('기본', () => {
     cy.get('[data-cy="sortingButton"]').should(
       'have.text',
       `${SORT_BY.createdAt} ${ORDER.descending}`
