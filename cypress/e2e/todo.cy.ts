@@ -255,6 +255,18 @@ describe('ToDo 정렬', () => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
   });
+
+  it('수정된 시간 내림차순', () => {
+    cy.get('[data-cy="sortingButton"]').click();
+    cy.contains(SORT_BY.updatedAt).click();
+
+    const sortedTodos = [...DUMMY_TODOS].sort(
+      (a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)
+    );
+    sortedTodos.forEach((todo, index) => {
+      cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
+    });
+  });
 });
 
 export {};
