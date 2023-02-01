@@ -15,6 +15,7 @@ export default function Buttons({
             size="sm"
             type="button"
             onClick={onDeactivateEditModeClick}
+            data-cy="cancel"
           >
             취소
           </Button>

@@ -284,4 +284,32 @@ describe('ToDo 정렬', () => {
   });
 });
 
+describe('취소', () => {
+  beforeEach(() => {
+    cy.request('GET', `${Cypress.env('server_url')}/seed`);
+    cy.seededUserLogin();
+    cy.visit('/todos/index');
+    cy.get('[data-cy="todo"]');
+  });
+
+  it('수정 취소', () => {
+    const seededTodo13 = DUMMY_TODOS[12];
+    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+      title: '수정된 할 일',
+      content: '이것은 수정된 할 일의 내용입니다.',
+    };
+
+    cy.contains(seededTodo13.title).click();
+    cy.get('[data-cy="editMode"]').click();
+    cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
+    cy.get('[data-cy="content"]').type(
+      `{selectAll}{del}${updatedTodo.content}`
+    );
+    cy.get('[data-cy="cancel"]').click();
+
+    cy.get('[data-cy="title"]').should('have.value', seededTodo13.title);
+    cy.get('[data-cy="content"]').should('have.value', seededTodo13.content);
+  });
+});
+
 export {};
