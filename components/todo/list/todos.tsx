@@ -5,7 +5,7 @@ export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {
   return (
     <>
       {todos
-        ? todos.map((todo, index, array) => {
+        ? todos.map((todo, index) => {
             return (
               <Todo
                 key={todo.id}
