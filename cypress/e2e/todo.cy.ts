@@ -248,7 +248,7 @@ describe('ToDo 정렬', () => {
     });
   });
 
-  it('오름차순', () => {
+  it('생성된 시간 오름차순', () => {
     cy.get('[data-cy="sortingButton"]').click();
     cy.contains(ORDER.ascending).click();
     DUMMY_TODOS.forEach((todo, index) => {
