@@ -12,7 +12,7 @@ export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {
                 title={todo.title}
                 isSelected={todo.id === selectedTodoId}
                 onClick={() => onTodoClick(todo.id)}
-                dataCyTodoNo={index}
+                dataCyTodoIndex={index}
                 dataCyTodoId={todo.id}
               />
             );

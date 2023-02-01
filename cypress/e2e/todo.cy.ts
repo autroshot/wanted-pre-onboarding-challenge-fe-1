@@ -50,7 +50,7 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.get('[data-cy="addTodo"]').click();
     const createdISOString = new Date().toISOString();
 
-    cy.get('[data-cy-todo-no="0"]').then(($todo) => {
+    cy.get('[data-cy-todo-index="0"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
@@ -237,7 +237,7 @@ describe('ToDo 정렬', () => {
 
     const reversedDummyTodos = [...DUMMY_TODOS].reverse();
     reversedDummyTodos.forEach((todo, index) => {
-      cy.get(`[data-cy-todo-no="${index}"]`).should('have.text', todo.title);
+      cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
   });
 });
