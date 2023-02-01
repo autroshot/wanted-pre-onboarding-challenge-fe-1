@@ -42,7 +42,7 @@ export default function DeleteAlertDialog({
               colorScheme="red"
               onClick={onDelete}
               ml={3}
-              data-cy="confirmDelete"
+              data-cy="confirm"
             >
               삭제
             </Button>

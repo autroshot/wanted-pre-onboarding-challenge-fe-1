@@ -221,7 +221,7 @@ describe('ToDo 페이지와 CRUD', () => {
 
     cy.contains(deletedTodo.title).click();
     cy.get('[data-cy="delete"]').click();
-    cy.get('[data-cy="confirmDelete"]').click();
+    cy.get('[data-cy="confirm"]').click();
 
     cy.url().should('include', 'index');
     cy.contains(deletedTodo.title).should('not.exist');
