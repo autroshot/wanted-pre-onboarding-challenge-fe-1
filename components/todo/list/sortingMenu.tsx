@@ -33,6 +33,7 @@ export default function SortingMenu({
         as={Button}
         rightIcon={<ChevronDownIcon />}
         colorScheme="gray"
+        data-cy="sortingButton"
       >
         {`${getValueFromDictonary(sortBy, SORT_BY)} ${getValueFromDictonary(
           order,
