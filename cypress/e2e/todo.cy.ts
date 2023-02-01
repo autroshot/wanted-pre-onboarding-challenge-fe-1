@@ -104,6 +104,20 @@ const DUMMY_TODOS: Omit<TodoType, 'id'>[] = [
   },
 ];
 
+// 사이프러스 모듈 오류로 인해 컴포넌트에서 가져오는 대신 복사했습니다.
+const SORT_BY: Dictionary = {
+  createdAt: '생성된 시간',
+  updatedAt: '수정된 시간',
+  title: '제목',
+};
+const ORDER: Dictionary = {
+  ascending: '오름차순',
+  descending: '내림차순',
+};
+interface Dictionary {
+  [index: string]: string;
+}
+
 describe('ToDo 페이지와 CRUD', () => {
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
@@ -225,7 +239,7 @@ describe('ToDo 정렬', () => {
   it('기본 정렬', () => {
     cy.get('[data-cy="sortingButton"]').should(
       'have.text',
-      '생성된 시간 내림차순'
+      `${SORT_BY.createdAt} ${ORDER.descending}`
     );
 
     const reversedDummyTodos = [...DUMMY_TODOS].reverse();
