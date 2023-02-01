@@ -24,7 +24,7 @@ describe('ToDo 페이지와 CRUD', () => {
 
     cy.contains(seededTodo10.title).click();
 
-    cy.get('[data-cy-todo-no="10"]').then(($todo) => {
+    cy.contains<HTMLElement>(seededTodo10.title).then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
@@ -50,7 +50,7 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.get('[data-cy="addTodo"]').click();
     const createdISOString = new Date().toISOString();
 
-    cy.get('[data-cy-todo-no="14"]').then(($todo) => {
+    cy.get('[data-cy-todo-no="0"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
@@ -234,6 +234,11 @@ describe('ToDo 정렬', () => {
       'have.text',
       '생성된 시간 내림차순'
     );
+
+    const reversedDummyTodos = [...DUMMY_TODOS].reverse();
+    reversedDummyTodos.forEach((todo, index) => {
+      cy.get(`[data-cy-todo-no="${index}"]`).should('have.text', todo.title);
+    });
   });
 });
 
