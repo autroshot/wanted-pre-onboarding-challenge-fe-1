@@ -334,10 +334,10 @@ describe('URL', () => {
   });
 
   it('기본', () => {
-    const todo2 = DUMMY_TODOS[1] as TodoType;
-    const todo3 = DUMMY_TODOS[2] as TodoType;
-    const todo4 = DUMMY_TODOS[3] as TodoType;
-    const todo5 = DUMMY_TODOS[4] as TodoType;
+    const todo2 = { ...DUMMY_TODOS[1] } as TodoType;
+    const todo3 = { ...DUMMY_TODOS[2] } as TodoType;
+    const todo4 = { ...DUMMY_TODOS[3] } as TodoType;
+    const todo5 = { ...DUMMY_TODOS[4] } as TodoType;
     const history = [todo2, todo3, todo4, todo5, todo4, todo3];
 
     history.forEach((todo, index) => {
@@ -365,9 +365,9 @@ describe('URL', () => {
   });
 
   it('중간에 ToDo 추가', () => {
-    const todo2 = DUMMY_TODOS[1] as TodoType;
-    const todo3 = DUMMY_TODOS[2] as TodoType;
-    const todo4 = DUMMY_TODOS[3] as TodoType;
+    const todo2 = { ...DUMMY_TODOS[1] } as TodoType;
+    const todo3 = { ...DUMMY_TODOS[2] } as TodoType;
+    const todo4 = { ...DUMMY_TODOS[3] } as TodoType;
     const newTodo: Pick<TodoType, 'id' | 'title'> = {
       id: '',
       title: '새 할 일',
