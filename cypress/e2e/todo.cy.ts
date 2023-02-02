@@ -225,7 +225,7 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.get('[data-cy="delete"]').click();
     cy.get('[data-cy="confirm"]').click();
 
-    cy.url().should('include', 'index');
+    cy.contains('목록에서 ToDo를 선택하세요.');
     cy.contains(deletedTodo.title).should('not.exist');
   });
 });
