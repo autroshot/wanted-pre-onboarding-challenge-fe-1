@@ -409,6 +409,55 @@ describe('URL', () => {
       });
     });
   });
+
+  it('중간에 ToDo 갱신', () => {
+    const todo2 = DUMMY_TODOS[1] as TodoType;
+    const todo3 = DUMMY_TODOS[2] as TodoType;
+    const todo4 = DUMMY_TODOS[3] as TodoType;
+    const todo5 = DUMMY_TODOS[4] as TodoType;
+    const updatedTodo: Pick<TodoType, 'title'> = {
+      title: '수정된 할 일',
+    };
+    const history = [todo2, todo3, todo4, todo5, todo4, todo3];
+
+    history.forEach((todo) => {
+      cy.contains<HTMLElement>(todo.title).then(($todo) => {
+        todo.id = $todo.attr('data-cy-todo-id') as string;
+      });
+
+      if (todo.title === todo5.title) {
+        cy.contains(todo.title).click();
+        cy.get('[data-cy="editMode"]').click();
+        cy.get('[data-cy="title"]').type(
+          `{selectAll}{del}${updatedTodo.title}`
+        );
+        cy.get('[data-cy="submit"]').click();
+
+        return;
+      }
+
+      cy.contains(todo.title).click();
+    });
+
+    const newHistory = [...history];
+    newHistory.pop();
+    newHistory.reverse();
+    cy.then(() => {
+      newHistory.forEach((todo) => {
+        cy.go('back');
+
+        if (todo.title === todo5.title) {
+          cy.url().should('include', todo.id);
+          cy.get('[data-cy="title"]').should('have.value', updatedTodo.title);
+
+          return;
+        }
+
+        cy.url().should('include', todo.id);
+        cy.get('[data-cy="title"]').should('have.value', todo.title);
+      });
+    });
+  });
 });
 
 export {};
