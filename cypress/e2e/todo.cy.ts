@@ -1,3 +1,4 @@
+import { ORDER, SORT_BY } from '../../constants/todos/list';
 import { TodoType } from '../../pages/todos/[id]';
 import { toKoreanTime } from '../../utils/time';
 
@@ -103,20 +104,6 @@ const DUMMY_TODOS: Omit<TodoType, 'id'>[] = [
     updatedAt: '2023-01-14T06:45:37.463Z',
   },
 ];
-
-// 사이프러스 모듈 오류로 인해 컴포넌트에서 가져오는 대신 복사했습니다.
-const SORT_BY: Dictionary = {
-  createdAt: '생성된 시간',
-  updatedAt: '수정된 시간',
-  title: '제목',
-};
-const ORDER: Dictionary = {
-  ascending: '오름차순',
-  descending: '내림차순',
-};
-interface Dictionary {
-  [index: string]: string;
-}
 
 describe('ToDo 페이지와 CRUD', () => {
   beforeEach(() => {
