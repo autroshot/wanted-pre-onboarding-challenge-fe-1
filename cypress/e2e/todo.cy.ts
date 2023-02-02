@@ -323,4 +323,44 @@ describe('취소', () => {
   });
 });
 
+describe('URL', () => {
+  beforeEach(() => {
+    cy.request('GET', `${Cypress.env('server_url')}/seed`);
+    cy.seededUserLogin();
+    cy.visit('/todos/index');
+    cy.get('[data-cy="todo"]');
+  });
+
+  it('기본', () => {
+    const todo2 = DUMMY_TODOS[1] as TodoType;
+    const todo3 = DUMMY_TODOS[2] as TodoType;
+    const todo4 = DUMMY_TODOS[3] as TodoType;
+    const todo5 = DUMMY_TODOS[4] as TodoType;
+    const history = [todo2, todo3, todo4, todo5, todo4, todo3];
+
+    history.forEach((todo, index) => {
+      cy.contains<HTMLElement>(todo.title).then(($todo) => {
+        history[index].id = $todo.attr('data-cy-todo-id') as string;
+      });
+      cy.contains(todo.title).click();
+    });
+
+    const newHistory = [...history];
+    newHistory.pop();
+    newHistory.reverse();
+    cy.then(() => {
+      newHistory.forEach((todo) => {
+        cy.go('back');
+
+        cy.url().should('include', todo.id);
+        cy.get('[data-cy="title"]').should('have.value', todo.title);
+      });
+
+      cy.go('back');
+
+      cy.url().should('include', 'index');
+    });
+  });
+});
+
 export {};
