@@ -217,7 +217,7 @@ describe('ToDo 페이지와 CRUD', () => {
   });
 });
 
-describe('ToDo 정렬', () => {
+describe('정렬', () => {
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
