@@ -7,6 +7,7 @@ import {
   MenuList,
   MenuOptionGroup,
 } from '@chakra-ui/react';
+import { ORDER, SORT_BY } from '../../../constants/todos/list';
 import { Order, SortBy } from './container';
 
 export default function SortingMenu({
@@ -17,16 +18,6 @@ export default function SortingMenu({
   onSortByChange,
   onOrderChange,
 }: Props) {
-  const SORT_BY: Dictionary = {
-    createdAt: '생성된 시간',
-    updatedAt: '수정된 시간',
-    title: '제목',
-  };
-  const ORDER: Dictionary = {
-    ascending: '오름차순',
-    descending: '내림차순',
-  };
-
   return (
     <Menu closeOnSelect={false}>
       <MenuButton

@@ -8,6 +8,13 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import {
+  CANCEL_BUTTON,
+  DELETE_ALERT_DIALOG_BODY,
+  DELETE_ALERT_DIALOG_BODY_WITH_EMPTY_TODO_TITLE,
+  DELETE_ALERT_DIALOG_HEADER,
+  DELETE_BUTTON,
+} from '../../../constants/todos/detail';
 
 export default function DeleteAlertDialog({
   isOpen,
@@ -26,17 +33,18 @@ export default function DeleteAlertDialog({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            ToDo 삭제
+            {DELETE_ALERT_DIALOG_HEADER}
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            {todoTitle.length === 0 ? '해당 ToDo를' : `${todoTitle}을(를)`} 정말
-            삭제하시겠습니까?
+            {todoTitle.length === 0
+              ? `${DELETE_ALERT_DIALOG_BODY_WITH_EMPTY_TODO_TITLE}`
+              : `${todoTitle}${DELETE_ALERT_DIALOG_BODY}`}
           </AlertDialogBody>
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} data-cy="cancel">
-              취소
+              {CANCEL_BUTTON}
             </Button>
             <Button
               colorScheme="red"
@@ -44,7 +52,7 @@ export default function DeleteAlertDialog({
               ml={3}
               data-cy="confirm"
             >
-              삭제
+              {DELETE_BUTTON}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
