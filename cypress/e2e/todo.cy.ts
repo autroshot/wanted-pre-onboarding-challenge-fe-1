@@ -411,10 +411,10 @@ describe('URL', () => {
   });
 
   it('중간에 ToDo 갱신', () => {
-    const todo2 = DUMMY_TODOS[1] as TodoType;
-    const todo3 = DUMMY_TODOS[2] as TodoType;
-    const todo4 = DUMMY_TODOS[3] as TodoType;
-    const toBeUpdatedTodo = DUMMY_TODOS[4] as TodoType;
+    const todo2 = { ...DUMMY_TODOS[1] } as TodoType;
+    const todo3 = { ...DUMMY_TODOS[2] } as TodoType;
+    const todo4 = { ...DUMMY_TODOS[3] } as TodoType;
+    const toBeUpdatedTodo = { ...DUMMY_TODOS[4] } as TodoType;
     const newTitle = '수정된 할 일';
 
     const history = [todo2, todo3, todo4, toBeUpdatedTodo, todo4, todo3];
@@ -444,6 +444,50 @@ describe('URL', () => {
     cy.then(() => {
       newHistory.forEach((todo) => {
         cy.go('back');
+
+        cy.url().should('include', todo.id);
+        cy.get('[data-cy="title"]').should('have.value', todo.title);
+      });
+    });
+  });
+
+  it('중간에 ToDo 제거', () => {
+    const todo2 = { ...DUMMY_TODOS[1] } as TodoType;
+    const todo3 = { ...DUMMY_TODOS[2] } as TodoType;
+    const todo4 = { ...DUMMY_TODOS[3] } as TodoType;
+    const toBeRemovedTodo = { ...DUMMY_TODOS[4] } as TodoType;
+
+    const history = [todo2, todo3, todo4, toBeRemovedTodo, todo4, todo3];
+
+    history.forEach((todo) => {
+      cy.contains<HTMLElement>(todo.title).then(($todo) => {
+        todo.id = $todo.attr('data-cy-todo-id') as string;
+      });
+
+      if (todo.title === toBeRemovedTodo.title) {
+        cy.contains(todo.title).click();
+        cy.get('[data-cy="delete"]').click();
+        cy.get('[data-cy="confirm"]').click();
+
+        return;
+      }
+
+      cy.contains(todo.title).click();
+    });
+
+    const newHistory = [...history];
+    newHistory.pop();
+    newHistory.reverse();
+    cy.then(() => {
+      newHistory.forEach((todo) => {
+        cy.go('back');
+
+        if (todo === toBeRemovedTodo) {
+          cy.url().should('include', todo.id);
+          cy.contains('목록에서 ToDo를 선택하세요.');
+
+          return;
+        }
 
         cy.url().should('include', todo.id);
         cy.get('[data-cy="title"]').should('have.value', todo.title);
