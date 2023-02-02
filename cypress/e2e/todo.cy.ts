@@ -165,7 +165,9 @@ describe('ToDo 페이지와 CRUD', () => {
     cy.get('[data-cy-todo-index="0"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
-      cy.url().should('include', id);
+      cy.then(() => {
+        cy.url().should('include', id);
+      });
     });
 
     cy.get('[data-cy="title"]').type(newTodo.title);
@@ -359,6 +361,52 @@ describe('URL', () => {
       cy.go('back');
 
       cy.url().should('include', 'index');
+    });
+  });
+
+  it('중간에 ToDo 추가', () => {
+    const todo2 = DUMMY_TODOS[1] as TodoType;
+    const todo3 = DUMMY_TODOS[2] as TodoType;
+    const todo4 = DUMMY_TODOS[3] as TodoType;
+    const newTodo: Pick<TodoType, 'id' | 'title'> = {
+      id: '',
+      title: '새 할 일',
+    };
+    const history = [todo2, todo3, todo4, newTodo, todo4, todo3];
+
+    history.forEach((todo) => {
+      if (todo.title === '새 할 일') {
+        cy.get('[data-cy="addTodo"]').click();
+
+        cy.get('[data-cy-todo-index="0"]').then(($todo) => {
+          todo.id = $todo.attr('data-cy-todo-id') as string;
+        });
+
+        return;
+      }
+
+      cy.contains<HTMLElement>(todo.title).then(($todo) => {
+        todo.id = $todo.attr('data-cy-todo-id') as string;
+      });
+      cy.contains(todo.title).click();
+    });
+
+    const newHistory = [...history];
+    newHistory.pop();
+    newHistory.reverse();
+    cy.then(() => {
+      newHistory.forEach((todo) => {
+        cy.go('back');
+
+        if (todo.title === '새 할 일') {
+          cy.url().should('include', todo.id);
+
+          return;
+        }
+
+        cy.url().should('include', todo.id);
+        cy.get('[data-cy="title"]').should('have.value', todo.title);
+      });
     });
   });
 });
