@@ -35,7 +35,9 @@ export default function BlockUnloginedUser({ router, children }: Props) {
               <Center>{BODY}</Center>
             </ModalBody>
             <ModalFooter>
-              <Button onClick={handleModalClose}>{CONFIRM_BUTTON}</Button>
+              <Button onClick={handleModalClose} data-cy="confirm">
+                {CONFIRM_BUTTON}
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

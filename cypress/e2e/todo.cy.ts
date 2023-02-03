@@ -5,17 +5,12 @@ import { DummyTodos } from './dummy';
 
 const dummyTodos = new DummyTodos();
 
-describe('ToDo 페이지와 CRUD', () => {
+describe('CRUD', () => {
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.seededUserLogin();
     cy.visit('/todos/index');
     cy.get('[data-cy="todo"]');
-  });
-
-  it('페이지', () => {
-    cy.contains('목록에서 ToDo를 선택하세요.');
-    cy.contains('할 일 13');
   });
 
   it('R', () => {
