@@ -5,10 +5,6 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import {
-  CREATED_TIME_TITLE,
-  UPDATED_TIME_TITLE,
-} from '../../../constants/todos/detail';
 import { InputsType, TodoType } from '../../../pages/todos/[id]';
 import Buttons from './buttons';
 import DefaultText from './defaultText';
@@ -65,12 +61,12 @@ export default function Container({
 
             <VStack w="100%" spacing="2" align="start">
               <DisplayTime
-                title={CREATED_TIME_TITLE}
+                title="생성된 시간"
                 ISOString={selectedTodo.createdAt}
                 dataCy="createdAt"
               />
               <DisplayTime
-                title={UPDATED_TIME_TITLE}
+                title="수정된 시간"
                 ISOString={selectedTodo.updatedAt}
                 dataCy="updatedAt"
               />

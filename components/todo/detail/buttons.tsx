@@ -1,10 +1,5 @@
 import { Box, Button, ButtonGroup } from '@chakra-ui/react';
-import {
-  CANCEL_BUTTON,
-  COMPLETE_BUTTON,
-  DELETE_BUTTON,
-  EDIT_MODE_BUTTON,
-} from '../../../constants/todos/detail';
+import { CANCEL, COMPLETE, DELETE, EDIT_MODE } from '../../../constants/text';
 
 export default function Buttons({
   isEditMode,
@@ -23,10 +18,10 @@ export default function Buttons({
             onClick={onDeactivateEditModeClick}
             data-cy="cancel"
           >
-            {CANCEL_BUTTON}
+            {CANCEL}
           </Button>
           <Button size="sm" type="submit" data-cy="submit">
-            {COMPLETE_BUTTON}
+            {COMPLETE}
           </Button>
         </>
       ) : (
@@ -38,12 +33,12 @@ export default function Buttons({
             onClick={() => onAlertDialogOpen()}
             data-cy="delete"
           >
-            {DELETE_BUTTON}
+            {DELETE}
           </Button>
           {/* onClick을 Button에서 지정하면 해당 함수가 무시되고 onSubmit이 트리거됩니다. */}
           <Box onClick={onActivateEditModeClick}>
             <Button size="sm" type="button" data-cy="editMode">
-              {EDIT_MODE_BUTTON}
+              {EDIT_MODE}
             </Button>
           </Box>
         </>
