@@ -1,4 +1,3 @@
-import { DEFAULT } from '../../constants/todos/detail';
 import { ORDER, SORT_BY } from '../../constants/todos/list';
 import { TodoType } from '../../pages/todos/[id]';
 import { toKoreanTime } from '../../utils/time';
@@ -365,7 +364,7 @@ describe('URL', () => {
 
         if (todo === toBeRemovedTodo) {
           cy.url().should('include', todo.id);
-          cy.contains(DEFAULT);
+          cy.get('[data-cy="defaultDetail"]');
 
           return;
         }
