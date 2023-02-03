@@ -1,5 +1,4 @@
 import { BODY } from '../../constants/todos/blockUnloginedUserModal';
-import { DEFAULT } from '../../constants/todos/detail';
 
 describe('ToDo 페이지의 비로그인 사용자 차단', () => {
   it('비로그인 사용자', () => {
@@ -18,7 +17,7 @@ describe('ToDo 페이지의 비로그인 사용자 차단', () => {
 
     cy.visit('/todos/index');
 
-    cy.contains(DEFAULT);
+    cy.get('[data-cy="todo"]');
   });
 });
 
