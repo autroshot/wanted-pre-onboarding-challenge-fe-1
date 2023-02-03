@@ -7,10 +7,7 @@ const dummyTodos = new DummyTodos();
 
 describe('CRUD', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
-    cy.seededUserLogin();
-    cy.visit('/todos/index');
-    cy.get('[data-cy="todo"]');
+    todoBeforeEach();
   });
 
   it('R', () => {
@@ -114,10 +111,7 @@ describe('CRUD', () => {
 
 describe('정렬', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
-    cy.seededUserLogin();
-    cy.visit('/todos/index');
-    cy.get('[data-cy="todo"]');
+    todoBeforeEach();
   });
 
   it('기본', () => {
@@ -170,10 +164,7 @@ describe('정렬', () => {
 
 describe('취소', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
-    cy.seededUserLogin();
-    cy.visit('/todos/index');
-    cy.get('[data-cy="todo"]');
+    todoBeforeEach();
   });
 
   it('수정 취소', () => {
@@ -209,10 +200,7 @@ describe('취소', () => {
 
 describe('URL', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
-    cy.seededUserLogin();
-    cy.visit('/todos/index');
-    cy.get('[data-cy="todo"]');
+    todoBeforeEach();
   });
 
   it('기본', () => {
@@ -377,5 +365,15 @@ describe('URL', () => {
     });
   });
 });
+
+function todoBeforeEach() {
+  cy.request('GET', `${Cypress.env('server_url')}/seed`);
+
+  cy.seededUserLogin();
+
+  cy.visit('/todos/index');
+
+  cy.get('[data-cy="todo"]');
+}
 
 export {};
