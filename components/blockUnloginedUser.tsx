@@ -10,11 +10,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { NextRouter } from 'next/router';
-import {
-  BODY,
-  CONFIRM_BUTTON,
-  HEADER,
-} from '../constants/todos/blockUnloginedUserModal';
+import { CONFIRM, LOGIN, NOTICE } from '../constants/text';
 import { useIsLogined } from '../utils/auth';
 
 export default function BlockUnloginedUser({ router, children }: Props) {
@@ -29,14 +25,14 @@ export default function BlockUnloginedUser({ router, children }: Props) {
         >
           <ModalOverlay />
           <ModalContent data-cy="blockUnloginedUserModal">
-            <ModalHeader>{HEADER}</ModalHeader>
+            <ModalHeader>{NOTICE}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Center>{BODY}</Center>
+              <Center>{`${LOGIN}이 필요합니다.`}</Center>
             </ModalBody>
             <ModalFooter>
               <Button onClick={handleModalClose} data-cy="confirm">
-                {CONFIRM_BUTTON}
+                {CONFIRM}
               </Button>
             </ModalFooter>
           </ModalContent>
