@@ -1,4 +1,4 @@
-import { ORDER, SORT_BY } from '../../constants/todos/list';
+import { ORDER, SORT_BY } from '../../constants/sortingMenuItem';
 import { TodoType } from '../../pages/todos/[id]';
 import { toKoreanTime } from '../../utils/time';
 import { DummyTodos } from './dummy';
