@@ -1,10 +1,8 @@
-import { BODY } from '../../constants/todos/blockUnloginedUserModal';
-
-describe('ToDo 페이지의 비로그인 사용자 차단', () => {
+describe.only('ToDo 페이지의 비로그인 사용자 차단', () => {
   it('비로그인 사용자', () => {
     cy.visit('/todos/index');
 
-    cy.contains(BODY);
+    cy.get('[data-cy="blockUnloginedUserModal"]');
 
     cy.get('[data-cy="confirm"]').click();
 

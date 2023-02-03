@@ -28,7 +28,7 @@ export default function BlockUnloginedUser({ router, children }: Props) {
           onClose={handleModalClose}
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent data-cy="blockUnloginedUserModal">
             <ModalHeader>{HEADER}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
