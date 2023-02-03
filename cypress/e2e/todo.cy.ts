@@ -1,3 +1,4 @@
+import { DEFAULT } from '../../constants/todos/detail';
 import { ORDER, SORT_BY } from '../../constants/todos/list';
 import { TodoType } from '../../pages/todos/[id]';
 import { toKoreanTime } from '../../utils/time';
@@ -7,7 +8,7 @@ const dummyTodos = new DummyTodos();
 
 describe('CRUD', () => {
   beforeEach(() => {
-    todoBeforeEach();
+    commonBeforeEach();
   });
 
   it('R', () => {
@@ -111,7 +112,7 @@ describe('CRUD', () => {
 
 describe('정렬', () => {
   beforeEach(() => {
-    todoBeforeEach();
+    commonBeforeEach();
   });
 
   it('기본', () => {
@@ -164,7 +165,7 @@ describe('정렬', () => {
 
 describe('취소', () => {
   beforeEach(() => {
-    todoBeforeEach();
+    commonBeforeEach();
   });
 
   it('수정 취소', () => {
@@ -200,7 +201,7 @@ describe('취소', () => {
 
 describe('URL', () => {
   beforeEach(() => {
-    todoBeforeEach();
+    commonBeforeEach();
   });
 
   it('기본', () => {
@@ -208,18 +209,22 @@ describe('URL', () => {
     const todo3 = dummyTodos.getTodoWithEmptyId(2);
     const todo4 = dummyTodos.getTodoWithEmptyId(3);
     const todo5 = dummyTodos.getTodoWithEmptyId(4);
+
     const history = [todo2, todo3, todo4, todo5, todo4, todo3];
 
     history.forEach((todo, index) => {
       cy.contains<HTMLElement>(todo.title).then(($todo) => {
         history[index].id = $todo.attr('data-cy-todo-id') as string;
       });
+
       cy.contains(todo.title).click();
     });
 
     const newHistory = [...history];
+
     newHistory.pop();
     newHistory.reverse();
+
     cy.then(() => {
       newHistory.forEach((todo) => {
         cy.go('back');
@@ -242,10 +247,11 @@ describe('URL', () => {
       id: '',
       title: '새 할 일',
     };
+
     const history = [todo2, todo3, todo4, newTodo, todo4, todo3];
 
     history.forEach((todo) => {
-      if (todo.title === '새 할 일') {
+      if (todo.title === newTodo.title) {
         cy.get('[data-cy="addTodo"]').click();
 
         cy.get('[data-cy-todo-index="0"]').then(($todo) => {
@@ -258,12 +264,15 @@ describe('URL', () => {
       cy.contains<HTMLElement>(todo.title).then(($todo) => {
         todo.id = $todo.attr('data-cy-todo-id') as string;
       });
+
       cy.contains(todo.title).click();
     });
 
     const newHistory = [...history];
+
     newHistory.pop();
     newHistory.reverse();
+
     cy.then(() => {
       newHistory.forEach((todo) => {
         cy.go('back');
@@ -294,8 +303,9 @@ describe('URL', () => {
         todo.id = $todo.attr('data-cy-todo-id') as string;
       });
 
+      cy.contains(todo.title).click();
+
       if (todo.title === toBeUpdatedTodo.title) {
-        cy.contains(todo.title).click();
         cy.get('[data-cy="editMode"]').click();
         cy.get('[data-cy="title"]').type(`{selectAll}{del}${newTitle}`);
         cy.get('[data-cy="submit"]').click();
@@ -304,13 +314,13 @@ describe('URL', () => {
 
         return;
       }
-
-      cy.contains(todo.title).click();
     });
 
     const newHistory = [...history];
+
     newHistory.pop();
     newHistory.reverse();
+
     cy.then(() => {
       newHistory.forEach((todo) => {
         cy.go('back');
@@ -334,27 +344,28 @@ describe('URL', () => {
         todo.id = $todo.attr('data-cy-todo-id') as string;
       });
 
+      cy.contains(todo.title).click();
+
       if (todo.title === toBeRemovedTodo.title) {
-        cy.contains(todo.title).click();
         cy.get('[data-cy="delete"]').click();
         cy.get('[data-cy="confirm"]').click();
 
         return;
       }
-
-      cy.contains(todo.title).click();
     });
 
     const newHistory = [...history];
+
     newHistory.pop();
     newHistory.reverse();
+
     cy.then(() => {
       newHistory.forEach((todo) => {
         cy.go('back');
 
         if (todo === toBeRemovedTodo) {
           cy.url().should('include', todo.id);
-          cy.contains('목록에서 ToDo를 선택하세요.');
+          cy.contains(DEFAULT);
 
           return;
         }
@@ -366,7 +377,7 @@ describe('URL', () => {
   });
 });
 
-function todoBeforeEach() {
+function commonBeforeEach() {
   cy.request('GET', `${Cypress.env('server_url')}/seed`);
 
   cy.seededUserLogin();
