@@ -37,7 +37,12 @@ export default function DeleteAlertDialog({
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose} data-cy="cancel">
+            <Button
+              colorScheme="gray"
+              ref={cancelRef}
+              onClick={onClose}
+              data-cy="cancel"
+            >
               {CANCEL}
             </Button>
             <Button
