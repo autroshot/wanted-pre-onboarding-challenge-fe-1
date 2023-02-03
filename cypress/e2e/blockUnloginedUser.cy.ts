@@ -1,7 +1,7 @@
 import { BODY } from '../../constants/todos/blockUnloginedUserModal';
 import { DEFAULT } from '../../constants/todos/detail';
 
-describe('비로그인 사용자 차단', () => {
+describe('ToDo 페이지의 비로그인 사용자 차단', () => {
   it('비로그인 사용자', () => {
     cy.visit('/todos/index');
 
