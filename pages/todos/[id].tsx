@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { getTodos } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
@@ -25,12 +26,8 @@ export default function ToDo() {
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
   useEffect(() => {
-    axios
-      .get<GetResponseData>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`,
-        createAxiosRequestConfig(localStorage)
-      )
-      .then((res) => setTodos(res.data.data.reverse()))
+    getTodos(localStorage)
+      .then((res) => setTodos(res.data.data))
       .catch((err) => {
         //TODO
         console.error(err);
@@ -159,9 +156,6 @@ export default function ToDo() {
     };
   }
 
-  interface GetResponseData {
-    data: TodoType[];
-  }
   interface PostResponseData {
     data: TodoType;
   }
