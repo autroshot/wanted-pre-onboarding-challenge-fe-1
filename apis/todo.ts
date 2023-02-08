@@ -3,9 +3,8 @@ import { TodoType } from '../pages/todos/[id]';
 import { getLoginToken } from '../utils/auth';
 
 export function getTodos(storage: Storage) {
-  const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
+  const axiosInstance = createAxiosInstance();
+
   axiosInstance.interceptors.response.use((res) => {
     (res.data as GetResponseData).data.reverse();
 
@@ -23,9 +22,7 @@ export function getTodos(storage: Storage) {
 }
 
 export function createTodo(storage: Storage) {
-  const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
+  const axiosInstance = createAxiosInstance();
 
   return axiosInstance.post<
     PostResponseData,
@@ -41,6 +38,12 @@ export function createTodo(storage: Storage) {
   interface PostResponseData {
     data: TodoType;
   }
+}
+
+function createAxiosInstance() {
+  return axios.create({
+    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  });
 }
 
 function createAxiosRequestConfigHeadersWithAuth(
