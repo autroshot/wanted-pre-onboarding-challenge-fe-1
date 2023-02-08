@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getTodos } from '../../apis/todo';
+import { createTodo, getTodos } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
@@ -87,12 +87,7 @@ export default function ToDo() {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    axios
-      .post<PostResponseData>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`,
-        { title: '', content: '' },
-        createAxiosRequestConfig(localStorage)
-      )
+    createTodo(localStorage)
       .then((res) => {
         const newTodo = res.data.data;
 
