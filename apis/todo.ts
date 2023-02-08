@@ -59,6 +59,15 @@ export function updateTodo(storage: Storage, todoToUpdate: TodoToUpdate) {
   }
 }
 
+export function deleteTodo(storage: Storage, todoId: string) {
+  const axiosInstance = createAxiosInstance();
+
+  return axiosInstance.delete<null, AxiosResponse<null>, null>(
+    `/todos/${todoId}`,
+    createAxiosRequestConfigHeadersWithAuth(storage)
+  );
+}
+
 function createAxiosInstance() {
   return axios.create({
     baseURL: process.env.NEXT_PUBLIC_SERVER_URL,

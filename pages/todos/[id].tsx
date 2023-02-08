@@ -1,10 +1,10 @@
 import { Container, SimpleGrid, useDisclosure } from '@chakra-ui/react';
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTodo, getTodos, updateTodo } from '../../apis/todo';
+import { createTodo, deleteTodo, getTodos, updateTodo } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
@@ -124,12 +124,9 @@ export default function ToDo() {
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
+    if (selectedTodoId === null) return;
 
-    axios
-      .delete(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${selectedTodoId}`,
-        createAxiosRequestConfig(localStorage)
-      )
+    deleteTodo(localStorage, selectedTodoId)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
         onAlertDialogClose();
