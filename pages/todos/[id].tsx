@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTodo, getTodos } from '../../apis/todo';
+import { createTodo, getTodos, updateTodo } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
@@ -107,12 +107,7 @@ export default function ToDo() {
 
     setIsEditMode(false);
 
-    axios
-      .put<PutResponseData>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${selectedTodoId}`,
-        { title: inputs.title, content: inputs.content },
-        createAxiosRequestConfig(localStorage)
-      )
+    updateTodo(localStorage, inputs)
       .then((res) => {
         const updatedTodos = todos.map((todo) => {
           if (todo.id !== inputs.id) return todo;

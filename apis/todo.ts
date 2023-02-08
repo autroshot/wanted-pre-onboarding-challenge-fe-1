@@ -40,6 +40,25 @@ export function createTodo(storage: Storage) {
   }
 }
 
+export function updateTodo(storage: Storage, todoToUpdate: TodoToUpdate) {
+  const axiosInstance = createAxiosInstance();
+
+  return axiosInstance.put<
+    PutResponseData,
+    AxiosResponse<PutResponseData>,
+    PutRequestData
+  >(
+    `/todos/${todoToUpdate.id}`,
+    { title: todoToUpdate.title, content: todoToUpdate.content },
+    createAxiosRequestConfigHeadersWithAuth(storage)
+  );
+
+  type PutRequestData = Pick<TodoType, 'title' | 'content'>;
+  interface PutResponseData {
+    data: TodoType;
+  }
+}
+
 function createAxiosInstance() {
   return axios.create({
     baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -52,4 +71,10 @@ function createAxiosRequestConfigHeadersWithAuth(
   return {
     headers: { authorization: getLoginToken(storage) },
   };
+}
+
+interface TodoToUpdate {
+  id: string;
+  title: string;
+  content: string;
 }
