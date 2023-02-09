@@ -1,5 +1,4 @@
 import { Container, SimpleGrid, useDisclosure } from '@chakra-ui/react';
-import { AxiosRequestConfig } from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -8,7 +7,6 @@ import { createTodo, deleteTodo, getTodos, updateTodo } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
-import { getLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
   const [todos, setTodos] = useState<null | TodoType[]>(null);
@@ -135,19 +133,6 @@ export default function ToDo() {
         //TODO
         console.error(err);
       });
-  }
-
-  function createAxiosRequestConfig(storage: Storage): AxiosRequestConfig {
-    return {
-      headers: { authorization: getLoginToken(storage) },
-    };
-  }
-
-  interface PostResponseData {
-    data: TodoType;
-  }
-  interface PutResponseData {
-    data: TodoType;
   }
 }
 
