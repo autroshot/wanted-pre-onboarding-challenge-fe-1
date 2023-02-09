@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TodoType } from '../pages/todos/[id]';
-import { getLoginToken } from '../utils/auth';
 
-export function getTodos(storage: Storage) {
+export function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
 
   axiosInstance.interceptors.response.use((res) => {
@@ -11,17 +10,16 @@ export function getTodos(storage: Storage) {
     return res;
   });
 
-  return axiosInstance.get<GetResponseData>(
-    '/todos',
-    createAxiosRequestConfigHeadersWithAuth(storage)
-  );
+  return axiosInstance.get<GetResponseData>('/todos', {
+    headers: { authorization: loginToken },
+  });
 
   interface GetResponseData {
     data: TodoType[];
   }
 }
 
-export function createTodo(storage: Storage) {
+export function createTodo(loginToken: string) {
   const axiosInstance = createAxiosInstance();
 
   return axiosInstance.post<
@@ -31,7 +29,7 @@ export function createTodo(storage: Storage) {
   >(
     '/todos',
     { title: '', content: '' },
-    createAxiosRequestConfigHeadersWithAuth(storage)
+    createAxiosRequestConfigWithAuth(loginToken)
   );
 
   type PostRequestData = Pick<TodoType, 'title' | 'content'>;
@@ -40,7 +38,7 @@ export function createTodo(storage: Storage) {
   }
 }
 
-export function updateTodo(storage: Storage, todoToUpdate: TodoToUpdate) {
+export function updateTodo(loginToken: string, todoToUpdate: TodoToUpdate) {
   const axiosInstance = createAxiosInstance();
 
   return axiosInstance.put<
@@ -50,7 +48,7 @@ export function updateTodo(storage: Storage, todoToUpdate: TodoToUpdate) {
   >(
     `/todos/${todoToUpdate.id}`,
     { title: todoToUpdate.title, content: todoToUpdate.content },
-    createAxiosRequestConfigHeadersWithAuth(storage)
+    createAxiosRequestConfigWithAuth(loginToken)
   );
 
   type PutRequestData = Pick<TodoType, 'title' | 'content'>;
@@ -59,12 +57,12 @@ export function updateTodo(storage: Storage, todoToUpdate: TodoToUpdate) {
   }
 }
 
-export function deleteTodo(storage: Storage, todoId: string) {
+export function deleteTodo(loginToken: string, todoId: string) {
   const axiosInstance = createAxiosInstance();
 
   return axiosInstance.delete<null, AxiosResponse<null>, null>(
     `/todos/${todoId}`,
-    createAxiosRequestConfigHeadersWithAuth(storage)
+    createAxiosRequestConfigWithAuth(loginToken)
   );
 }
 
@@ -74,11 +72,11 @@ function createAxiosInstance() {
   });
 }
 
-function createAxiosRequestConfigHeadersWithAuth(
-  storage: Storage
+function createAxiosRequestConfigWithAuth(
+  loginToken: string
 ): AxiosRequestConfig {
   return {
-    headers: { authorization: getLoginToken(storage) },
+    headers: { authorization: loginToken },
   };
 }
 

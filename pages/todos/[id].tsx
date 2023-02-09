@@ -7,6 +7,7 @@ import { createTodo, deleteTodo, getTodos, updateTodo } from '../../apis/todo';
 import BlockUnloginedUser from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
+import { useLoginToken } from '../../utils/auth';
 
 export default function ToDo() {
   const [todos, setTodos] = useState<null | TodoType[]>(null);
@@ -23,14 +24,18 @@ export default function ToDo() {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
+  const loginToken = useLoginToken();
+
   useEffect(() => {
-    getTodos(localStorage)
+    if (loginToken === null) return;
+
+    getTodos(loginToken)
       .then((res) => setTodos(res.data.data))
       .catch((err) => {
         //TODO
         console.error(err);
       });
-  }, []);
+  }, [loginToken]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -84,8 +89,9 @@ export default function ToDo() {
 
   function handleTodoCreate() {
     if (todos === null) return;
+    if (loginToken === null) return;
 
-    createTodo(localStorage)
+    createTodo(loginToken)
       .then((res) => {
         const newTodo = res.data.data;
 
@@ -102,10 +108,11 @@ export default function ToDo() {
   }
   function handleTodoUpdate(inputs: InputsType) {
     if (todos === null) return;
+    if (loginToken === null) return;
 
     setIsEditMode(false);
 
-    updateTodo(localStorage, inputs)
+    updateTodo(loginToken, inputs)
       .then((res) => {
         const updatedTodos = todos.map((todo) => {
           if (todo.id !== inputs.id) return todo;
@@ -123,8 +130,9 @@ export default function ToDo() {
   function handleTodoDelete(id: string) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
+    if (loginToken === null) return;
 
-    deleteTodo(localStorage, selectedTodoId)
+    deleteTodo(loginToken, selectedTodoId)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
         onAlertDialogClose();
