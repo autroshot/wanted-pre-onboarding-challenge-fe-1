@@ -48,7 +48,9 @@ export default function ToDo() {
       <Head>
         <title>ToDo | ToDo</title>
       </Head>
-      <BlockUnloginedUserModal router={router}>
+      {loginToken === null ? (
+        <BlockUnloginedUserModal router={router} />
+      ) : (
         <Container maxW="container.md" my="5">
           <SimpleGrid columns={[1, null, 2]} spacing="5">
             <ListContainer
@@ -74,7 +76,7 @@ export default function ToDo() {
             />
           </SimpleGrid>
         </Container>
-      </BlockUnloginedUserModal>
+      )}
     </>
   );
 

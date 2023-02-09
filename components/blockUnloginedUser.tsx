@@ -11,36 +11,29 @@ import {
 } from '@chakra-ui/react';
 import { NextRouter } from 'next/router';
 import { CONFIRM, LOGIN, NOTICE } from '../constants/text';
-import { useIsLogined } from '../utils/auth';
 
-export default function BlockUnloginedUserModal({ router, children }: Props) {
+export default function BlockUnloginedUserModal({ router }: Props) {
   return (
-    <>
-      {!useIsLogined() ? (
-        <Modal
-          size="sm"
-          closeOnOverlayClick={false}
-          isOpen={true}
-          onClose={handleModalClose}
-        >
-          <ModalOverlay />
-          <ModalContent data-cy="blockUnloginedUserModal">
-            <ModalHeader>{NOTICE}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Center>{`${LOGIN}이 필요합니다.`}</Center>
-            </ModalBody>
-            <ModalFooter>
-              <Button onClick={handleModalClose} data-cy="confirm">
-                {CONFIRM}
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      ) : (
-        <>{children}</>
-      )}
-    </>
+    <Modal
+      size="sm"
+      closeOnOverlayClick={false}
+      isOpen={true}
+      onClose={handleModalClose}
+    >
+      <ModalOverlay />
+      <ModalContent data-cy="blockUnloginedUserModal">
+        <ModalHeader>{NOTICE}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Center>{`${LOGIN}이 필요합니다.`}</Center>
+        </ModalBody>
+        <ModalFooter>
+          <Button onClick={handleModalClose} data-cy="confirm">
+            {CONFIRM}
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 
   function handleModalClose() {
@@ -50,5 +43,4 @@ export default function BlockUnloginedUserModal({ router, children }: Props) {
 
 interface Props {
   router: NextRouter;
-  children: React.ReactNode;
 }
