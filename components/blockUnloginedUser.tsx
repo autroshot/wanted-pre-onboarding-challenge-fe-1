@@ -13,7 +13,7 @@ import { NextRouter } from 'next/router';
 import { CONFIRM, LOGIN, NOTICE } from '../constants/text';
 import { useIsLogined } from '../utils/auth';
 
-export default function BlockUnloginedUser({ router, children }: Props) {
+export default function BlockUnloginedUserModal({ router, children }: Props) {
   return (
     <>
       {!useIsLogined() ? (

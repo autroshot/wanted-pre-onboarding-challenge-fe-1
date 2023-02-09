@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createTodo, deleteTodo, getTodos, updateTodo } from '../../apis/todo';
-import BlockUnloginedUser from '../../components/blockUnloginedUser';
+import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
 import { useLoginToken } from '../../utils/auth';
@@ -48,7 +48,7 @@ export default function ToDo() {
       <Head>
         <title>ToDo | ToDo</title>
       </Head>
-      <BlockUnloginedUser router={router}>
+      <BlockUnloginedUserModal router={router}>
         <Container maxW="container.md" my="5">
           <SimpleGrid columns={[1, null, 2]} spacing="5">
             <ListContainer
@@ -74,7 +74,7 @@ export default function ToDo() {
             />
           </SimpleGrid>
         </Container>
-      </BlockUnloginedUser>
+      </BlockUnloginedUserModal>
     </>
   );
 
