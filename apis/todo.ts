@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TodoType } from '../components/todo/container';
 
-export function getTodos(loginToken: string) {
+export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
 
   axiosInstance.interceptors.response.use((res) => {
@@ -10,9 +10,11 @@ export function getTodos(loginToken: string) {
     return res;
   });
 
-  return axiosInstance.get<GetResponseData>('/todos', {
+  const res = await axiosInstance.get<GetResponseData>('/todos', {
     headers: { authorization: loginToken },
   });
+
+  return res.data.data;
 
   interface GetResponseData {
     data: TodoType[];

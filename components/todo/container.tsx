@@ -3,6 +3,7 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,7 +12,7 @@ import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
 
 export default function Container({ loginToken }: Props) {
-  const [todos, setTodos] = useState<null | TodoType[]>(null);
+  // const [todos, setTodos] = useState<null | TodoType[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const {
@@ -25,14 +26,9 @@ export default function Container({ loginToken }: Props) {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
-  useEffect(() => {
+  const { data: todos, isSuccess } = useQuery(['todos'], () =>
     getTodos(loginToken)
-      .then((res) => setTodos(res.data.data))
-      .catch((err) => {
-        //TODO
-        console.error(err);
-      });
-  }, [loginToken]);
+  );
 
   useEffect(() => {
     if (router.isReady) {
@@ -44,13 +40,13 @@ export default function Container({ loginToken }: Props) {
     <ChakraContainer maxW="container.md" my="5">
       <SimpleGrid columns={[1, null, 2]} spacing="5">
         <ListContainer
-          todos={todos}
+          todos={todos ?? null}
           selectedTodoId={selectedTodoId}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
         <DetailContainer
-          todos={todos}
+          todos={todos ?? null}
           selectedTodoId={selectedTodoId}
           isEditMode={isEditMode}
           titleRef={titleRef}
