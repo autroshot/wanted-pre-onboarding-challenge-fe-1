@@ -3,11 +3,11 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTodo, deleteTodo, getTodos, updateTodo } from '../../apis/todo';
+import { createTodo, getTodos } from '../../apis/todo';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
 
@@ -26,9 +26,24 @@ export default function Container({ loginToken }: Props) {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
-  const { data: todos, isSuccess } = useQuery(['todos'], () =>
+  const TODOS_QUERY_KEY = ['todos'];
+  const queryClient = useQueryClient();
+  const { data: todos, isSuccess } = useQuery(TODOS_QUERY_KEY, () =>
     getTodos(loginToken)
   );
+  const createTodoMutation = useMutation({
+    mutationFn: () => createTodo(loginToken),
+    onSuccess: (newTodo) => {
+      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+        if (oldTodos) return [newTodo, ...oldTodos];
+      });
+
+      setSelectedTodoId(newTodo.id);
+      setIsEditMode(true);
+      titleRef.current?.focus();
+      router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
+    },
+  });
 
   useEffect(() => {
     if (router.isReady) {
@@ -76,54 +91,56 @@ export default function Container({ loginToken }: Props) {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    createTodo(loginToken)
-      .then((res) => {
-        const newTodo = res.data.data;
+    // createTodo(loginToken)
+    //   .then((res) => {
+    //     const newTodo = res.data.data;
 
-        setTodos([newTodo, ...todos]);
-        setSelectedTodoId(newTodo.id);
-        setIsEditMode(true);
-        titleRef.current?.focus();
-        router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
-      })
-      .catch((err) => {
-        //TODO
-        console.error(err);
-      });
+    //     setTodos([newTodo, ...todos]);
+    //     setSelectedTodoId(newTodo.id);
+    //     setIsEditMode(true);
+    //     titleRef.current?.focus();
+    //     router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
+    //   })
+    //   .catch((err) => {
+    //     //TODO
+    //     console.error(err);
+    //   });
+
+    createTodoMutation.mutate();
   }
   function handleTodoUpdate(inputs: InputsType) {
     if (todos === null) return;
 
     setIsEditMode(false);
 
-    updateTodo(loginToken, inputs)
-      .then((res) => {
-        const updatedTodos = todos.map((todo) => {
-          if (todo.id !== inputs.id) return todo;
+    // updateTodo(loginToken, inputs)
+    //   .then((res) => {
+    //     const updatedTodos = todos.map((todo) => {
+    //       if (todo.id !== inputs.id) return todo;
 
-          const updatedTodo = res.data.data;
-          return updatedTodo;
-        });
-        setTodos(updatedTodos);
-      })
-      .catch((err) => {
-        //TODO
-        console.error(err);
-      });
+    //       const updatedTodo = res.data.data;
+    //       return updatedTodo;
+    //     });
+    //     setTodos(updatedTodos);
+    //   })
+    //   .catch((err) => {
+    //     //TODO
+    //     console.error(err);
+    //   });
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
-    deleteTodo(loginToken, selectedTodoId)
-      .then(() => {
-        setTodos(todos.filter((todo) => todo.id !== id));
-        onAlertDialogClose();
-      })
-      .catch((err) => {
-        //TODO
-        console.error(err);
-      });
+    // deleteTodo(loginToken, selectedTodoId)
+    //   .then(() => {
+    //     setTodos(todos.filter((todo) => todo.id !== id));
+    //     onAlertDialogClose();
+    //   })
+    //   .catch((err) => {
+    //     //TODO
+    //     console.error(err);
+    //   });
   }
 }
 

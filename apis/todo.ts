@@ -21,10 +21,10 @@ export async function getTodos(loginToken: string) {
   }
 }
 
-export function createTodo(loginToken: string) {
+export async function createTodo(loginToken: string) {
   const axiosInstance = createAxiosInstance();
 
-  return axiosInstance.post<
+  const res = await axiosInstance.post<
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
@@ -33,6 +33,8 @@ export function createTodo(loginToken: string) {
     { title: '', content: '' },
     createAxiosRequestConfigWithAuth(loginToken)
   );
+
+  return res.data.data;
 
   type PostRequestData = Pick<TodoType, 'title' | 'content'>;
   interface PostResponseData {
