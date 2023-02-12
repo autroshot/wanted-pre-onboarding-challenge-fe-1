@@ -42,10 +42,13 @@ export async function createTodo(loginToken: string) {
   }
 }
 
-export function updateTodo(loginToken: string, todoToUpdate: TodoToUpdate) {
+export async function updateTodo(
+  loginToken: string,
+  todoToUpdate: TodoToUpdate
+) {
   const axiosInstance = createAxiosInstance();
 
-  return axiosInstance.put<
+  const res = await axiosInstance.put<
     PutResponseData,
     AxiosResponse<PutResponseData>,
     PutRequestData
@@ -54,6 +57,8 @@ export function updateTodo(loginToken: string, todoToUpdate: TodoToUpdate) {
     { title: todoToUpdate.title, content: todoToUpdate.content },
     createAxiosRequestConfigWithAuth(loginToken)
   );
+
+  return res.data.data;
 
   type PutRequestData = Pick<TodoType, 'title' | 'content'>;
   interface PutResponseData {
@@ -84,7 +89,7 @@ function createAxiosRequestConfigWithAuth(
   };
 }
 
-interface TodoToUpdate {
+export interface TodoToUpdate {
   id: string;
   title: string;
   content: string;

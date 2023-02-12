@@ -7,7 +7,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTodo, getTodos } from '../../apis/todo';
+import {
+  createTodo,
+  getTodos,
+  TodoToUpdate,
+  updateTodo,
+} from '../../apis/todo';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
 
@@ -42,6 +47,20 @@ export default function Container({ loginToken }: Props) {
       setIsEditMode(true);
       titleRef.current?.focus();
       router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
+    },
+  });
+  const updateTodoMutation = useMutation({
+    mutationFn: (todoToUpdate: TodoToUpdate) =>
+      updateTodo(loginToken, todoToUpdate),
+    onSuccess: (updatedTodo) => {
+      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+        if (oldTodos) {
+          return oldTodos.map((todo) => {
+            if (todo.id === updatedTodo.id) return updatedTodo;
+            return todo;
+          });
+        }
+      });
     },
   });
 
@@ -113,6 +132,7 @@ export default function Container({ loginToken }: Props) {
 
     setIsEditMode(false);
 
+    updateTodoMutation.mutate(inputs);
     // updateTodo(loginToken, inputs)
     //   .then((res) => {
     //     const updatedTodos = todos.map((todo) => {
