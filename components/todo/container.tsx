@@ -3,20 +3,20 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   createTodo,
   deleteTodo,
-  getTodos,
   TodoId,
   TodoToUpdate,
   updateTodo,
 } from '../../apis/todo';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
+import { useTodos } from '../../queries/todo';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -34,7 +34,7 @@ export default function Container({ loginToken }: Props) {
 
   const TODOS_QUERY_KEY = ['todos'];
   const queryClient = useQueryClient();
-  const { data: todos } = useQuery(TODOS_QUERY_KEY, () => getTodos(loginToken));
+  const { data: todos } = useTodos(loginToken);
   const createTodoMutation = useMutation({
     mutationFn: () => createTodo(loginToken),
     onSuccess: (newTodo) => {
