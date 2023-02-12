@@ -1,4 +1,4 @@
-import { TodoType } from '../../components/todo/container';
+import { TodoType } from '../../types/todo';
 
 export class DummyTodos {
   readonly #todos: TodoWithoutId[] = [

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { TodoType } from '../components/todo/container';
+import { TodoType } from '../types/todo';
 
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();

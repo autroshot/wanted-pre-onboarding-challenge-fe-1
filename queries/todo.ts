@@ -7,7 +7,7 @@ import {
   TodoToUpdate,
   updateTodo,
 } from '../apis/todo';
-import { TodoType } from '../components/todo/container';
+import { TodoType } from '../types/todo';
 
 const TODOS_QUERY_KEY = ['todos'];
 
