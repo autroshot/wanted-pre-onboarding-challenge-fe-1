@@ -1,5 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createTodo, getTodos, TodoToUpdate, updateTodo } from '../apis/todo';
+import {
+  createTodo,
+  deleteTodo,
+  getTodos,
+  TodoId,
+  TodoToUpdate,
+  updateTodo,
+} from '../apis/todo';
 import { TodoType } from '../components/todo/container';
 
 const TODOS_QUERY_KEY = ['todos'];
@@ -34,6 +41,21 @@ export function useTodoUpdation(loginToken: string) {
             if (todo.id === updatedTodo.id) return updatedTodo;
             return todo;
           });
+        }
+      });
+    },
+  });
+}
+
+export function useTodoDeletion(loginToken: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (todoId: TodoId) => deleteTodo(loginToken, todoId),
+    onSuccess: (data, todoId) => {
+      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+        if (oldTodos) {
+          return oldTodos.filter((todo) => todo.id !== todoId);
         }
       });
     },

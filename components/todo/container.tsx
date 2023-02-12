@@ -3,14 +3,18 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { deleteTodo, TodoId } from '../../apis/todo';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
-import { useTodoCreation, useTodos, useTodoUpdation } from '../../queries/todo';
+import {
+  useTodoCreation,
+  useTodoDeletion,
+  useTodos,
+  useTodoUpdation,
+} from '../../queries/todo';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -31,16 +35,7 @@ export default function Container({ loginToken }: Props) {
   const { data: todos } = useTodos(loginToken);
   const createTodoMutation = useTodoCreation(loginToken);
   const updateTodoMutation = useTodoUpdation(loginToken);
-  const deleteTodoMutation = useMutation({
-    mutationFn: (todoId: TodoId) => deleteTodo(loginToken, todoId),
-    onSuccess: (data, todoId) => {
-      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
-        if (oldTodos) {
-          return oldTodos.filter((todo) => todo.id !== todoId);
-        }
-      });
-    },
-  });
+  const deleteTodoMutation = useTodoDeletion(loginToken);
 
   useEffect(() => {
     if (router.isReady) {
