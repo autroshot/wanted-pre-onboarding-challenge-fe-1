@@ -30,9 +30,9 @@ export default function Container({ loginToken }: Props) {
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
   const { data: todos } = useTodos(loginToken);
-  const createTodoMutation = useTodoCreation(loginToken);
-  const updateTodoMutation = useTodoUpdation(loginToken);
-  const deleteTodoMutation = useTodoDeletion(loginToken);
+  const todoCreationMutation = useTodoCreation(loginToken);
+  const todoUpdationMutation = useTodoUpdation(loginToken);
+  const todoDeletionMutation = useTodoDeletion(loginToken);
 
   useEffect(() => {
     if (router.isReady) {
@@ -80,7 +80,7 @@ export default function Container({ loginToken }: Props) {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    createTodoMutation.mutate(undefined, {
+    todoCreationMutation.mutate(undefined, {
       onSuccess: (newTodo) => {
         setSelectedTodoId(newTodo.id);
         setIsEditMode(true);
@@ -94,13 +94,13 @@ export default function Container({ loginToken }: Props) {
 
     setIsEditMode(false);
 
-    updateTodoMutation.mutate(inputs);
+    todoUpdationMutation.mutate(inputs);
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
-    deleteTodoMutation.mutate(id, { onSuccess: () => onAlertDialogClose() });
+    todoDeletionMutation.mutate(id, { onSuccess: () => onAlertDialogClose() });
   }
 }
 
