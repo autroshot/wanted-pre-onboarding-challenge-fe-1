@@ -1,4 +1,4 @@
-import { TodoType } from '../../../pages/todos/[id]';
+import { TodoType } from '../container';
 import Todo from './todo';
 
 export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {

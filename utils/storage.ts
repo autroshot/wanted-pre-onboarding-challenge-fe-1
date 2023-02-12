@@ -28,7 +28,7 @@ export class MyStorage {
   }
 }
 
-export function useStorage() {
+export function useMyStorage() {
   const [myStorage, setMyStorage] = useState<null | MyStorage>(null);
 
   useEffect(() => {
