@@ -5,8 +5,8 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
+import { TodoInputs } from '../../../types/inputs';
 import { TodoType } from '../../../types/todo';
-import { TodoInputs } from '../container';
 import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DeleteAlertDialog from './deleteAlertDialog';

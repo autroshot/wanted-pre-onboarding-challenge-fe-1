@@ -14,6 +14,7 @@ import {
   useTodos,
   useTodoUpdation,
 } from '../../queries/todo';
+import { TodoInputs } from '../../types/inputs';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -106,10 +107,4 @@ export default function Container({ loginToken }: Props) {
 
 interface Props {
   loginToken: string;
-}
-
-export interface TodoInputs {
-  id: string;
-  title: string;
-  content: string;
 }
