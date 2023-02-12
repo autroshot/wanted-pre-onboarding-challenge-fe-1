@@ -7,10 +7,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { deleteTodo, TodoId, TodoToUpdate, updateTodo } from '../../apis/todo';
+import { deleteTodo, TodoId } from '../../apis/todo';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
-import { useTodoCreation, useTodos } from '../../queries/todo';
+import { useTodoCreation, useTodos, useTodoUpdation } from '../../queries/todo';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -30,20 +30,7 @@ export default function Container({ loginToken }: Props) {
   const queryClient = useQueryClient();
   const { data: todos } = useTodos(loginToken);
   const createTodoMutation = useTodoCreation(loginToken);
-  const updateTodoMutation = useMutation({
-    mutationFn: (todoToUpdate: TodoToUpdate) =>
-      updateTodo(loginToken, todoToUpdate),
-    onSuccess: (updatedTodo) => {
-      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
-        if (oldTodos) {
-          return oldTodos.map((todo) => {
-            if (todo.id === updatedTodo.id) return updatedTodo;
-            return todo;
-          });
-        }
-      });
-    },
-  });
+  const updateTodoMutation = useTodoUpdation(loginToken);
   const deleteTodoMutation = useMutation({
     mutationFn: (todoId: TodoId) => deleteTodo(loginToken, todoId),
     onSuccess: (data, todoId) => {
