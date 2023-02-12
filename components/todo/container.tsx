@@ -3,7 +3,6 @@ import {
   SimpleGrid,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -30,8 +29,6 @@ export default function Container({ loginToken }: Props) {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<InputsType>();
 
-  const TODOS_QUERY_KEY = ['todos'];
-  const queryClient = useQueryClient();
   const { data: todos } = useTodos(loginToken);
   const createTodoMutation = useTodoCreation(loginToken);
   const updateTodoMutation = useTodoUpdation(loginToken);
