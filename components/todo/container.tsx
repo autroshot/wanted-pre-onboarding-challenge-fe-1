@@ -9,7 +9,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   createTodo,
+  deleteTodo,
   getTodos,
+  TodoId,
   TodoToUpdate,
   updateTodo,
 } from '../../apis/todo';
@@ -61,6 +63,17 @@ export default function Container({ loginToken }: Props) {
           });
         }
       });
+    },
+  });
+  const deleteTodoMutation = useMutation({
+    mutationFn: (todoId: TodoId) => deleteTodo(loginToken, todoId),
+    onSuccess: (data, todoId) => {
+      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+        if (oldTodos) {
+          return oldTodos.filter((todo) => todo.id !== todoId);
+        }
+      });
+      onAlertDialogClose();
     },
   });
 
@@ -152,6 +165,7 @@ export default function Container({ loginToken }: Props) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
+    deleteTodoMutation.mutate(id);
     // deleteTodo(loginToken, selectedTodoId)
     //   .then(() => {
     //     setTodos(todos.filter((todo) => todo.id !== id));

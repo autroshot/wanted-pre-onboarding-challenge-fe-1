@@ -66,13 +66,20 @@ export async function updateTodo(
   }
 }
 
-export function deleteTodo(loginToken: string, todoId: string) {
+export async function deleteTodo(loginToken: string, todoId: TodoId) {
   const axiosInstance = createAxiosInstance();
 
-  return axiosInstance.delete<null, AxiosResponse<null>, null>(
-    `/todos/${todoId}`,
-    createAxiosRequestConfigWithAuth(loginToken)
-  );
+  const res = await axiosInstance.delete<
+    DeleteResponseData,
+    AxiosResponse<DeleteResponseData>,
+    null
+  >(`/todos/${todoId}`, createAxiosRequestConfigWithAuth(loginToken));
+
+  return res.data.data;
+
+  interface DeleteResponseData {
+    data: null;
+  }
 }
 
 function createAxiosInstance() {
@@ -94,3 +101,5 @@ export interface TodoToUpdate {
   title: string;
   content: string;
 }
+
+export type TodoId = TodoType['id'];
