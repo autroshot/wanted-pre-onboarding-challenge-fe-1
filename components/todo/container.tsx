@@ -41,11 +41,6 @@ export default function Container({ loginToken }: Props) {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
         if (oldTodos) return [newTodo, ...oldTodos];
       });
-
-      setSelectedTodoId(newTodo.id);
-      setIsEditMode(true);
-      titleRef.current?.focus();
-      router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
     },
   });
   const updateTodoMutation = useMutation({
@@ -70,7 +65,6 @@ export default function Container({ loginToken }: Props) {
           return oldTodos.filter((todo) => todo.id !== todoId);
         }
       });
-      onAlertDialogClose();
     },
   });
 
@@ -120,7 +114,14 @@ export default function Container({ loginToken }: Props) {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    createTodoMutation.mutate();
+    createTodoMutation.mutate(undefined, {
+      onSuccess: (newTodo) => {
+        setSelectedTodoId(newTodo.id);
+        setIsEditMode(true);
+        titleRef.current?.focus();
+        router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
+      },
+    });
   }
   function handleTodoUpdate(inputs: InputsType) {
     if (todos === null) return;
@@ -133,7 +134,7 @@ export default function Container({ loginToken }: Props) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
-    deleteTodoMutation.mutate(id);
+    deleteTodoMutation.mutate(id, { onSuccess: () => onAlertDialogClose() });
   }
 }
 
