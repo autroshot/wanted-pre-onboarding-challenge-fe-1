@@ -19,7 +19,6 @@ import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
 
 export default function Container({ loginToken }: Props) {
-  // const [todos, setTodos] = useState<null | TodoType[]>(null);
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const {
@@ -35,9 +34,7 @@ export default function Container({ loginToken }: Props) {
 
   const TODOS_QUERY_KEY = ['todos'];
   const queryClient = useQueryClient();
-  const { data: todos, isSuccess } = useQuery(TODOS_QUERY_KEY, () =>
-    getTodos(loginToken)
-  );
+  const { data: todos } = useQuery(TODOS_QUERY_KEY, () => getTodos(loginToken));
   const createTodoMutation = useMutation({
     mutationFn: () => createTodo(loginToken),
     onSuccess: (newTodo) => {
@@ -123,21 +120,6 @@ export default function Container({ loginToken }: Props) {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    // createTodo(loginToken)
-    //   .then((res) => {
-    //     const newTodo = res.data.data;
-
-    //     setTodos([newTodo, ...todos]);
-    //     setSelectedTodoId(newTodo.id);
-    //     setIsEditMode(true);
-    //     titleRef.current?.focus();
-    //     router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
-    //   })
-    //   .catch((err) => {
-    //     //TODO
-    //     console.error(err);
-    //   });
-
     createTodoMutation.mutate();
   }
   function handleTodoUpdate(inputs: InputsType) {
@@ -146,35 +128,12 @@ export default function Container({ loginToken }: Props) {
     setIsEditMode(false);
 
     updateTodoMutation.mutate(inputs);
-    // updateTodo(loginToken, inputs)
-    //   .then((res) => {
-    //     const updatedTodos = todos.map((todo) => {
-    //       if (todo.id !== inputs.id) return todo;
-
-    //       const updatedTodo = res.data.data;
-    //       return updatedTodo;
-    //     });
-    //     setTodos(updatedTodos);
-    //   })
-    //   .catch((err) => {
-    //     //TODO
-    //     console.error(err);
-    //   });
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
     deleteTodoMutation.mutate(id);
-    // deleteTodo(loginToken, selectedTodoId)
-    //   .then(() => {
-    //     setTodos(todos.filter((todo) => todo.id !== id));
-    //     onAlertDialogClose();
-    //   })
-    //   .catch((err) => {
-    //     //TODO
-    //     console.error(err);
-    //   });
   }
 }
 
