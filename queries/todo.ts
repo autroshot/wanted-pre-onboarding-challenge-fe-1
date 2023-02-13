@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createTodo, deleteTodo, getTodos, updateTodo } from '../apis/todo';
+import { createTodo, deleteTodo, getTodos, updateTodo } from '../fetchers/todo';
 import { TodoToUpdate, TodoType } from '../types/todo';
 
 const TODOS_QUERY_KEY = ['todos'];
