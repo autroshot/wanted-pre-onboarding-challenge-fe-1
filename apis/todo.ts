@@ -4,12 +4,6 @@ import { TodoToUpdate, TodoType } from '../types/todo';
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
 
-  axiosInstance.interceptors.response.use((res) => {
-    (res.data as GetResponseData).data.reverse();
-
-    return res;
-  });
-
   const res = await axiosInstance.get<GetResponseData>('/todos', {
     headers: { authorization: loginToken },
   });
