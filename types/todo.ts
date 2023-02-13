@@ -6,3 +6,5 @@ export interface TodoType {
   createdAt: string;
   updatedAt: string;
 }
+
+export type TodoToUpdate = Pick<TodoType, 'id' | 'title' | 'content'>;

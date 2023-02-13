@@ -4,10 +4,9 @@ import {
   deleteTodo,
   getTodos,
   TodoId,
-  TodoToUpdate,
   updateTodo,
 } from '../apis/todo';
-import { TodoType } from '../types/todo';
+import { TodoToUpdate, TodoType } from '../types/todo';
 
 const TODOS_QUERY_KEY = ['todos'];
 

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { TodoType } from '../types/todo';
+import { TodoToUpdate, TodoType } from '../types/todo';
 
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
@@ -94,12 +94,6 @@ function createAxiosRequestConfigWithAuth(
   return {
     headers: { authorization: loginToken },
   };
-}
-
-export interface TodoToUpdate {
-  id: string;
-  title: string;
-  content: string;
 }
 
 export type TodoId = TodoType['id'];
