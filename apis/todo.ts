@@ -66,7 +66,7 @@ export async function updateTodo(
   }
 }
 
-export async function deleteTodo(loginToken: string, todoId: TodoId) {
+export async function deleteTodo(loginToken: string, todoId: TodoType['id']) {
   const axiosInstance = createAxiosInstance();
 
   const res = await axiosInstance.delete<
@@ -95,5 +95,3 @@ function createAxiosRequestConfigWithAuth(
     headers: { authorization: loginToken },
   };
 }
-
-export type TodoId = TodoType['id'];
