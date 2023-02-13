@@ -1,6 +1,6 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
-import { TodoType } from '../container';
+import { TodoSortBy, TodoSortOrder, TodoType } from '../../../types/todo';
 import CreateButton from './createButton';
 import SortingMenu from './sortingMenu';
 import Todos from './todos';
@@ -11,11 +11,11 @@ export default function Container({
   onTodoClick,
   onTodoCreate,
 }: Props) {
-  const DEFAULT_SORT_BY: SortBy = 'createdAt';
-  const DEFAULT_ORDER: Order = 'descending';
+  const DEFAULT_SORT_BY: TodoSortBy = 'createdAt';
+  const DEFAULT_ORDER: TodoSortOrder = 'descending';
 
-  const [sortBy, setSortBy] = useState<SortBy>(DEFAULT_SORT_BY);
-  const [order, setOrder] = useState<Order>(DEFAULT_ORDER);
+  const [sortBy, setSortBy] = useState<TodoSortBy>(DEFAULT_SORT_BY);
+  const [order, setOrder] = useState<TodoSortOrder>(DEFAULT_ORDER);
 
   const sortedTodos = sortTodos(todos, sortBy, order);
 
@@ -46,14 +46,18 @@ export default function Container({
     </Box>
   );
 
-  function handleSortByChange(sortBy: SortBy) {
+  function handleSortByChange(sortBy: TodoSortBy) {
     setSortBy(sortBy);
   }
-  function handleOrderChange(order: Order) {
+  function handleOrderChange(order: TodoSortOrder) {
     setOrder(order);
   }
 
-  function sortTodos(todos: null | TodoType[], sortBy: SortBy, order: Order) {
+  function sortTodos(
+    todos: null | TodoType[],
+    sortBy: TodoSortBy,
+    order: TodoSortOrder
+  ) {
     if (todos === null) return todos;
     return [...todos].sort((a, b) => {
       const localeCompareValue = a[sortBy].localeCompare(b[sortBy]);
@@ -70,9 +74,3 @@ interface Props {
   onTodoClick: (todoId: string) => void;
   onTodoCreate: () => void;
 }
-
-export type SortBy = Extract<
-  'title' | 'createdAt' | 'updatedAt',
-  keyof TodoType
->;
-export type Order = 'ascending' | 'descending';

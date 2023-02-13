@@ -14,6 +14,7 @@ import {
   useTodos,
   useTodoUpdation,
 } from '../../queries/todo';
+import { TodoInputs } from '../../types/inputs';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -27,7 +28,7 @@ export default function Container({ loginToken }: Props) {
   const titleRef = useRef<null | HTMLInputElement>(null);
 
   const router = useRouter();
-  const { register, handleSubmit, setValue } = useForm<InputsType>();
+  const { register, handleSubmit, setValue } = useForm<TodoInputs>();
 
   const { data: todos } = useTodos(loginToken);
   const todoCreationMutation = useTodoCreation(loginToken);
@@ -73,7 +74,7 @@ export default function Container({ loginToken }: Props) {
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 
-  function onSubmit(data: InputsType): any | Promise<any> {
+  function onSubmit(data: TodoInputs): any | Promise<any> {
     handleTodoUpdate({ ...data });
   }
 
@@ -89,7 +90,7 @@ export default function Container({ loginToken }: Props) {
       },
     });
   }
-  function handleTodoUpdate(inputs: InputsType) {
+  function handleTodoUpdate(inputs: TodoInputs) {
     if (todos === null) return;
 
     setIsEditMode(false);
@@ -106,20 +107,4 @@ export default function Container({ loginToken }: Props) {
 
 interface Props {
   loginToken: string;
-}
-
-// Todo 컴포넌트와의 이름 충돌 때문에 이름으로 TodoType을 사용합니다.
-export interface TodoType {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-// Inputs 컴포넌트와의 이름 충돌 때문에 이름으로 InputsType을 사용합니다.
-export interface InputsType {
-  id: string;
-  title: string;
-  content: string;
 }
