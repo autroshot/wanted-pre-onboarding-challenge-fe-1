@@ -8,7 +8,7 @@ import {
   MenuOptionGroup,
 } from '@chakra-ui/react';
 import { ORDER, SORT_BY } from '../../../constants/sortingMenuItem';
-import { Order, SortBy } from './container';
+import { TodoSortBy, TodoSortOrder } from '../../../types/todo';
 
 export default function SortingMenu({
   defaultSortBy,
@@ -36,7 +36,7 @@ export default function SortingMenu({
           defaultValue={defaultSortBy}
           type="radio"
           title="기준"
-          onChange={(value) => onSortByChange(value as SortBy)}
+          onChange={(value) => onSortByChange(value as TodoSortBy)}
         >
           {createMenuItemOptions(SORT_BY)}
         </MenuOptionGroup>
@@ -44,7 +44,7 @@ export default function SortingMenu({
           defaultValue={defaultOrder}
           type="radio"
           title="정렬"
-          onChange={(value) => onOrderChange(value as Order)}
+          onChange={(value) => onOrderChange(value as TodoSortOrder)}
         >
           {createMenuItemOptions(ORDER)}
         </MenuOptionGroup>
@@ -71,10 +71,10 @@ export default function SortingMenu({
 }
 
 interface Props {
-  defaultSortBy: SortBy;
-  defaultOrder: Order;
-  sortBy: SortBy;
-  order: Order;
-  onSortByChange: (soryBy: SortBy) => void;
-  onOrderChange: (order: Order) => void;
+  defaultSortBy: TodoSortBy;
+  defaultOrder: TodoSortOrder;
+  sortBy: TodoSortBy;
+  order: TodoSortOrder;
+  onSortByChange: (soryBy: TodoSortBy) => void;
+  onOrderChange: (order: TodoSortOrder) => void;
 }

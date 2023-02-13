@@ -8,3 +8,9 @@ export interface TodoType {
 }
 
 export type TodoToUpdate = Pick<TodoType, 'id' | 'title' | 'content'>;
+
+export type TodoSortBy = Extract<
+  'title' | 'createdAt' | 'updatedAt',
+  keyof TodoType
+>;
+export type TodoSortOrder = 'ascending' | 'descending';
