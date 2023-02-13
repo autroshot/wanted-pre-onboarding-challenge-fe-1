@@ -31,7 +31,7 @@ export default function Inputs({ isEditMode, titleRef, register }: Props) {
   );
 }
 
-export interface Props {
+interface Props {
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   register: UseFormRegister<TodoInputs>;

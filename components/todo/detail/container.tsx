@@ -103,7 +103,7 @@ export default function Container({
   }
 }
 
-export interface Props {
+interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
   isEditMode: boolean;
