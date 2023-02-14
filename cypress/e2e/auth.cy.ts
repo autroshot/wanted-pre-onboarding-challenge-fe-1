@@ -1,5 +1,5 @@
 describe('인증', () => {
-  const seededUser = { email: 'hong@gamil.com', password: '12345678' };
+  const seededUser = { email: 'hong@gmail.com', password: '12345678' };
 
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);

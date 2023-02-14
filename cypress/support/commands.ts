@@ -2,7 +2,7 @@
 
 import { getLoginToken, login } from '../../utils/auth';
 
-const seededUser = { email: 'hong@gamil.com', password: '12345678' };
+const seededUser = { email: 'hong@gmail.com', password: '12345678' };
 
 Cypress.Commands.add('seededUserLogin', () => {
   cy.session(
