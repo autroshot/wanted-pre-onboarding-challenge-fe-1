@@ -15,10 +15,11 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { signup as signupFetcher } from '../../fetchers/auth';
 import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
 import PasswordForm from './password';
@@ -97,11 +98,7 @@ export default function SignUpForm() {
   function onSubmit(data: Inputs): any | Promise<any> {
     setIsLoading(true);
 
-    axios
-      .post<PostResponseData>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/create`,
-        { ...data }
-      )
+    signupFetcher(data.email, data.password)
       .then(() => {
         onModalOpen();
       })
@@ -121,10 +118,6 @@ export default function SignUpForm() {
     password: string;
   }
 
-  interface PostResponseData {
-    message: string;
-    token: string;
-  }
   interface ErrorResponseData {
     details: string;
   }
