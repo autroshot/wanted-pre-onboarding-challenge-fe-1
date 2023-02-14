@@ -15,6 +15,7 @@ import {
   useTodoUpdation,
 } from '../../queries/todo';
 import { TodoInputs } from '../../types/inputs';
+import { undefinedToNull } from '../../utils/general';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -45,13 +46,13 @@ export default function Container({ loginToken }: Props) {
     <ChakraContainer maxW="container.md" my="5">
       <SimpleGrid columns={[1, null, 2]} spacing="5">
         <ListContainer
-          todos={todos ?? null}
+          todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
         <DetailContainer
-          todos={todos ?? null}
+          todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
           isEditMode={isEditMode}
           titleRef={titleRef}
