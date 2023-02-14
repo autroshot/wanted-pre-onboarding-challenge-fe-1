@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { login as loginFetcher } from '../../fetchers/auth';
+import { ErrorResponseData } from '../../types/response';
 import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
@@ -87,9 +88,5 @@ export default function LoginForm() {
   interface Inputs {
     email: string;
     password: string;
-  }
-
-  interface ErrorResponseData {
-    details: string;
   }
 }
