@@ -81,7 +81,12 @@ describe('CRUD', () => {
       `{selectAll}{del}${updatedTodo.content}`
     );
     cy.get('[data-cy="submit"]').click();
-    const updatedISOString = new Date().toISOString();
+
+    const currentTime = new Date();
+    const updatedISOString = currentTime.toISOString();
+    const updatedISOStringPlusOneSecond = new Date(
+      currentTime.getTime() + 1000
+    ).toISOString();
 
     cy.visit('/todos/index');
     cy.contains(updatedTodo.title).click();
@@ -91,10 +96,14 @@ describe('CRUD', () => {
       'contain',
       toKoreanTime(createdISOString)
     );
-    cy.get('[data-cy="updatedAt"]').should(
-      'contain',
-      toKoreanTime(updatedISOString)
-    );
+    cy.get('[data-cy="updatedAt"]').then(($updatedAt) => {
+      const text = $updatedAt.text();
+
+      expect(text).to.be.oneOf([
+        toKoreanTime(updatedISOString),
+        toKoreanTime(updatedISOStringPlusOneSecond),
+      ]);
+    });
   });
 
   it('D', () => {

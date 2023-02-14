@@ -3,8 +3,8 @@ import { toKoreanTime } from '../../../utils/time';
 
 export default function DisplayTime({ title, ISOString, dataCy }: Props) {
   return (
-    <Text fontSize="xs" data-cy={dataCy}>
-      {title}: {toKoreanTime(ISOString)}
+    <Text fontSize="xs">
+      {title}: <span data-cy={dataCy}>{toKoreanTime(ISOString)}</span>
     </Text>
   );
 }
