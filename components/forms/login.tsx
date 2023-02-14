@@ -6,10 +6,12 @@ import {
   Button,
   VStack,
 } from '@chakra-ui/react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { login as loginFetcher } from '../../fetchers/auth';
+import { ErrorResponseData } from '../../types/response';
 import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
@@ -69,17 +71,15 @@ export default function LoginForm() {
   function onSubmit(data: Inputs): any | Promise<any> {
     setIsLoading(true);
 
-    axios
-      .post<PostResponseData>(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
-        { ...data }
-      )
+    loginFetcher(data.email, data.password)
       .then((res) => {
-        login(localStorage, res.data.token);
+        login(localStorage, res.token);
+
         router.push('/');
       })
       .catch((err: AxiosError<ErrorResponseData>) => {
         const message = err.response?.data.details;
+
         setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
       })
       .then(() => setIsLoading(false));
@@ -88,13 +88,5 @@ export default function LoginForm() {
   interface Inputs {
     email: string;
     password: string;
-  }
-
-  interface PostResponseData {
-    message: string;
-    token: string;
-  }
-  interface ErrorResponseData {
-    details: string;
   }
 }
