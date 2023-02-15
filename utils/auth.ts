@@ -1,9 +1,7 @@
 import { MyStorage, useMyStorage } from './storage';
 
 export function useIsLogined() {
-  const myStorage = useMyStorage();
-
-  return myStorage !== null && myStorage.getLoginToken() !== null;
+  return useLoginToken() !== null;
 }
 
 export function useLoginToken() {
