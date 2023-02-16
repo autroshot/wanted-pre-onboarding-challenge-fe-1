@@ -34,7 +34,7 @@ export default function Container({
         </Box>
       </HStack>
       <Box mb="2">
-        <CreateButton onClick={onTodoCreate} />
+        <CreateButton isLoading={false} onClick={onTodoCreate} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
         <Todos
