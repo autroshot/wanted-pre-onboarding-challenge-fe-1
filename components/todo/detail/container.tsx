@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Spinner, VStack } from '@chakra-ui/react';
+import { Box, Flex, Spacer, VStack } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import {
   UseFormHandleSubmit,
@@ -11,6 +11,7 @@ import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DeleteAlertDialog from './deleteAlertDialog';
 import DisplayTime from './displayTime';
+import FlexSpinner from './flexSpinner';
 import Inputs from './inputs';
 
 export default function Container({
@@ -30,11 +31,7 @@ export default function Container({
   onSubmit,
 }: Props) {
   if (isLoading) {
-    return (
-      <Flex h="100%" justify="center" align="center" data-cy="flexSpinner">
-        <Spinner />
-      </Flex>
-    );
+    return <FlexSpinner />;
   }
   if (
     !todos ||
