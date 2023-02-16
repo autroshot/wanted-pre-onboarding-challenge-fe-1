@@ -8,6 +8,7 @@ import Todos from './todos';
 export default function Container({
   todos,
   selectedTodoId,
+  isLoading,
   onTodoClick,
   onTodoCreate,
 }: Props) {
@@ -34,7 +35,7 @@ export default function Container({
         </Box>
       </HStack>
       <Box mb="2">
-        <CreateButton isLoading={false} onClick={onTodoCreate} />
+        <CreateButton isLoading={isLoading} onClick={onTodoCreate} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
         <Todos
@@ -71,6 +72,7 @@ export default function Container({
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
+  isLoading: boolean;
   onTodoClick: (todoId: string) => void;
   onTodoCreate: () => void;
 }

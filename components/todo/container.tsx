@@ -48,6 +48,7 @@ export default function Container({ loginToken }: Props) {
         <ListContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
+          isLoading={false}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
