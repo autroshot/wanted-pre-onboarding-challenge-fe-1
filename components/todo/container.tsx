@@ -54,6 +54,7 @@ export default function Container({ loginToken }: Props) {
         <DetailContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
+          isLoading={false}
           isEditMode={isEditMode}
           titleRef={titleRef}
           isAlertDialogOpen={isAlertDialogOpen}

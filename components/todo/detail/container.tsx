@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, VStack } from '@chakra-ui/react';
+import { Box, Flex, Spacer, Spinner, VStack } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import {
   UseFormHandleSubmit,
@@ -16,6 +16,7 @@ import Inputs from './inputs';
 export default function Container({
   todos,
   selectedTodoId,
+  isLoading,
   isEditMode,
   titleRef,
   isAlertDialogOpen,
@@ -28,6 +29,13 @@ export default function Container({
   onTodoDelete,
   onSubmit,
 }: Props) {
+  if (isLoading) {
+    return (
+      <Flex h="100%" justify="center" align="center" data-cy="flexSpinner">
+        <Spinner />
+      </Flex>
+    );
+  }
   if (
     !todos ||
     !selectedTodoId ||
@@ -106,6 +114,7 @@ export default function Container({
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
+  isLoading: boolean;
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   isAlertDialogOpen: boolean;
