@@ -20,15 +20,13 @@ import { undefinedToNull } from '../../utils/general';
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
-  const {
-    isOpen: isAlertDialogOpen,
-    onOpen: onAlertDialogOpen,
-    onClose: onAlertDialogClose,
-  } = useDisclosure();
+
+  const alertDialogDisclosure = useDisclosure();
 
   const titleRef = useRef<null | HTMLInputElement>(null);
 
   const router = useRouter();
+
   const { register, handleSubmit, setValue } = useForm<TodoInputs>();
 
   const { data: todos, isLoading: isTodosLoading } = useTodos(loginToken);
@@ -58,9 +56,7 @@ export default function Container({ loginToken }: Props) {
           isLoading={isLoading()}
           isEditMode={isEditMode}
           titleRef={titleRef}
-          isAlertDialogOpen={isAlertDialogOpen}
-          onAlertDialogOpen={onAlertDialogOpen}
-          onAlertDialogClose={onAlertDialogClose}
+          alertDialogDisclosure={alertDialogDisclosure}
           onActivateEditModeClick={() => setIsEditMode(true)}
           onDeactivateEditModeClick={() => setIsEditMode(false)}
           register={register}
@@ -105,7 +101,9 @@ export default function Container({ loginToken }: Props) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
-    todoDeletionMutation.mutate(id, { onSuccess: () => onAlertDialogClose() });
+    todoDeletionMutation.mutate(id, {
+      onSuccess: () => alertDialogDisclosure.onClose(),
+    });
   }
 
   function isLoading() {

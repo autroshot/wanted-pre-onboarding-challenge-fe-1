@@ -1,4 +1,10 @@
-import { Box, Flex, Spacer, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Spacer,
+  UseDisclosureReturn,
+  VStack,
+} from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import {
   UseFormHandleSubmit,
@@ -20,9 +26,11 @@ export default function Container({
   isLoading,
   isEditMode,
   titleRef,
-  isAlertDialogOpen,
-  onAlertDialogOpen,
-  onAlertDialogClose,
+  alertDialogDisclosure: {
+    isOpen: isAlertDialogOpen,
+    onOpen: onAlertDialogOpen,
+    onClose: onAlertDialogClose,
+  },
   onActivateEditModeClick,
   onDeactivateEditModeClick,
   register,
@@ -114,9 +122,7 @@ interface Props {
   isLoading: boolean;
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
-  isAlertDialogOpen: boolean;
-  onAlertDialogOpen: () => void;
-  onAlertDialogClose: () => void;
+  alertDialogDisclosure: UseDisclosureReturn;
   register: UseFormRegister<TodoInputs>;
   setValue: UseFormSetValue<TodoInputs>;
   onActivateEditModeClick: () => void;
