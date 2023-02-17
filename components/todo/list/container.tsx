@@ -4,10 +4,12 @@ import { TodoSortBy, TodoSortOrder, TodoType } from '../../../types/todo';
 import CreateButton from './createButton';
 import SortingMenu from './sortingMenu';
 import Todos from './todos';
+import TodoSkeletons from './todoSkeletons';
 
 export default function Container({
   todos,
   selectedTodoId,
+  isLoading,
   onTodoClick,
   onTodoCreate,
 }: Props) {
@@ -34,14 +36,20 @@ export default function Container({
         </Box>
       </HStack>
       <Box mb="2">
-        <CreateButton onClick={onTodoCreate} />
+        <CreateButton isLoading={isLoading} onClick={onTodoCreate} />
       </Box>
       <Box h={{ md: '25rem' }} maxH={{ base: '25rem' }} overflowY="auto">
-        <Todos
-          todos={sortedTodos}
-          selectedTodoId={selectedTodoId}
-          onTodoClick={onTodoClick}
-        />
+        {isLoading ? (
+          <>
+            <TodoSkeletons />
+          </>
+        ) : (
+          <Todos
+            todos={sortedTodos}
+            selectedTodoId={selectedTodoId}
+            onTodoClick={onTodoClick}
+          />
+        )}
       </Box>
     </Box>
   );
@@ -71,6 +79,7 @@ export default function Container({
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
+  isLoading: boolean;
   onTodoClick: (todoId: string) => void;
   onTodoCreate: () => void;
 }

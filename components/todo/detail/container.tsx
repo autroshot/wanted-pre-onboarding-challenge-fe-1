@@ -11,11 +11,13 @@ import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DeleteAlertDialog from './deleteAlertDialog';
 import DisplayTime from './displayTime';
+import FlexSpinner from './flexSpinner';
 import Inputs from './inputs';
 
 export default function Container({
   todos,
   selectedTodoId,
+  isLoading,
   isEditMode,
   titleRef,
   isAlertDialogOpen,
@@ -28,6 +30,9 @@ export default function Container({
   onTodoDelete,
   onSubmit,
 }: Props) {
+  if (isLoading) {
+    return <FlexSpinner />;
+  }
   if (
     !todos ||
     !selectedTodoId ||
@@ -106,6 +111,7 @@ export default function Container({
 interface Props {
   todos: null | TodoType[];
   selectedTodoId: null | string;
+  isLoading: boolean;
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   isAlertDialogOpen: boolean;

@@ -31,7 +31,7 @@ export default function Container({ loginToken }: Props) {
   const router = useRouter();
   const { register, handleSubmit, setValue } = useForm<TodoInputs>();
 
-  const { data: todos } = useTodos(loginToken);
+  const { data: todos, isLoading: isTodosLoading } = useTodos(loginToken);
   const todoCreationMutation = useTodoCreation(loginToken);
   const todoUpdationMutation = useTodoUpdation(loginToken);
   const todoDeletionMutation = useTodoDeletion(loginToken);
@@ -48,12 +48,14 @@ export default function Container({ loginToken }: Props) {
         <ListContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
+          isLoading={isLoading()}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
         <DetailContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
+          isLoading={isLoading()}
           isEditMode={isEditMode}
           titleRef={titleRef}
           isAlertDialogOpen={isAlertDialogOpen}
@@ -104,6 +106,17 @@ export default function Container({ loginToken }: Props) {
     if (selectedTodoId === null) return;
 
     todoDeletionMutation.mutate(id, { onSuccess: () => onAlertDialogClose() });
+  }
+
+  function isLoading() {
+    const isLoadingArray = [
+      isTodosLoading,
+      todoCreationMutation.isLoading,
+      todoUpdationMutation.isLoading,
+      todoDeletionMutation.isLoading,
+    ];
+
+    return isLoadingArray.some((isLoading) => isLoading);
   }
 }
 
