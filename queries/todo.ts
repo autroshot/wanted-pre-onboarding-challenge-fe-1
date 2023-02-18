@@ -1,11 +1,35 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { createTodo, deleteTodo, getTodos, updateTodo } from '../fetchers/todo';
+import { ErrorResponseData } from '../types/response';
 import { TodoToUpdate, TodoType } from '../types/todo';
 
 const TODOS_QUERY_KEY = ['todos'];
 
-export function useTodos(loginToken: string) {
-  return useQuery(TODOS_QUERY_KEY, () => getTodos(loginToken));
+export function useTodos(
+  loginToken: string,
+  onError?: UseQueryOptions<
+    TodoType[],
+    AxiosError<ErrorResponseData>,
+    TodoType[],
+    string[]
+  >['onError']
+) {
+  return useQuery<
+    TodoType[],
+    AxiosError<ErrorResponseData>,
+    TodoType[],
+    string[]
+  >({
+    queryKey: TODOS_QUERY_KEY,
+    queryFn: () => getTodos(loginToken),
+    onError,
+  });
 }
 
 export function useTodoCreation(loginToken: string) {
