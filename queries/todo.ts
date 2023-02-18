@@ -1,17 +1,41 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { createTodo, deleteTodo, getTodos, updateTodo } from '../fetchers/todo';
+import { ErrorResponseData } from '../types/response';
 import { TodoToUpdate, TodoType } from '../types/todo';
 
 const TODOS_QUERY_KEY = ['todos'];
 
-export function useTodos(loginToken: string) {
-  return useQuery(TODOS_QUERY_KEY, () => getTodos(loginToken));
+export function useTodos(
+  loginToken: string,
+  onError?: UseQueryOptions<
+    TodoType[],
+    AxiosError<ErrorResponseData>,
+    TodoType[],
+    string[]
+  >['onError']
+) {
+  return useQuery<
+    TodoType[],
+    AxiosError<ErrorResponseData>,
+    TodoType[],
+    string[]
+  >({
+    queryKey: TODOS_QUERY_KEY,
+    queryFn: () => getTodos(loginToken),
+    onError,
+  });
 }
 
 export function useTodoCreation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<TodoType, AxiosError<ErrorResponseData>, void>({
     mutationFn: () => createTodo(loginToken),
     onSuccess: (newTodo) => {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
@@ -24,7 +48,7 @@ export function useTodoCreation(loginToken: string) {
 export function useTodoUpdation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<TodoType, AxiosError<ErrorResponseData>, TodoToUpdate>({
     mutationFn: (todoToUpdate: TodoToUpdate) =>
       updateTodo(loginToken, todoToUpdate),
     onSuccess: (updatedTodo) => {
@@ -43,7 +67,7 @@ export function useTodoUpdation(loginToken: string) {
 export function useTodoDeletion(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<null, AxiosError<ErrorResponseData>, string>({
     mutationFn: (todoId: TodoType['id']) => deleteTodo(loginToken, todoId),
     onSuccess: (data, todoId) => {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {

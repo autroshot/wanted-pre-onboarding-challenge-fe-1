@@ -2,7 +2,9 @@ import {
   Container as ChakraContainer,
   SimpleGrid,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,6 +17,7 @@ import {
   useTodoUpdation,
 } from '../../queries/todo';
 import { TodoInputs } from '../../types/inputs';
+import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 
 export default function Container({ loginToken }: Props) {
@@ -29,7 +32,16 @@ export default function Container({ loginToken }: Props) {
 
   const { register, handleSubmit, setValue } = useForm<TodoInputs>();
 
-  const { data: todos, isLoading: isTodosLoading } = useTodos(loginToken);
+  const errorToast = useToast({
+    status: 'error',
+    title: '오류',
+    isClosable: true,
+  });
+
+  const { data: todos, isLoading: isTodosLoading } = useTodos(
+    loginToken,
+    handleError
+  );
   const todoCreationMutation = useTodoCreation(loginToken);
   const todoUpdationMutation = useTodoUpdation(loginToken);
   const todoDeletionMutation = useTodoDeletion(loginToken);
@@ -88,6 +100,7 @@ export default function Container({ loginToken }: Props) {
 
         router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
       },
+      onError: handleError,
     });
   }
   function handleTodoUpdate(inputs: TodoInputs) {
@@ -95,7 +108,9 @@ export default function Container({ loginToken }: Props) {
 
     setIsEditMode(false);
 
-    todoUpdationMutation.mutate(inputs);
+    todoUpdationMutation.mutate(inputs, {
+      onError: handleError,
+    });
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
@@ -103,6 +118,7 @@ export default function Container({ loginToken }: Props) {
 
     todoDeletionMutation.mutate(id, {
       onSuccess: () => alertDialogDisclosure.onClose(),
+      onError: handleError,
     });
   }
 
@@ -115,6 +131,16 @@ export default function Container({ loginToken }: Props) {
     ];
 
     return isLoadingArray.some((isLoading) => isLoading);
+  }
+
+  function getErrorMessage(err: AxiosError<ErrorResponseData>) {
+    return err.response?.data.details ?? err.message ?? null;
+  }
+
+  function handleError(err: AxiosError<ErrorResponseData>) {
+    errorToast({
+      description: getErrorMessage(err),
+    });
   }
 }
 
