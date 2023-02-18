@@ -40,11 +40,7 @@ export default function Container({ loginToken }: Props) {
 
   const { data: todos, isLoading: isTodosLoading } = useTodos(
     loginToken,
-    (err) => {
-      errorToast({
-        description: getErrorMessage(err),
-      });
-    }
+    handleError
   );
   const todoCreationMutation = useTodoCreation(loginToken);
   const todoUpdationMutation = useTodoUpdation(loginToken);
@@ -104,11 +100,7 @@ export default function Container({ loginToken }: Props) {
 
         router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
       },
-      onError: (err) => {
-        errorToast({
-          description: getErrorMessage(err),
-        });
-      },
+      onError: handleError,
     });
   }
   function handleTodoUpdate(inputs: TodoInputs) {
@@ -117,11 +109,7 @@ export default function Container({ loginToken }: Props) {
     setIsEditMode(false);
 
     todoUpdationMutation.mutate(inputs, {
-      onError: (err) => {
-        errorToast({
-          description: getErrorMessage(err),
-        });
-      },
+      onError: handleError,
     });
   }
   function handleTodoDelete(id: string) {
@@ -130,11 +118,7 @@ export default function Container({ loginToken }: Props) {
 
     todoDeletionMutation.mutate(id, {
       onSuccess: () => alertDialogDisclosure.onClose(),
-      onError: (err) => {
-        errorToast({
-          description: getErrorMessage(err),
-        });
-      },
+      onError: handleError,
     });
   }
 
@@ -151,6 +135,12 @@ export default function Container({ loginToken }: Props) {
 
   function getErrorMessage(err: AxiosError<ErrorResponseData>) {
     return err.response?.data.details ?? err.message ?? null;
+  }
+
+  function handleError(err: AxiosError<ErrorResponseData>) {
+    errorToast({
+      description: getErrorMessage(err),
+    });
   }
 }
 
