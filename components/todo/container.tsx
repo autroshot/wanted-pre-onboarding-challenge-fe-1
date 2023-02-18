@@ -104,6 +104,11 @@ export default function Container({ loginToken }: Props) {
 
         router.push(`/todos/${newTodo.id}`, undefined, { scroll: false });
       },
+      onError: (err) => {
+        errorToast({
+          description: getErrorMessage(err),
+        });
+      },
     });
   }
   function handleTodoUpdate(inputs: TodoInputs) {
@@ -111,7 +116,13 @@ export default function Container({ loginToken }: Props) {
 
     setIsEditMode(false);
 
-    todoUpdationMutation.mutate(inputs);
+    todoUpdationMutation.mutate(inputs, {
+      onError: (err) => {
+        errorToast({
+          description: getErrorMessage(err),
+        });
+      },
+    });
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
@@ -119,6 +130,11 @@ export default function Container({ loginToken }: Props) {
 
     todoDeletionMutation.mutate(id, {
       onSuccess: () => alertDialogDisclosure.onClose(),
+      onError: (err) => {
+        errorToast({
+          description: getErrorMessage(err),
+        });
+      },
     });
   }
 

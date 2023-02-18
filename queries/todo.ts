@@ -35,7 +35,7 @@ export function useTodos(
 export function useTodoCreation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<TodoType, AxiosError<ErrorResponseData>, void>({
     mutationFn: () => createTodo(loginToken),
     onSuccess: (newTodo) => {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
@@ -48,7 +48,7 @@ export function useTodoCreation(loginToken: string) {
 export function useTodoUpdation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<TodoType, AxiosError<ErrorResponseData>, TodoToUpdate>({
     mutationFn: (todoToUpdate: TodoToUpdate) =>
       updateTodo(loginToken, todoToUpdate),
     onSuccess: (updatedTodo) => {
@@ -67,7 +67,7 @@ export function useTodoUpdation(loginToken: string) {
 export function useTodoDeletion(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<null, AxiosError<ErrorResponseData>, string>({
     mutationFn: (todoId: TodoType['id']) => deleteTodo(loginToken, todoId),
     onSuccess: (data, todoId) => {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
