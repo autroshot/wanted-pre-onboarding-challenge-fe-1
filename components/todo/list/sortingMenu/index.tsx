@@ -10,7 +10,7 @@ import {
 import { TodoSortBy, TodoSortOrder } from '../../types';
 import { ORDER, SORT_BY } from './contants';
 
-export default function Container({
+export default function SortingMenu({
   defaultSortBy,
   defaultOrder,
   sortBy,

@@ -15,7 +15,7 @@ import { TodoInputs, TodoType } from '../types';
 import Buttons from './buttons';
 import DefaultText from './defaultText';
 import DeleteAlertDialog from './deleteAlertDialog';
-import DisplayTimeContainer from './displayTime/container';
+import DisplayTime from './displayTime';
 import FlexSpinner from './flexSpinner';
 import Inputs from './inputs';
 
@@ -73,12 +73,12 @@ export default function Container({
             />
 
             <VStack w="100%" spacing="2" align="start">
-              <DisplayTimeContainer
+              <DisplayTime
                 title="생성된 시간"
                 ISOString={selectedTodo.createdAt}
                 dataCy="createdAt"
               />
-              <DisplayTimeContainer
+              <DisplayTime
                 title="수정된 시간"
                 ISOString={selectedTodo.updatedAt}
                 dataCy="updatedAt"
