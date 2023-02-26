@@ -1,15 +1,4 @@
-import { MyStorage, useMyStorage } from './storage';
-
-export function useIsLogined() {
-  return useLoginToken() !== null;
-}
-
-export function useLoginToken() {
-  const myStorage = useMyStorage();
-
-  if (myStorage === null) return null;
-  return myStorage.getLoginToken();
-}
+import { MyStorage } from './storage';
 
 export function getLoginToken(storage: Storage) {
   return new MyStorage(storage).getLoginToken();

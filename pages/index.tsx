@@ -1,6 +1,6 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head';
-import { useIsLogined } from '../utils/auth';
+import { useIsLogined } from '../hooks/useIsLogined';
 
 export default function Home() {
   return (
