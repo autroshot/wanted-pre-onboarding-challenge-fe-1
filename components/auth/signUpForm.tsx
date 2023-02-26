@@ -21,9 +21,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
-import EmailForm from './email';
+import EmailInput from './common/emailInput';
+import PasswordInput from './common/passwordInput';
 import { signup as signupFetcher } from './fetchers';
-import PasswordForm from './password';
 
 export default function SignUpForm() {
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
@@ -44,12 +44,12 @@ export default function SignUpForm() {
       <Box my="5">
         <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="signUpForm">
           <VStack spacing="5">
-            <EmailForm
+            <EmailInput
               name="email"
               errorMessage={undefinedToNull(errors.email?.message)}
               register={register}
             />
-            <PasswordForm
+            <PasswordInput
               name="password"
               errorMessage={undefinedToNull(errors.password?.message)}
               register={register}

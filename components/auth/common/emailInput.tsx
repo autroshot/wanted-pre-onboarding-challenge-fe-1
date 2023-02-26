@@ -5,9 +5,9 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { ERROR_MESSAGE } from '../../utils/validation';
+import { ERROR_MESSAGE } from '../../../utils/validation';
 
-export default function EmailForm<T>({
+export default function EmailInput<T>({
   name,
   errorMessage,
   register,

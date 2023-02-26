@@ -13,9 +13,9 @@ import { useForm } from 'react-hook-form';
 import { ErrorResponseData } from '../../types/response';
 import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
-import EmailForm from './email';
+import EmailInput from './common/emailInput';
+import PasswordInput from './common/passwordInput';
 import { login as loginFetcher } from './fetchers';
-import PasswordForm from './password';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,12 +35,12 @@ export default function LoginForm() {
       <Box my="5">
         <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="loginForm">
           <VStack spacing="5">
-            <EmailForm
+            <EmailInput
               name="email"
               errorMessage={undefinedToNull(errors.email?.message)}
               register={register}
             />
-            <PasswordForm
+            <PasswordInput
               name="password"
               errorMessage={undefinedToNull(errors.password?.message)}
               register={register}
