@@ -10,15 +10,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DetailContainer from '../../components/todo/detail/container';
 import ListContainer from '../../components/todo/list/container';
+import { TodoInputs } from '../../types/inputs';
+import { ErrorResponseData } from '../../types/response';
+import { undefinedToNull } from '../../utils/general';
 import {
   useTodoCreation,
   useTodoDeletion,
   useTodos,
   useTodoUpdation,
-} from '../../queries/todo';
-import { TodoInputs } from '../../types/inputs';
-import { ErrorResponseData } from '../../types/response';
-import { undefinedToNull } from '../../utils/general';
+} from './queries';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
