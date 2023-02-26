@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { ERROR_MESSAGE } from '../../../utils/validation';
+import { ERROR_MESSAGE } from './constants';
 
 export default function PasswordInput<T>({
   name,
