@@ -8,11 +8,11 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import DetailContainer from '../../components/todo/detail/container';
-import ListContainer from '../../components/todo/list/container';
 import { TodoInputs } from '../../types/inputs';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
+import DetailContainer from './detail/container';
+import ListContainer from './list/container';
 import {
   useTodoCreation,
   useTodoDeletion,
