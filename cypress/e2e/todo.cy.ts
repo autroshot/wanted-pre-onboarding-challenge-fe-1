@@ -2,7 +2,7 @@ import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sortingMenu/contants';
-import { TodoType } from '../../types/todo';
+import { TodoType } from '../../components/todo/types';
 import { toKoreanTime } from '../../utils/time';
 import { DummyTodos } from './dummy';
 

@@ -7,6 +7,8 @@ export interface TodoType {
   updatedAt: string;
 }
 
+export type TodoInputs = Pick<TodoType, 'id' | 'title' | 'content'>;
+
 export type TodoToUpdate = Pick<TodoType, 'id' | 'title' | 'content'>;
 
 export type TodoSortBy = Extract<

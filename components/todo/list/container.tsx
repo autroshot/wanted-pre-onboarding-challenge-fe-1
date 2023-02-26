@@ -1,6 +1,6 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
-import { TodoSortBy, TodoSortOrder, TodoType } from '../../../types/todo';
+import { TodoSortBy, TodoSortOrder, TodoType } from '../types';
 import CreateButton from './createButton';
 import SortingMenuContainer from './sortingMenu/container';
 import Todos from './todos';
