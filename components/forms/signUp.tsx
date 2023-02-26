@@ -19,10 +19,10 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { signup as signupFetcher } from '../../fetchers/auth';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import EmailForm from './email';
+import { signup as signupFetcher } from './fetchers';
 import PasswordForm from './password';
 
 export default function SignUpForm() {
