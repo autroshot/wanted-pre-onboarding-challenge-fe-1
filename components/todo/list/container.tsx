@@ -2,7 +2,7 @@ import { Box, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { TodoSortBy, TodoSortOrder, TodoType } from '../../../types/todo';
 import CreateButton from './createButton';
-import SortingMenu from './sortingMenu';
+import SortingMenuContainer from './sortingMenu/container';
 import Todos from './todos';
 import TodoSkeletons from './todoSkeletons';
 
@@ -25,7 +25,7 @@ export default function Container({
     <Box>
       <HStack mb="2">
         <Box>
-          <SortingMenu
+          <SortingMenuContainer
             defaultSortBy={DEFAULT_SORT_BY}
             defaultOrder={DEFAULT_ORDER}
             sortBy={sortBy}

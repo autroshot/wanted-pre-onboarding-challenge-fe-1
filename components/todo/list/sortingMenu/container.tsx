@@ -7,10 +7,10 @@ import {
   MenuList,
   MenuOptionGroup,
 } from '@chakra-ui/react';
-import { ORDER, SORT_BY } from '../../../constants/sortingMenuItem';
-import { TodoSortBy, TodoSortOrder } from '../../../types/todo';
+import { ORDER, SORT_BY } from '../../../../constants/sortingMenuItem';
+import { TodoSortBy, TodoSortOrder } from '../../../../types/todo';
 
-export default function SortingMenu({
+export default function Container({
   defaultSortBy,
   defaultOrder,
   sortBy,
