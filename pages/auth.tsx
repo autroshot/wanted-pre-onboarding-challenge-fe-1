@@ -7,8 +7,8 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import LoginForm from '../components/forms/login';
-import SignUpForm from '../components/forms/signUp';
+import LoginForm from '../components/auth/login';
+import SignUpForm from '../components/auth/signUp';
 
 export default function Auth() {
   return (
