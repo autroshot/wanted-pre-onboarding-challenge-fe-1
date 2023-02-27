@@ -6,10 +6,17 @@ export function useAuth() {
   const loginToken = getLoginToken();
   const isLogined = loginToken !== null;
 
-  return { loginToken, isLogined };
+  return { loginToken, isLogined, login };
 
   function getLoginToken() {
     if (myStorage === null) return null;
     return myStorage.getLoginToken();
+  }
+
+  function login(loginToken: string) {
+    if (myStorage === null) {
+      throw new Error('스토리지가 존재하지 않습니다.');
+    }
+    myStorage.setLoginToken(loginToken);
   }
 }

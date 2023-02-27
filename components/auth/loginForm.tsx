@@ -10,8 +10,8 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../hooks/useAuth';
 import { ErrorResponseData } from '../../types/response';
-import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/emailInput';
 import PasswordInput from './common/passwordInput';
@@ -28,7 +28,10 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<Inputs>({ mode: 'onTouched' });
+
   const router = useRouter();
+
+  const { login } = useAuth();
 
   return (
     <>
@@ -73,7 +76,7 @@ export default function LoginForm() {
 
     loginFetcher(data.email, data.password)
       .then((res) => {
-        login(localStorage, res.token);
+        login(res.token);
 
         router.push('/');
       })
