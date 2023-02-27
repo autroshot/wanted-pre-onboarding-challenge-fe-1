@@ -19,9 +19,7 @@ import { login as loginFetcher } from './fetchers';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
-    null
-  );
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const {
     register,
@@ -49,10 +47,10 @@ export default function LoginForm() {
               register={register}
             />
 
-            {serverErrorMessage ? (
+            {errorMessage ? (
               <Alert status="error">
                 <AlertIcon />
-                <AlertDescription>{serverErrorMessage}</AlertDescription>
+                <AlertDescription>{errorMessage}</AlertDescription>
               </Alert>
             ) : null}
 
@@ -84,14 +82,12 @@ export default function LoginForm() {
         if (err instanceof AxiosError<ErrorResponseData>) {
           const message = err.response?.data.details;
 
-          setServerErrorMessage(
-            message ? `${message}.` : '오류가 발생했습니다.'
-          );
+          setErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
 
           return;
         }
         if (err instanceof Error) {
-          setServerErrorMessage(err.message);
+          setErrorMessage(err.message);
 
           return;
         }
