@@ -6,7 +6,7 @@ export function useAuth() {
   const loginToken = getLoginToken();
   const isLogined = loginToken !== null;
 
-  return { loginToken, isLogined, login };
+  return { loginToken, isLogined, login, logout };
 
   function getLoginToken() {
     if (myStorage === null) return null;
@@ -18,5 +18,12 @@ export function useAuth() {
       throw new Error('스토리지가 존재하지 않습니다.');
     }
     myStorage.setLoginToken(loginToken);
+  }
+
+  function logout() {
+    if (myStorage === null) {
+      throw new Error('스토리지가 존재하지 않습니다.');
+    }
+    myStorage.removeLoginToken();
   }
 }

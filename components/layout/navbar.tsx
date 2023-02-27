@@ -10,14 +10,14 @@ import {
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
-import { logout } from '../../utils/auth';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
+
   const router = useRouter();
 
-  const { isLogined } = useAuth();
+  const { isLogined, logout } = useAuth();
 
   return (
     <Flex
@@ -43,7 +43,8 @@ export default function Navbar() {
       {isLogined ? (
         <Button
           onClick={() => {
-            logout(localStorage);
+            logout();
+
             router.push('/');
           }}
         >
