@@ -80,10 +80,22 @@ export default function LoginForm() {
 
         router.push('/');
       })
-      .catch((err: AxiosError<ErrorResponseData>) => {
-        const message = err.response?.data.details;
+      .catch((err) => {
+        if (err instanceof AxiosError<ErrorResponseData>) {
+          const message = err.response?.data.details;
 
-        setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
+          setServerErrorMessage(
+            message ? `${message}.` : '오류가 발생했습니다.'
+          );
+
+          return;
+        }
+        if (err instanceof Error) {
+          setServerErrorMessage(err.message);
+
+          return;
+        }
+        throw err;
       })
       .then(() => setIsLoading(false));
   }
