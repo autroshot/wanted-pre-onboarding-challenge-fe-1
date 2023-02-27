@@ -4,7 +4,7 @@ import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
 import TodoContainer from '../../components/todo/container';
 import { useLoginToken } from '../../hooks/useLoginToken';
 
-export default function ToDo() {
+export default function Todo() {
   const router = useRouter();
   const loginToken = useLoginToken();
 
