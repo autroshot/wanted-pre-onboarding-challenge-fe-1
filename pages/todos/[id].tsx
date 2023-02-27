@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
-import Container from '../../components/todo/container';
+import TodoContainer from '../../components/todo/container';
 import { useLoginToken } from '../../hooks/useLoginToken';
 
 export default function ToDo() {
@@ -16,7 +16,7 @@ export default function ToDo() {
       {loginToken === null ? (
         <BlockUnloginedUserModal router={router} />
       ) : (
-        <Container loginToken={loginToken} />
+        <TodoContainer loginToken={loginToken} />
       )}
     </>
   );
