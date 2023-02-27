@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import { login } from '../../utils/auth';
 import { MyStorage } from '../../utils/storage';
 
 const seededUser = { email: 'hong@gmail.com', password: '12345678' };
@@ -14,7 +13,7 @@ Cypress.Commands.add('seededUserLogin', () => {
         `${Cypress.env('server_url')}/users/login`,
         seededUser
       ).then((res) => {
-        login(localStorage, res.body.token);
+        login(res.body.token);
       });
     },
     {
@@ -30,6 +29,10 @@ function getIsLogined() {
   const loginToken = new MyStorage(localStorage).getLoginToken();
 
   return loginToken !== null;
+}
+
+function login(loginToken: string) {
+  new MyStorage(localStorage).setLoginToken(loginToken);
 }
 
 declare global {
