@@ -5,9 +5,9 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { createTodo, deleteTodo, getTodos, updateTodo } from '../fetchers/todo';
-import { ErrorResponseData } from '../types/response';
-import { TodoToUpdate, TodoType } from '../types/todo';
+import { ErrorResponseData } from '../../types/response';
+import { createTodo, deleteTodo, getTodos, updateTodo } from './fetchers';
+import { TodoInputs, TodoType } from './types';
 
 const TODOS_QUERY_KEY = ['todos'];
 
@@ -48,8 +48,8 @@ export function useTodoCreation(loginToken: string) {
 export function useTodoUpdation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation<TodoType, AxiosError<ErrorResponseData>, TodoToUpdate>({
-    mutationFn: (todoToUpdate: TodoToUpdate) =>
+  return useMutation<TodoType, AxiosError<ErrorResponseData>, TodoInputs>({
+    mutationFn: (todoToUpdate: TodoInputs) =>
       updateTodo(loginToken, todoToUpdate),
     onSuccess: (updatedTodo) => {
       queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {

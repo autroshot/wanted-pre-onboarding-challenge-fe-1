@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { TodoToUpdate, TodoType } from '../types/todo';
+import { TodoInputs, TodoType } from './types';
 
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
@@ -36,10 +36,7 @@ export async function createTodo(loginToken: string) {
   }
 }
 
-export async function updateTodo(
-  loginToken: string,
-  todoToUpdate: TodoToUpdate
-) {
+export async function updateTodo(loginToken: string, todoToUpdate: TodoInputs) {
   const axiosInstance = createAxiosInstance();
 
   const res = await axiosInstance.put<

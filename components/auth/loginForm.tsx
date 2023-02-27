@@ -4,29 +4,20 @@ import {
   AlertIcon,
   Box,
   Button,
-  Center,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { signup as signupFetcher } from '../../fetchers/auth';
 import { ErrorResponseData } from '../../types/response';
+import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
-import EmailForm from './email';
-import PasswordForm from './password';
+import EmailInput from './common/emailInput';
+import PasswordInput from './common/passwordInput';
+import { login as loginFetcher } from './fetchers';
 
-export default function SignUpForm() {
-  const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
+export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
     null
@@ -42,14 +33,14 @@ export default function SignUpForm() {
   return (
     <>
       <Box my="5">
-        <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="signUpForm">
+        <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="loginForm">
           <VStack spacing="5">
-            <EmailForm
+            <EmailInput
               name="email"
               errorMessage={undefinedToNull(errors.email?.message)}
               register={register}
             />
-            <PasswordForm
+            <PasswordInput
               name="password"
               errorMessage={undefinedToNull(errors.password?.message)}
               register={register}
@@ -69,49 +60,29 @@ export default function SignUpForm() {
               isLoading={isLoading}
               data-cy="submitButton"
             >
-              회원가입
+              로그인
             </Button>
           </VStack>
         </form>
       </Box>
-
-      <Modal
-        size="sm"
-        closeOnOverlayClick={false}
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>알림</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Center>🎉 회원가입 완료 🎉</Center>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={handleModalClose}>확인</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </>
   );
 
   function onSubmit(data: Inputs): any | Promise<any> {
     setIsLoading(true);
 
-    signupFetcher(data.email, data.password)
-      .then(() => {
-        onModalOpen();
+    loginFetcher(data.email, data.password)
+      .then((res) => {
+        login(localStorage, res.token);
+
+        router.push('/');
       })
       .catch((err: AxiosError<ErrorResponseData>) => {
         const message = err.response?.data.details;
+
         setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
       })
       .then(() => setIsLoading(false));
-  }
-
-  function handleModalClose() {
-    router.push('/');
   }
 
   interface Inputs {

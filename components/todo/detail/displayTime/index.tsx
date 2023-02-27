@@ -1,5 +1,5 @@
 import { Text } from '@chakra-ui/react';
-import { toKoreanTime } from '../../../utils/time';
+import { toKoreanTime } from './utils';
 
 export default function DisplayTime({ title, ISOString, dataCy }: Props) {
   return (

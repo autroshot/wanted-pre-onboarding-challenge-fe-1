@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 export class MyStorage {
   readonly #storage: Storage;
 
@@ -26,16 +24,6 @@ export class MyStorage {
   #remove(key: myStorageKeys): void {
     return this.#storage.removeItem(key);
   }
-}
-
-export function useMyStorage() {
-  const [myStorage, setMyStorage] = useState<null | MyStorage>(null);
-
-  useEffect(() => {
-    setMyStorage(new MyStorage(localStorage));
-  }, []);
-
-  return myStorage;
 }
 
 type myStorageKeys = 'loginToken';

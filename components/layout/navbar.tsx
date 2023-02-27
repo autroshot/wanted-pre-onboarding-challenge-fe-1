@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { logout, useIsLogined } from '../utils/auth';
+import { useIsLogined } from '../../hooks/useIsLogined';
+import { logout } from '../../utils/auth';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
