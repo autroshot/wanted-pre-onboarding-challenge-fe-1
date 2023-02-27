@@ -58,14 +58,14 @@ export default function Container({ loginToken }: Props) {
         <ListContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
-          isLoading={isLoading()}
+          isLoading={getIsLoading()}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
         <DetailContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
-          isLoading={isLoading()}
+          isLoading={getIsLoading()}
           isEditMode={isEditMode}
           titleRef={titleRef}
           alertDialogDisclosure={alertDialogDisclosure}
@@ -122,7 +122,7 @@ export default function Container({ loginToken }: Props) {
     });
   }
 
-  function isLoading() {
+  function getIsLoading() {
     const isLoadingArray = [
       isTodosLoading,
       todoCreationMutation.isLoading,
