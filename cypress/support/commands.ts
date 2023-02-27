@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
-import { getLoginToken, login } from '../../utils/auth';
+import { login } from '../../utils/auth';
+import { MyStorage } from '../../utils/storage';
 
 const seededUser = { email: 'hong@gmail.com', password: '12345678' };
 
@@ -18,12 +19,18 @@ Cypress.Commands.add('seededUserLogin', () => {
     },
     {
       validate() {
-        expect(getLoginToken(localStorage)).to.be.not.null;
+        expect(getIsLogined()).to.be.true;
       },
     }
   );
   cy.visit('/');
 });
+
+function getIsLogined() {
+  const loginToken = new MyStorage(localStorage).getLoginToken();
+
+  return loginToken !== null;
+}
 
 declare global {
   namespace Cypress {
