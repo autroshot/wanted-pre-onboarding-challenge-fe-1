@@ -10,8 +10,8 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../hooks/useAuth';
 import { ErrorResponseData } from '../../types/response';
-import { login } from '../../utils/auth';
 import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/emailInput';
 import PasswordInput from './common/passwordInput';
@@ -19,16 +19,17 @@ import { login as loginFetcher } from './fetchers';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [serverErrorMessage, setServerErrorMessage] = useState<null | string>(
-    null
-  );
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const {
     register,
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<Inputs>({ mode: 'onTouched' });
+
   const router = useRouter();
+
+  const { login } = useAuth();
 
   return (
     <>
@@ -46,10 +47,10 @@ export default function LoginForm() {
               register={register}
             />
 
-            {serverErrorMessage ? (
+            {errorMessage ? (
               <Alert status="error">
                 <AlertIcon />
-                <AlertDescription>{serverErrorMessage}</AlertDescription>
+                <AlertDescription>{errorMessage}</AlertDescription>
               </Alert>
             ) : null}
 
@@ -73,14 +74,24 @@ export default function LoginForm() {
 
     loginFetcher(data.email, data.password)
       .then((res) => {
-        login(localStorage, res.token);
+        login(res.token);
 
         router.push('/');
       })
-      .catch((err: AxiosError<ErrorResponseData>) => {
-        const message = err.response?.data.details;
+      .catch((err) => {
+        if (err instanceof AxiosError<ErrorResponseData>) {
+          const message = err.response?.data.details;
 
-        setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
+          setErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
+
+          return;
+        }
+        if (err instanceof Error) {
+          setErrorMessage(err.message);
+
+          return;
+        }
+        throw err;
       })
       .then(() => setIsLoading(false));
   }

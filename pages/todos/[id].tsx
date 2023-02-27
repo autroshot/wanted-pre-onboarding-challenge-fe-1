@@ -2,11 +2,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
 import TodoContainer from '../../components/todo/container';
-import { useLoginToken } from '../../hooks/useLoginToken';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Todo() {
   const router = useRouter();
-  const loginToken = useLoginToken();
+  const { loginToken } = useAuth();
 
   return (
     <>

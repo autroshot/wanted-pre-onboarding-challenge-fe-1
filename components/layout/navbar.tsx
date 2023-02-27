@@ -9,13 +9,15 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useIsLogined } from '../../hooks/useIsLogined';
-import { logout } from '../../utils/auth';
+import { useAuth } from '../../hooks/useAuth';
 import ButtonAsLink from './buttonAsLink';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
+
   const router = useRouter();
+
+  const { isLogined, logout } = useAuth();
 
   return (
     <Flex
@@ -38,10 +40,11 @@ export default function Navbar() {
         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         onClick={toggleColorMode}
       />
-      {useIsLogined() ? (
+      {isLogined ? (
         <Button
           onClick={() => {
-            logout(localStorage);
+            logout();
+
             router.push('/');
           }}
         >
