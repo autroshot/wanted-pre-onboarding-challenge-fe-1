@@ -1,4 +1,4 @@
-import { CONFIRM, LOGOUT } from 'constants/terms';
+import { CONFIRM, LOGIN, LOGOUT } from 'constants/terms';
 
 describe('인증', () => {
   const seededUser = { email: 'hong@gmail.com', password: '12345678' };
@@ -28,7 +28,7 @@ describe('인증', () => {
     cy.seededUserLogin();
     cy.get('[data-cy="navbar"]').contains(LOGOUT).click();
 
-    cy.get('[data-cy="navbar"]').contains('로그인');
+    cy.get('[data-cy="navbar"]').contains(LOGIN);
     cy.getAllLocalStorage().then((result) => {
       const baseUrl = String(Cypress.config().baseUrl);
       expect(result[baseUrl]).to.have.not.property('loginToken');
