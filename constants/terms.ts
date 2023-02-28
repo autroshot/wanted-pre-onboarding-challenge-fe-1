@@ -9,3 +9,4 @@ export const NOTICE = '알림';
 export const HOME = '홈';
 export const TODO = 'ToDo';
 export const EMAIL = '이메일';
+export const PASSWORD = '비밀번호';
