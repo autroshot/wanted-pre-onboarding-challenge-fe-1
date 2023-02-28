@@ -4,6 +4,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react';
+import { EMAIL } from 'constants/terms';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 import { ERROR_MESSAGE } from './constants';
 
@@ -33,7 +34,7 @@ export default function EmailInput<T>({
         {...register(name, registerOptions)}
         data-cy="emailInput"
       />
-      <FormLabel>이메일</FormLabel>
+      <FormLabel>{EMAIL}</FormLabel>
       {errorMessage ? (
         <FormErrorMessage data-cy="emailErrorMessage">
           {errorMessage}
