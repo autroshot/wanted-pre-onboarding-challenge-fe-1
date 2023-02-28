@@ -1,4 +1,5 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
+import { HOME } from 'constants/terms';
 import Head from 'next/head';
 import { useAuth } from '../hooks/useAuth';
 
@@ -8,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>홈 | ToDo</title>
+        <title>{HOME} | ToDo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container my="5">
