@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-import { CANCEL, DELETE } from '../../../constants/text';
+import { CANCEL, DELETE, TODO } from '../../../constants/terms';
 
 export default function DeleteAlertDialog({
   isOpen,
@@ -27,13 +27,13 @@ export default function DeleteAlertDialog({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            ToDo 삭제
+            {TODO} {DELETE}
           </AlertDialogHeader>
 
           <AlertDialogBody>
             {todoTitle.length === 0
-              ? '해당 ToDo를 정말 삭제하시겠습니까?'
-              : `${todoTitle}을(를) 정말 삭제하시겠습니까?`}
+              ? `해당 ToDo를 정말 ${DELETE}하시겠습니까?`
+              : `${todoTitle}을(를) 정말 ${DELETE}하시겠습니까?`}
           </AlertDialogBody>
 
           <AlertDialogFooter>

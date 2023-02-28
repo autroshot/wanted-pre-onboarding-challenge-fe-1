@@ -1,3 +1,5 @@
+import { HOME, TODO } from 'constants/terms';
+
 describe('네비바 링크', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -6,12 +8,12 @@ describe('네비바 링크', () => {
   it('홈', () => {
     cy.visit('/auth');
 
-    cy.get('[data-cy="navbar"]').contains('홈').click();
+    cy.get('[data-cy="navbar"]').contains(HOME).click();
     cy.location('pathname').should('eq', '/');
   });
 
   it('ToDo', () => {
-    cy.get('[data-cy="navbar"]').contains('ToDo').click();
+    cy.get('[data-cy="navbar"]').contains(TODO).click();
     cy.location('pathname').should('eq', '/todos/index');
   });
 

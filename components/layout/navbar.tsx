@@ -7,6 +7,7 @@ import {
   Spacer,
   useColorMode,
 } from '@chakra-ui/react';
+import { HOME, LOGIN, LOGOUT, TODO } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
@@ -29,10 +30,10 @@ export default function Navbar() {
       data-cy="navbar"
     >
       <Link as={NextLink} href="/">
-        홈
+        {HOME}
       </Link>
       <Link as={NextLink} href="/todos/index">
-        ToDo
+        {TODO}
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
       <IconButton
@@ -48,10 +49,10 @@ export default function Navbar() {
             router.push('/');
           }}
         >
-          로그아웃
+          {LOGOUT}
         </Button>
       ) : (
-        <ButtonAsLink href="/auth" text="로그인" />
+        <ButtonAsLink href="/auth" text={LOGIN} />
       )}
     </Flex>
   );

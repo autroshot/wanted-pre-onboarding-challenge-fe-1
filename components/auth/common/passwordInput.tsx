@@ -8,6 +8,7 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
+import { PASSWORD } from 'constants/terms';
 import { useState } from 'react';
 import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 import { ERROR_MESSAGE } from './constants';
@@ -39,7 +40,7 @@ export default function PasswordInput<T>({
           data-cy="passwordInput"
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
-        <FormLabel>비밀번호</FormLabel>
+        <FormLabel>{PASSWORD}</FormLabel>
         <InputRightElement width="3rem">
           <IconButton
             h="1.75rem"

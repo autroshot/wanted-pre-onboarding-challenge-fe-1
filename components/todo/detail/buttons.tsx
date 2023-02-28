@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup } from '@chakra-ui/react';
-import { CANCEL, COMPLETE, DELETE, EDIT_MODE } from '../../../constants/text';
+import { CANCEL, COMPLETE, DELETE, EDIT_MODE } from '../../../constants/terms';
 
 export default function Buttons({
   isEditMode,
