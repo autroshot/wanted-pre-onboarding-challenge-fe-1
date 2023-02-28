@@ -6,7 +6,7 @@ import {
   TabPanels,
   Tabs,
 } from '@chakra-ui/react';
-import { LOGIN } from 'constants/terms';
+import { LOGIN, TODO } from 'constants/terms';
 import Head from 'next/head';
 import LoginForm from '../components/auth/loginForm';
 import SignUpForm from '../components/auth/signUpForm';
@@ -15,7 +15,9 @@ export default function Auth() {
   return (
     <>
       <Head>
-        <title>{LOGIN} 및 회원가입 | ToDo</title>
+        <title>
+          {LOGIN} 및 회원가입 | {TODO}
+        </title>
       </Head>
       <Container my="5">
         <Tabs isFitted variant="enclosed-colored">

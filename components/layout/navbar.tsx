@@ -7,7 +7,7 @@ import {
   Spacer,
   useColorMode,
 } from '@chakra-ui/react';
-import { HOME, LOGIN, LOGOUT } from 'constants/terms';
+import { HOME, LOGIN, LOGOUT, TODO } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
@@ -33,7 +33,7 @@ export default function Navbar() {
         {HOME}
       </Link>
       <Link as={NextLink} href="/todos/index">
-        ToDo
+        {TODO}
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
       <IconButton

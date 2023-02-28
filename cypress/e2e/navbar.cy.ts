@@ -1,4 +1,4 @@
-import { HOME } from 'constants/terms';
+import { HOME, TODO } from 'constants/terms';
 
 describe('네비바 링크', () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('네비바 링크', () => {
   });
 
   it('ToDo', () => {
-    cy.get('[data-cy="navbar"]').contains('ToDo').click();
+    cy.get('[data-cy="navbar"]').contains(TODO).click();
     cy.location('pathname').should('eq', '/todos/index');
   });
 

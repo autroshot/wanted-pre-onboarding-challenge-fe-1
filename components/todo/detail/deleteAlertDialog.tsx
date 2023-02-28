@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-import { CANCEL, DELETE } from '../../../constants/terms';
+import { CANCEL, DELETE, TODO } from '../../../constants/terms';
 
 export default function DeleteAlertDialog({
   isOpen,
@@ -27,7 +27,7 @@ export default function DeleteAlertDialog({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            ToDo {DELETE}
+            {TODO} {DELETE}
           </AlertDialogHeader>
 
           <AlertDialogBody>

@@ -1,3 +1,4 @@
+import { TODO } from 'constants/terms';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
@@ -11,7 +12,9 @@ export default function Todo() {
   return (
     <>
       <Head>
-        <title>ToDo | ToDo</title>
+        <title>
+          {TODO} | {TODO}
+        </title>
       </Head>
       {loginToken === null ? (
         <BlockUnloginedUserModal router={router} />

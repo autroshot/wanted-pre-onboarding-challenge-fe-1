@@ -7,3 +7,4 @@ export const LOGIN = '로그인';
 export const LOGOUT = '로그아웃';
 export const NOTICE = '알림';
 export const HOME = '홈';
+export const TODO = 'ToDo';
