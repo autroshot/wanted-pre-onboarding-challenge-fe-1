@@ -1,3 +1,5 @@
+import { CONFIRM } from 'constants/terms';
+
 describe('인증', () => {
   const seededUser = { email: 'hong@gmail.com', password: '12345678' };
 
@@ -43,7 +45,7 @@ describe('인증', () => {
     );
     cy.get('[data-cy="signUpForm"] [data-cy="submitButton"]').click();
     cy.contains('회원가입 완료');
-    cy.contains('확인').click();
+    cy.contains(CONFIRM).click();
 
     cy.visit('/auth');
     cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(newUser.email);

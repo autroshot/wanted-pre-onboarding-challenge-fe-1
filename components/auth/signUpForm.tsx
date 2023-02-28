@@ -16,6 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
+import { CONFIRM } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -89,7 +90,7 @@ export default function SignUpForm() {
             <Center>🎉 회원가입 완료 🎉</Center>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleModalClose}>확인</Button>
+            <Button onClick={handleModalClose}>{CONFIRM}</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
