@@ -1,7 +1,7 @@
 import { TODO } from 'constants/terms';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import BlockUnloginedUserModal from '../../components/blockUnloginedUser';
+import BlockUnloginedUserModal from '../../components/blockUnloginedUserModal';
 import TodoContainer from '../../components/todo/container';
 import { useAuth } from '../../hooks/useAuth';
 
