@@ -10,20 +10,20 @@ export function useAuth() {
 
   function getLoginToken() {
     if (myStorage === null) return null;
-    return myStorage.getLoginToken();
+    return myStorage.get('loginToken');
   }
 
   function login(loginToken: string) {
     if (myStorage === null) {
       throw new Error('스토리지가 존재하지 않습니다.');
     }
-    myStorage.setLoginToken(loginToken);
+    myStorage.set('loginToken', loginToken);
   }
 
   function logout() {
     if (myStorage === null) {
       throw new Error('스토리지가 존재하지 않습니다.');
     }
-    myStorage.removeLoginToken();
+    myStorage.remove('loginToken');
   }
 }

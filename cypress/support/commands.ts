@@ -26,13 +26,13 @@ Cypress.Commands.add('seededUserLogin', () => {
 });
 
 function getIsLogined() {
-  const loginToken = new MyStorage(localStorage).getLoginToken();
+  const loginToken = new MyStorage(localStorage).get('loginToken');
 
   return loginToken !== null;
 }
 
 function login(loginToken: string) {
-  new MyStorage(localStorage).setLoginToken(loginToken);
+  new MyStorage(localStorage).set('loginToken', loginToken);
 }
 
 declare global {
