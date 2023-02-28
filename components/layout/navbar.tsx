@@ -7,7 +7,7 @@ import {
   Spacer,
   useColorMode,
 } from '@chakra-ui/react';
-import { LOGIN } from 'constants/terms';
+import { LOGIN, LOGOUT } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
@@ -49,7 +49,7 @@ export default function Navbar() {
             router.push('/');
           }}
         >
-          로그아웃
+          {LOGOUT}
         </Button>
       ) : (
         <ButtonAsLink href="/auth" text={LOGIN} />

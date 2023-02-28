@@ -1,4 +1,4 @@
-import { CONFIRM } from 'constants/terms';
+import { CONFIRM, LOGOUT } from 'constants/terms';
 
 describe('인증', () => {
   const seededUser = { email: 'hong@gmail.com', password: '12345678' };
@@ -17,7 +17,7 @@ describe('인증', () => {
     );
     cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').click();
 
-    cy.get('[data-cy="navbar"]').contains('로그아웃');
+    cy.get('[data-cy="navbar"]').contains(LOGOUT);
     cy.getAllLocalStorage().then((result) => {
       const baseUrl = String(Cypress.config().baseUrl);
       expect(result[baseUrl]).to.have.property('loginToken');
@@ -26,7 +26,7 @@ describe('인증', () => {
 
   it('로그아웃', () => {
     cy.seededUserLogin();
-    cy.get('[data-cy="navbar"]').contains('로그아웃').click();
+    cy.get('[data-cy="navbar"]').contains(LOGOUT).click();
 
     cy.get('[data-cy="navbar"]').contains('로그인');
     cy.getAllLocalStorage().then((result) => {
@@ -54,7 +54,7 @@ describe('인증', () => {
     );
     cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').click();
 
-    cy.get('[data-cy="navbar"]').contains('로그아웃');
+    cy.get('[data-cy="navbar"]').contains(LOGOUT);
   });
 });
 
