@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-import { CANCEL, DELETE } from '../../../constants/text';
+import { CANCEL, DELETE } from '../../../constants/terms';
 
 export default function DeleteAlertDialog({
   isOpen,
