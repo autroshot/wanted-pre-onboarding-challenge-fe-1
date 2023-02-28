@@ -7,6 +7,7 @@ import {
   Spacer,
   useColorMode,
 } from '@chakra-ui/react';
+import { LOGIN } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
@@ -51,7 +52,7 @@ export default function Navbar() {
           로그아웃
         </Button>
       ) : (
-        <ButtonAsLink href="/auth" text="로그인" />
+        <ButtonAsLink href="/auth" text={LOGIN} />
       )}
     </Flex>
   );

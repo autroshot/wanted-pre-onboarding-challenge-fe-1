@@ -7,6 +7,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
+import { LOGIN } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -61,7 +62,7 @@ export default function LoginForm() {
               isLoading={isLoading}
               data-cy="submitButton"
             >
-              로그인
+              {LOGIN}
             </Button>
           </VStack>
         </form>
