@@ -11,7 +11,7 @@ import { HOME, LOGIN, LOGOUT, TODO } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/use-auth';
-import ButtonAsLink from './button-as-link';
+import ButtonLink from './button-link';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -52,7 +52,7 @@ export default function Navbar() {
           {LOGOUT}
         </Button>
       ) : (
-        <ButtonAsLink href="/auth" text={LOGIN} />
+        <ButtonLink href="/auth" text={LOGIN} />
       )}
     </Flex>
   );

@@ -1,7 +1,7 @@
 import { Button, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export default function ButtonAsLink({ href, text }: Props) {
+export default function ButtonLink({ href, text }: Props) {
   return (
     <LinkBox>
       <NextLink href={href} legacyBehavior>
