@@ -7,12 +7,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay
+  ModalOverlay,
 } from '@chakra-ui/react';
 import { NextRouter } from 'next/router';
 import { CONFIRM, LOGIN, NOTICE } from '../constants/terms';
 
-export default function BlockUnloginedUserModal({ router }: Props) {
+export default function UnloginedUserModal({ router }: Props) {
   return (
     <Modal
       size="sm"
