@@ -11,7 +11,7 @@ import { LOGIN } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/use-auth';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/email-input';

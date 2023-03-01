@@ -10,7 +10,7 @@ import {
 import { HOME, LOGIN, LOGOUT, TODO } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/use-auth';
 import ButtonAsLink from './button-as-link';
 
 export default function Navbar() {
