@@ -1,12 +1,10 @@
 import { TODO } from 'constants/terms';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import TodoContainer from '../../components/todo/container';
 import UnloginedUserModal from '../../components/unlogined-user-modal';
 import { useAuth } from '../../hooks/use-auth';
 
 export default function Todo() {
-  const router = useRouter();
   const { loginToken } = useAuth();
 
   return (
@@ -17,7 +15,7 @@ export default function Todo() {
         </title>
       </Head>
       {loginToken === null ? (
-        <UnloginedUserModal router={router} />
+        <UnloginedUserModal />
       ) : (
         <TodoContainer loginToken={loginToken} />
       )}

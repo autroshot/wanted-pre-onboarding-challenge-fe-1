@@ -9,10 +9,12 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { CONFIRM, LOGIN, NOTICE } from '../constants/terms';
 
-export default function UnloginedUserModal({ router }: Props) {
+export default function UnloginedUserModal() {
+  const router = useRouter();
+
   return (
     <Modal
       size="sm"
@@ -39,8 +41,4 @@ export default function UnloginedUserModal({ router }: Props) {
   function handleModalClose() {
     router.push('/auth');
   }
-}
-
-interface Props {
-  router: NextRouter;
 }
