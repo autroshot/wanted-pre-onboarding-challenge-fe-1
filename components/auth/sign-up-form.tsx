@@ -22,8 +22,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
-import EmailInput from './common/emailInput';
-import PasswordInput from './common/passwordInput';
+import EmailInput from './common/email-input';
+import PasswordInput from './common/password-input';
 import { signup as signupFetcher } from './fetchers';
 
 export default function SignUpForm() {

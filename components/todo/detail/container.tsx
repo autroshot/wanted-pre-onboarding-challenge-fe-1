@@ -13,10 +13,10 @@ import {
 } from 'react-hook-form';
 import { TodoInputs, TodoType } from '../types';
 import Buttons from './buttons';
-import DefaultText from './defaultText';
-import DeleteAlertDialog from './deleteAlertDialog';
-import DisplayTime from './displayTime';
-import FlexSpinner from './flexSpinner';
+import DefaultText from './default-text';
+import DeleteAlertDialog from './delete-alert-dialog';
+import DisplayTime from './display-time';
+import FlexSpinner from './flex-spinner';
 import Inputs from './inputs';
 
 export default function Container({

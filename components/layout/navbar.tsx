@@ -11,7 +11,7 @@ import { HOME, LOGIN, LOGOUT, TODO } from 'constants/terms';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/useAuth';
-import ButtonAsLink from './buttonAsLink';
+import ButtonAsLink from './button-as-link';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();

@@ -8,8 +8,8 @@ import {
 } from '@chakra-ui/react';
 import { LOGIN, TODO } from 'constants/terms';
 import Head from 'next/head';
-import LoginForm from '../components/auth/loginForm';
-import SignUpForm from '../components/auth/signUpForm';
+import LoginForm from '../components/auth/login-form';
+import SignUpForm from '../components/auth/sign-up-form';
 
 export default function Auth() {
   return (

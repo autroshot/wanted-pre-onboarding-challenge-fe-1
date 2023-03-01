@@ -1,8 +1,8 @@
-import { toKoreanTime } from '../../components/todo/detail/displayTime/utils';
+import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
   ORDER,
   SORT_BY,
-} from '../../components/todo/list/sortingMenu/contants';
+} from '../../components/todo/list/sorting-menu/contants';
 import { TodoType } from '../../components/todo/types';
 import { DummyTodos } from './dummy';
 

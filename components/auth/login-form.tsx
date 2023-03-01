@@ -14,8 +14,8 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '../../hooks/useAuth';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
-import EmailInput from './common/emailInput';
-import PasswordInput from './common/passwordInput';
+import EmailInput from './common/email-input';
+import PasswordInput from './common/password-input';
 import { login as loginFetcher } from './fetchers';
 
 export default function LoginForm() {
