@@ -15,7 +15,7 @@ import ListContainer from './list/container';
 import {
   useTodoCreation,
   useTodoDeletion,
-  useTodos,
+  useTodosGet,
   useTodoUpdation,
 } from './queries';
 import { TodoInputs } from './types';
@@ -38,7 +38,7 @@ export default function Container({ loginToken }: Props) {
     isClosable: true,
   });
 
-  const { data: todos, isLoading: isTodosLoading } = useTodos(
+  const { data: todos, isLoading: isTodosLoading } = useTodosGet(
     loginToken,
     handleError
   );

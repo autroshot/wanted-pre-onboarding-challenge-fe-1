@@ -11,7 +11,7 @@ import { TodoInputs, TodoType } from './types';
 
 const TODOS_QUERY_KEY = ['todos'];
 
-export function useTodos(
+export function useTodosGet(
   loginToken: string,
   onError?: UseQueryOptions<
     TodoType[],
