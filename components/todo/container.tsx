@@ -11,13 +11,8 @@ import { useForm } from 'react-hook-form';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import DetailContainer from './detail/container';
+import { useTodo } from './hooks';
 import ListContainer from './list/container';
-import {
-  useTodoCreation,
-  useTodoDeletion,
-  useTodos,
-  useTodoUpdation,
-} from './queries';
 import { TodoInputs } from './types';
 
 export default function Container({ loginToken }: Props) {
@@ -38,13 +33,8 @@ export default function Container({ loginToken }: Props) {
     isClosable: true,
   });
 
-  const { data: todos, isLoading: isTodosLoading } = useTodos(
-    loginToken,
-    handleError
-  );
-  const todoCreationMutation = useTodoCreation(loginToken);
-  const todoUpdationMutation = useTodoUpdation(loginToken);
-  const todoDeletionMutation = useTodoDeletion(loginToken);
+  const { todos, creationMutate, updationMutate, deletionMutate, isLoading } =
+    useTodo(loginToken, handleError);
 
   useEffect(() => {
     if (router.isReady) {
@@ -58,14 +48,14 @@ export default function Container({ loginToken }: Props) {
         <ListContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
-          isLoading={getIsLoading()}
+          isLoading={isLoading}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
         <DetailContainer
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
-          isLoading={getIsLoading()}
+          isLoading={isLoading}
           isEditMode={isEditMode}
           titleRef={titleRef}
           alertDialogDisclosure={alertDialogDisclosure}
@@ -92,7 +82,7 @@ export default function Container({ loginToken }: Props) {
   function handleTodoCreate() {
     if (todos === null) return;
 
-    todoCreationMutation.mutate(undefined, {
+    creationMutate(undefined, {
       onSuccess: (newTodo) => {
         setIsEditMode(true);
 
@@ -108,7 +98,7 @@ export default function Container({ loginToken }: Props) {
 
     setIsEditMode(false);
 
-    todoUpdationMutation.mutate(inputs, {
+    updationMutate(inputs, {
       onError: handleError,
     });
   }
@@ -116,21 +106,10 @@ export default function Container({ loginToken }: Props) {
     if (todos === null) return;
     if (selectedTodoId === null) return;
 
-    todoDeletionMutation.mutate(id, {
+    deletionMutate(id, {
       onSuccess: () => alertDialogDisclosure.onClose(),
       onError: handleError,
     });
-  }
-
-  function getIsLoading() {
-    const isLoadingArray = [
-      isTodosLoading,
-      todoCreationMutation.isLoading,
-      todoUpdationMutation.isLoading,
-      todoDeletionMutation.isLoading,
-    ];
-
-    return isLoadingArray.some((isLoading) => isLoading);
   }
 
   function getErrorMessage(err: AxiosError<ErrorResponseData>) {
