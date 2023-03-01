@@ -1,4 +1,4 @@
-import { toKoreanTime } from '../../components/todo/detail/displayTime/utils';
+import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
   ORDER,
   SORT_BY,
