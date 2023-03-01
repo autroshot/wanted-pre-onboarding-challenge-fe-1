@@ -1,7 +1,7 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
 import { HOME, TODO } from 'constants/terms';
 import Head from 'next/head';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks/use-auth';
 
 export default function Home() {
   const { isLogined } = useAuth();

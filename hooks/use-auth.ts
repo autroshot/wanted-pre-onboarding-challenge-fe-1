@@ -1,4 +1,4 @@
-import { useMyStorage } from './useMyStorage';
+import { useMyStorage } from './use-my-storage';
 
 export function useAuth() {
   const myStorage = useMyStorage();
