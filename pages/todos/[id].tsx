@@ -10,9 +10,7 @@ export default function Todo() {
   return (
     <>
       <Head>
-        <title>
-          {TODO} | {TODO}
-        </title>
+        <title>{`${TODO} | ${TODO}`}</title>
       </Head>
       {loginToken === null ? (
         <UnloginedUserModal />

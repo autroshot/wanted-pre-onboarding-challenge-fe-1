@@ -9,9 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>
-          {HOME} | {TODO}
-        </title>
+        <title>{`${HOME} | ${TODO}`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container my="5">

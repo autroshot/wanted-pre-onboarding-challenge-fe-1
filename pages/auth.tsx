@@ -15,9 +15,7 @@ export default function Auth() {
   return (
     <>
       <Head>
-        <title>
-          {LOGIN} 및 회원가입 | {TODO}
-        </title>
+        <title>{`${LOGIN} 및 회원가입 | ${TODO}`}</title>
       </Head>
       <Container my="5">
         <Tabs isFitted variant="enclosed-colored">
