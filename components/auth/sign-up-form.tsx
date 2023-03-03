@@ -16,7 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
-import { CONFIRM, NOTICE } from 'constants/terms';
+import { CONFIRM, NOTICE, SIGN_UP } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -70,7 +70,7 @@ export default function SignUpForm() {
               isLoading={isLoading}
               data-cy="submitButton"
             >
-              회원가입
+              {SIGN_UP}
             </Button>
           </VStack>
         </form>
@@ -87,7 +87,7 @@ export default function SignUpForm() {
           <ModalHeader>{NOTICE}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Center>🎉 회원가입 완료 🎉</Center>
+            <Center>🎉 {SIGN_UP} 완료 🎉</Center>
           </ModalBody>
           <ModalFooter>
             <Button onClick={handleModalClose}>{CONFIRM}</Button>

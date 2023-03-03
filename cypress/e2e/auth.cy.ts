@@ -1,4 +1,4 @@
-import { CONFIRM, LOGIN, LOGOUT } from 'constants/terms';
+import { CONFIRM, LOGIN, LOGOUT, SIGN_UP } from 'constants/terms';
 
 describe('인증', () => {
   const seededUser = { email: 'hong@gmail.com', password: '12345678' };
@@ -38,13 +38,13 @@ describe('인증', () => {
   it('회원가입 및 로그인', () => {
     const newUser = { email: 'dummy@gmail.com', password: 'abcd1234' };
 
-    cy.contains('회원가입').click();
+    cy.contains(SIGN_UP).click();
     cy.get('[data-cy="signUpForm"] [data-cy="emailInput"]').type(newUser.email);
     cy.get('[data-cy="signUpForm"] [data-cy="passwordInput"]').type(
       newUser.password
     );
     cy.get('[data-cy="signUpForm"] [data-cy="submitButton"]').click();
-    cy.contains('회원가입 완료');
+    cy.contains(SIGN_UP);
     cy.contains(CONFIRM).click();
 
     cy.visit('/auth');

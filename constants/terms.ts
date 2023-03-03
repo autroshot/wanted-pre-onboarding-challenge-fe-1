@@ -9,4 +9,5 @@ export const LOGIN = '로그인';
 export const LOGOUT = '로그아웃';
 export const NOTICE = '알림';
 export const PASSWORD = '비밀번호';
+export const SIGN_UP = '회원가입';
 export const TODO = 'ToDo';
