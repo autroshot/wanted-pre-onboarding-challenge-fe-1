@@ -1,11 +1,14 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import { createAxiosInstance } from 'utils/axios';
 
 export async function login(email: string, password: string) {
-  const res = await axios.post<
+  const axiosInstance = createAxiosInstance();
+
+  const res = await axiosInstance.post<
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/api/jwt', { email, password });
+  >('/jwt', { email, password });
 
   return res.data;
 
@@ -21,11 +24,13 @@ export async function login(email: string, password: string) {
 }
 
 export async function signup(email: string, password: string) {
-  const res = await axios.post<
+  const axiosInstance = createAxiosInstance();
+
+  const res = await axiosInstance.post<
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/api/users', { email, password });
+  >('/users', { email, password });
 
   return res.data;
 
