@@ -408,7 +408,7 @@ describe('오류 처리', () => {
 });
 
 function commonBeforeEach() {
-  cy.request('GET', `${Cypress.env('server_url')}/seed`);
+  cy.request('GET', '/api/seed');
 
   cy.seedUserLogin();
 

@@ -5,7 +5,7 @@ const seedUser = new DummyUsers().getUserInput(0);
 
 describe('인증', () => {
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
+    cy.request('GET', '/api/seed');
     cy.visit('/auth');
   });
 
