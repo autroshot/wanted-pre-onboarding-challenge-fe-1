@@ -1,19 +1,18 @@
 import { CONFIRM, LOGIN, LOGOUT, SIGN_UP } from 'constants/terms';
+import { DummyUsers } from './dummy';
+
+const seedUser = new DummyUsers().getUserInput(0);
 
 describe('인증', () => {
-  const seededUser = { email: 'hong@gmail.com', password: '12345678' };
-
   beforeEach(() => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
     cy.visit('/auth');
   });
 
   it('로그인', () => {
-    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(
-      seededUser.email
-    );
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(seedUser.email);
     cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').type(
-      seededUser.password
+      seedUser.password
     );
     cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').click();
 
