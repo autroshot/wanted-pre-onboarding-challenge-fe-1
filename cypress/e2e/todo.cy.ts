@@ -8,7 +8,7 @@ import { DummyTodos } from './dummy';
 
 const dummyTodos = new DummyTodos();
 
-describe.only('CRUD', () => {
+describe('CRUD', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
