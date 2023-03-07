@@ -6,10 +6,11 @@ import {
   updateTodo as updateDBTodo,
 } from '../db/todo';
 import type { TodoInput } from '../types/todo';
+import { validateTokenDecorator } from './jwt';
 import { Controller } from './types';
 import { createError, createResponse } from './utils';
 
-export const createTodo: Controller = async (req, res) => {
+let createTodo: Controller = async (req, res) => {
   const todoInput: TodoInput = req.body;
 
   const newTodo = await insertTodo(todoInput);
@@ -17,7 +18,7 @@ export const createTodo: Controller = async (req, res) => {
   return res.status(200).send(createResponse(newTodo));
 };
 
-export const getTodos: Controller = async (req, res) => {
+let getTodos: Controller = async (req, res) => {
   const todos = await selectAllTodos();
 
   if (!todos) {
@@ -29,7 +30,7 @@ export const getTodos: Controller = async (req, res) => {
   return res.status(200).send(createResponse(todos));
 };
 
-export const updateTodo: Controller = async (req, res) => {
+let updateTodo: Controller = async (req, res) => {
   const id = String(req.query.id);
   const { title, content } = req.body;
 
@@ -48,7 +49,7 @@ export const updateTodo: Controller = async (req, res) => {
   return res.status(200).send(createResponse(updatedTodo));
 };
 
-export const deleteTodo: Controller = async (req, res) => {
+let deleteTodo: Controller = async (req, res) => {
   const id = String(req.query.id);
 
   const { isSuccess } = await deleteDBTodo(id);
@@ -61,3 +62,10 @@ export const deleteTodo: Controller = async (req, res) => {
 
   return res.status(200).send(createResponse(null));
 };
+
+createTodo = validateTokenDecorator(createTodo);
+getTodos = validateTokenDecorator(getTodos);
+updateTodo = validateTokenDecorator(updateTodo);
+deleteTodo = validateTokenDecorator(deleteTodo);
+
+export { createTodo, getTodos, updateTodo, deleteTodo };
