@@ -24,7 +24,7 @@ describe('인증', () => {
   });
 
   it('로그아웃', () => {
-    cy.seededUserLogin();
+    cy.seedUserLogin();
     cy.get('[data-cy="navbar"]').contains(LOGOUT).click();
 
     cy.get('[data-cy="navbar"]').contains(LOGIN);

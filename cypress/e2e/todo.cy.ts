@@ -14,24 +14,24 @@ describe('CRUD', () => {
   });
 
   it('R', () => {
-    const seededTodo10 = dummyTodos.getTodoWithEmptyId(9);
+    const seedTodo10 = dummyTodos.getTodoWithEmptyId(9);
 
-    cy.contains(seededTodo10.title).click();
+    cy.contains(seedTodo10.title).click();
 
-    cy.contains<HTMLElement>(seededTodo10.title).then(($todo) => {
+    cy.contains<HTMLElement>(seedTodo10.title).then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
     });
-    cy.get('[data-cy="title"]').should('have.value', seededTodo10.title);
-    cy.get('[data-cy="content"]').should('have.value', seededTodo10.content);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo10.title);
+    cy.get('[data-cy="content"]').should('have.value', seedTodo10.content);
     cy.get('[data-cy="createdAt"]').should(
       'contain',
-      toKoreanTime(seededTodo10.createdAt)
+      toKoreanTime(seedTodo10.createdAt)
     );
     cy.get('[data-cy="updatedAt"]').should(
       'contain',
-      toKoreanTime(seededTodo10.updatedAt)
+      toKoreanTime(seedTodo10.updatedAt)
     );
   });
 
@@ -180,13 +180,13 @@ describe('취소', () => {
   });
 
   it('수정 취소', () => {
-    const seededTodo13 = dummyTodos.getTodoWithEmptyId(12);
+    const seedTodo13 = dummyTodos.getTodoWithEmptyId(12);
     const updatedTodo: Pick<Todo, 'title' | 'content'> = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
 
-    cy.contains(seededTodo13.title).click();
+    cy.contains(seedTodo13.title).click();
     cy.get('[data-cy="editMode"]').click();
     cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
     cy.get('[data-cy="content"]').type(
@@ -194,19 +194,19 @@ describe('취소', () => {
     );
     cy.get('[data-cy="cancel"]').click();
 
-    cy.get('[data-cy="title"]').should('have.value', seededTodo13.title);
-    cy.get('[data-cy="content"]').should('have.value', seededTodo13.content);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo13.title);
+    cy.get('[data-cy="content"]').should('have.value', seedTodo13.content);
   });
 
   it('삭제 취소', () => {
-    const seededTodo11 = dummyTodos.getTodoWithEmptyId(10);
+    const seedTodo11 = dummyTodos.getTodoWithEmptyId(10);
 
-    cy.contains(seededTodo11.title).click();
+    cy.contains(seedTodo11.title).click();
     cy.get('[data-cy="delete"]').click();
     cy.get('[data-cy="cancel"]').click();
 
-    cy.contains(seededTodo11.title);
-    cy.get('[data-cy="title"]').should('have.value', seededTodo11.title);
+    cy.contains(seedTodo11.title);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo11.title);
   });
 });
 
@@ -410,7 +410,7 @@ describe('오류 처리', () => {
 function commonBeforeEach() {
   cy.request('GET', `${Cypress.env('server_url')}/seed`);
 
-  cy.seededUserLogin();
+  cy.seedUserLogin();
 
   cy.visit('/todos/index');
 

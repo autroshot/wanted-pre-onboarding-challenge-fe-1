@@ -5,9 +5,9 @@ import { MyStorage } from '../../utils/storage';
 
 const seedUser = new DummyUsers().getUserInput(0);
 
-Cypress.Commands.add('seededUserLogin', () => {
+Cypress.Commands.add('seedUserLogin', () => {
   cy.session(
-    'seededUser',
+    'seedUser',
     () => {
       cy.request(
         'POST',
@@ -39,7 +39,7 @@ function login(loginToken: string) {
 declare global {
   namespace Cypress {
     interface Chainable {
-      seededUserLogin(): Chainable<void>;
+      seedUserLogin(): Chainable<void>;
     }
   }
 }

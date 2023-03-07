@@ -11,7 +11,7 @@ describe('ToDo 페이지의 비로그인 사용자 차단', () => {
 
   it('로그인 사용자', () => {
     cy.request('GET', `${Cypress.env('server_url')}/seed`);
-    cy.seededUserLogin();
+    cy.seedUserLogin();
 
     cy.visit('/todos/index');
 
