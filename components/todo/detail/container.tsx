@@ -11,7 +11,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { TodoInputs, TodoType } from '../types';
+import { TodoInput, TodoType } from '../types';
 import Buttons from './buttons';
 import DefaultText from './default-text';
 import DeleteAlertDialog from './delete-alert-dialog';
@@ -121,10 +121,10 @@ interface Props {
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   alertDialogDisclosure: UseDisclosureReturn;
-  register: UseFormRegister<TodoInputs>;
-  setValue: UseFormSetValue<TodoInputs>;
+  register: UseFormRegister<TodoInput>;
+  setValue: UseFormSetValue<TodoInput>;
   onActivateEditModeClick: () => void;
   onDeactivateEditModeClick: () => void;
   onTodoDelete: (id: string) => void;
-  onSubmit: ReturnType<UseFormHandleSubmit<TodoInputs>>;
+  onSubmit: ReturnType<UseFormHandleSubmit<TodoInput>>;
 }
