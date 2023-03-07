@@ -210,7 +210,7 @@ describe('취소', () => {
   });
 });
 
-describe.only('URL', () => {
+describe('URL', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
