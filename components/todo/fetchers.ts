@@ -1,5 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Todo, TodoInput } from 'types/todo';
+import { createAxiosInstance } from 'utils/axios';
 
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
@@ -71,12 +72,6 @@ export async function deleteTodo(loginToken: string, todoId: Todo['id']) {
   interface DeleteResponseData {
     data: null;
   }
-}
-
-function createAxiosInstance() {
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
 }
 
 function createAxiosRequestConfigWithAuth(
