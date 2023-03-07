@@ -9,11 +9,7 @@ Cypress.Commands.add('seedUserLogin', () => {
   cy.session(
     'seedUser',
     () => {
-      cy.request(
-        'POST',
-        `${Cypress.env('server_url')}/users/login`,
-        seedUser
-      ).then((res) => {
+      cy.request('POST', '/api/jwt', seedUser).then((res) => {
         login(res.body.token);
       });
     },

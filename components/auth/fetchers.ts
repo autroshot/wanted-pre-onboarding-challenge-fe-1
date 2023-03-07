@@ -1,13 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 
 export async function login(email: string, password: string) {
-  const axiosInstance = createAxiosInstance();
-
-  const res = await axiosInstance.post<
+  const res = await axios.post<
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/users/login', { email, password });
+  >('/api/jwt', { email, password });
 
   return res.data;
 
