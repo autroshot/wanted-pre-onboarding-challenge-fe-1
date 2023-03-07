@@ -1,4 +1,4 @@
-import { DummyTodos, DummyUsers } from 'db/dummy';
+import { TodoSeed, UserSeed } from 'db/seeds';
 import { deleteAllTodos, insertSeedTodos } from 'db/todo';
 import { deleteAllUsers, insertUsers } from 'db/user';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -10,8 +10,8 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'GET':
-        const dummyUserInputs = new DummyUsers().getUserInputs();
-        const dummyTodos = new DummyTodos().getTodosWithGeneratedId();
+        const dummyUserInputs = new UserSeed().getUserInputs();
+        const dummyTodos = new TodoSeed().getTodosWithGeneratedId();
 
         await deleteAllUsers();
         await insertUsers(dummyUserInputs);

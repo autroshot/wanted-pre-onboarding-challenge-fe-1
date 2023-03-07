@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { Todo } from 'types/todo';
 import { UserInput } from 'types/user';
 
-export class DummyTodos {
+export class TodoSeed {
   readonly #TODOS_WITH_EMPTY_ID: Todo[] = [
     {
       id: '',
@@ -129,7 +129,7 @@ export class DummyTodos {
   }
 }
 
-export class DummyUsers {
+export class UserSeed {
   readonly #USER_INPUTS: UserInput[] = [
     { email: 'hong@gmail.com', password: '12345678' },
     { email: 'lee@gmail.com', password: '12345678' },

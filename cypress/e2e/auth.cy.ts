@@ -1,7 +1,7 @@
 import { CONFIRM, LOGIN, LOGOUT, SIGN_UP } from 'constants/terms';
-import { DummyUsers } from 'db/dummy';
+import { UserSeed } from 'db/seeds';
 
-const seedUser = new DummyUsers().getUserInput(0);
+const seedUser = new UserSeed().getUserInput(0);
 
 describe('인증', () => {
   beforeEach(() => {

@@ -4,9 +4,9 @@ import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sorting-menu/contants';
-import { DummyTodos } from '../../db/dummy';
+import { TodoSeed } from '../../db/seeds';
 
-const dummyTodos = new DummyTodos();
+const dummyTodos = new TodoSeed();
 
 describe('CRUD', () => {
   beforeEach(() => {

@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 
-import { DummyUsers } from 'db/dummy';
+import { UserSeed } from 'db/seeds';
 import { MyStorage } from '../../utils/storage';
 
-const seedUser = new DummyUsers().getUserInput(0);
+const seedUser = new UserSeed().getUserInput(0);
 
 Cypress.Commands.add('seedUserLogin', () => {
   cy.session(
