@@ -1,4 +1,4 @@
-import { DummyTodos, DummyUsers } from 'cypress/e2e/dummy';
+import { DummyTodos, DummyUsers } from 'db/dummy';
 import { deleteAllTodos, insertSeedTodos } from 'db/todo';
 import { deleteAllUsers, insertUsers } from 'db/user';
 import { NextApiRequest, NextApiResponse } from 'next';

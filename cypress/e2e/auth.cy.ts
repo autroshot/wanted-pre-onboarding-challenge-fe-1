@@ -1,5 +1,5 @@
 import { CONFIRM, LOGIN, LOGOUT, SIGN_UP } from 'constants/terms';
-import { DummyUsers } from './dummy';
+import { DummyUsers } from 'db/dummy';
 
 const seedUser = new DummyUsers().getUserInput(0);
 

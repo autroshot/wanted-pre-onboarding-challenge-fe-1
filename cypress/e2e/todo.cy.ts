@@ -4,7 +4,7 @@ import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sorting-menu/contants';
-import { DummyTodos } from './dummy';
+import { DummyTodos } from '../../db/dummy';
 
 const dummyTodos = new DummyTodos();
 

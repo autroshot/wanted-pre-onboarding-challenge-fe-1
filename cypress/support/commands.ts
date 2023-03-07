@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { DummyUsers } from 'cypress/e2e/dummy';
+import { DummyUsers } from 'db/dummy';
 import { MyStorage } from '../../utils/storage';
 
 const seedUser = new DummyUsers().getUserInput(0);
