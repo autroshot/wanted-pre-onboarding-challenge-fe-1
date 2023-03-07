@@ -132,7 +132,7 @@ describe('정렬', () => {
       `${SORT_BY.createdAt} ${ORDER.descending}`
     );
 
-    const sortedTodos = dummyTodos.getTodos().reverse();
+    const sortedTodos = dummyTodos.getTodosWithEmptyId().reverse();
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
@@ -142,7 +142,7 @@ describe('정렬', () => {
     cy.get('[data-cy="sortingButton"]').click();
     cy.contains(ORDER.ascending).click();
 
-    const sortedTodos = dummyTodos.getTodos();
+    const sortedTodos = dummyTodos.getTodosWithEmptyId();
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
@@ -153,7 +153,7 @@ describe('정렬', () => {
     cy.contains(SORT_BY.updatedAt).click();
 
     const sortedTodos = dummyTodos
-      .getTodos()
+      .getTodosWithEmptyId()
       .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
@@ -166,7 +166,7 @@ describe('정렬', () => {
     cy.contains(ORDER.ascending).click();
 
     const sortedTodos = dummyTodos
-      .getTodos()
+      .getTodosWithEmptyId()
       .sort((a, b) => a.title.localeCompare(b.title));
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);

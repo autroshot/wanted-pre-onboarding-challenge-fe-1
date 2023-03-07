@@ -114,7 +114,7 @@ export class DummyTodos {
     return { ...targetTodo };
   }
 
-  getTodos() {
+  getTodosWithEmptyId() {
     return [...this.#TODOS_WITH_EMPTY_ID];
   }
 }
