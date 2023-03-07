@@ -1,8 +1,9 @@
 /// <reference types="cypress" />
 
+import { DummyUsers } from 'cypress/e2e/dummy';
 import { MyStorage } from '../../utils/storage';
 
-const seededUser = { email: 'hong@gmail.com', password: '12345678' };
+const seedUser = new DummyUsers().getUserInput(0);
 
 Cypress.Commands.add('seededUserLogin', () => {
   cy.session(
@@ -11,7 +12,7 @@ Cypress.Commands.add('seededUserLogin', () => {
       cy.request(
         'POST',
         `${Cypress.env('server_url')}/users/login`,
-        seededUser
+        seedUser
       ).then((res) => {
         login(res.body.token);
       });
