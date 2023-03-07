@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 
 export function createResponse<T>(data: T) {
   return {
@@ -12,8 +12,10 @@ export function createError<T>(details: T) {
   };
 }
 
-const JWT_TOKEN_SALT = 'jwtTokenSalt';
-
 export function createToken(value: string) {
-  return jwt.sign(value, JWT_TOKEN_SALT);
+  const JWTSecretKey = process.env.JSON_WEB_TOKEN_SECRET_KEY;
+
+  if (!JWTSecretKey) throw new Error('환경 변수에 JWT 키가 존재하지 않습니다.');
+
+  return JWT.sign(value, JWTSecretKey);
 }
