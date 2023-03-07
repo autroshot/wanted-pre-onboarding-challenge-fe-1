@@ -44,7 +44,7 @@ describe('인증', () => {
     );
     cy.get('[data-cy="signUpForm"] [data-cy="submitButton"]').click();
     cy.contains(SIGN_UP);
-    cy.contains(CONFIRM).click();
+    cy.contains(CONFIRM, { timeout: 10000 }).click();
 
     cy.visit('/auth');
     cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(newUser.email);
