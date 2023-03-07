@@ -1,4 +1,4 @@
-import { Todo as TodoType } from '../types';
+import { Todo as TodoType } from 'types/todo';
 import Todo from './todo';
 
 export default function Todos({ todos, selectedTodoId, onTodoClick }: Props) {

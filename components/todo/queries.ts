@@ -5,10 +5,9 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { Todo } from 'types/todo';
+import { Todo, TodoInput } from 'types/todo';
 import { ErrorResponseData } from '../../types/response';
 import { createTodo, deleteTodo, getTodos, updateTodo } from './fetchers';
-import { TodoInput } from './types';
 
 const TODOS_QUERY_KEY = ['todos'];
 

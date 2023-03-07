@@ -1,13 +1,13 @@
 import { UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { ErrorResponseData } from 'types/response';
+import { Todo } from 'types/todo';
 import {
   useTodoCreation,
   useTodoDeletion,
   useTodosGet,
   useTodoUpdation,
 } from './queries';
-import { Todo } from './types';
 
 export function useTodo(
   loginToken: string,

@@ -1,7 +1,7 @@
 import { Input, Textarea } from '@chakra-ui/react';
 import { MutableRefObject } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { TodoInput } from '../types';
+import { TodoInput } from 'types/todo';
 
 export default function Inputs({ isEditMode, titleRef, register }: Props) {
   const { ref, ...rest } = register('title');

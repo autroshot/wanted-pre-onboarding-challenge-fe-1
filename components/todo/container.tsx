@@ -8,12 +8,12 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { TodoInput } from 'types/todo';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import DetailContainer from './detail/container';
 import { useTodo } from './hooks';
 import ListContainer from './list/container';
-import { TodoInput } from './types';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);

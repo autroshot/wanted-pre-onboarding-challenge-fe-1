@@ -1,9 +1,9 @@
+import { Todo } from 'types/todo';
 import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sorting-menu/contants';
-import { Todo } from '../../components/todo/types';
 import { DummyTodos } from './dummy';
 
 const dummyTodos = new DummyTodos();
