@@ -21,13 +21,11 @@ export async function login(email: string, password: string) {
 }
 
 export async function signup(email: string, password: string) {
-  const axiosInstance = createAxiosInstance();
-
-  const res = await axiosInstance.post<
+  const res = await axios.post<
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/users/create', { email, password });
+  >('/api/users', { email, password });
 
   return res.data;
 
@@ -40,10 +38,4 @@ export async function signup(email: string, password: string) {
     message: string;
     token: string;
   }
-}
-
-function createAxiosInstance() {
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
 }
