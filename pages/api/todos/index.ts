@@ -12,7 +12,7 @@ export default async function handler(
         break;
 
       case 'POST':
-        createTodo(req, res);
+        await createTodo(req, res);
         break;
 
       default:
