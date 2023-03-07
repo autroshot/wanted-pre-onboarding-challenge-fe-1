@@ -8,11 +8,11 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'GET':
-        getTodos(req, res);
+        await getTodos(req, res);
         break;
 
       case 'POST':
-        createTodo(req, res);
+        await createTodo(req, res);
         break;
 
       default:

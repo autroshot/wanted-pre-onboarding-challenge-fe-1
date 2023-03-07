@@ -8,7 +8,7 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'POST':
-        login(req, res);
+        await login(req, res);
         break;
 
       default:

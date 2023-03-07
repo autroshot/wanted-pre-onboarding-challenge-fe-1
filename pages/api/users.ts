@@ -8,7 +8,7 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'POST':
-        signUp(req, res);
+        await signUp(req, res);
         break;
 
       default:

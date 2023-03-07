@@ -8,7 +8,7 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'GET':
-        seed(req, res);
+        await seed(req, res);
         break;
 
       default:

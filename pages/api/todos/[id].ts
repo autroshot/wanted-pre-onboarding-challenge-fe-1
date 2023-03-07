@@ -8,11 +8,11 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'PUT':
-        updateTodo(req, res);
+        await updateTodo(req, res);
         break;
 
       case 'DELETE':
-        deleteTodo(req, res);
+        await deleteTodo(req, res);
         break;
 
       default:
