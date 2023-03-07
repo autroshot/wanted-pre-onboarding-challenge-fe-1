@@ -9,7 +9,7 @@ import { TodoSeed } from '../../db/seeds';
 
 const dummyTodos = new TodoSeed();
 
-describe.only('CRUD', () => {
+describe('CRUD', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
