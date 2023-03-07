@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Todo } from 'types/todo';
+import { UserInput } from 'types/user';
 
 export class DummyTodos {
   readonly #TODOS_WITH_EMPTY_ID: Todo[] = [
@@ -125,5 +126,16 @@ export class DummyTodos {
     todosCopy.forEach((todo) => (todo.id = nanoid()));
 
     return todosCopy;
+  }
+}
+
+export class DummyUsers {
+  readonly #USER_INPUTS: UserInput[] = [
+    { email: 'hong@gmail.com', password: '12345678' },
+    { email: 'lee@gmail.com', password: '12345678' },
+  ];
+
+  getUserInputs(): UserInput[] {
+    return [...this.#USER_INPUTS];
   }
 }
