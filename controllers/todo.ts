@@ -6,9 +6,8 @@ import {
   updateTodo as updateDBTodo,
 } from '../db/todo';
 import type { TodoInput } from '../types/todo';
-import { validateTokenDecorator } from './jwt';
 import { Controller } from './types';
-import { createError, createResponse } from './utils';
+import { createError, createResponse, validateTokenDecorator } from './utils';
 
 let createTodo: Controller = async (req, res) => {
   const todoInput: TodoInput = req.body;

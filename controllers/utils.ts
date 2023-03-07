@@ -1,4 +1,6 @@
 import JWT from 'jsonwebtoken';
+import { TOKEN_VALIDATION_ERROR } from './contants';
+import { Controller } from './types';
 
 export function createResponse<T>(data: T) {
   return {
@@ -19,3 +21,16 @@ export function createToken(value: string): string {
 
   return JWT.sign(value, JWTSecretKey);
 }
+
+export const validateTokenDecorator = (controller: Controller) => {
+  const wrappedController: Controller = async (req, res) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(400).send(createError(TOKEN_VALIDATION_ERROR));
+    }
+    return controller(req, res);
+  };
+
+  return wrappedController;
+};

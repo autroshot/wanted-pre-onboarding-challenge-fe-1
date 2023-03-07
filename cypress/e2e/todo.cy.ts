@@ -1,4 +1,4 @@
-import { TOKEN_VALIDATION_ERROR } from 'controllers/jwt';
+import { TOKEN_VALIDATION_ERROR } from 'controllers/contants';
 import { Todo } from 'types/todo';
 import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
