@@ -3,12 +3,12 @@ import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sorting-menu/contants';
-import { TodoType } from '../../components/todo/types';
+import { Todo } from '../../components/todo/types';
 import { DummyTodos } from './dummy';
 
 const dummyTodos = new DummyTodos();
 
-describe('CRUD', () => {
+describe.only('CRUD', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
@@ -36,7 +36,7 @@ describe('CRUD', () => {
   });
 
   it('C', () => {
-    const newTodo: Pick<TodoType, 'title' | 'content'> = {
+    const newTodo: Pick<Todo, 'title' | 'content'> = {
       title: '새 할 일',
       content: '이것은 새 할 일의 내용입니다.',
     };
@@ -71,7 +71,7 @@ describe('CRUD', () => {
   });
 
   it('U', () => {
-    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+    const updatedTodo: Pick<Todo, 'title' | 'content'> = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
@@ -181,7 +181,7 @@ describe('취소', () => {
 
   it('수정 취소', () => {
     const seededTodo13 = dummyTodos.getTodoWithEmptyId(12);
-    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+    const updatedTodo: Pick<Todo, 'title' | 'content'> = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
@@ -254,7 +254,7 @@ describe('URL', () => {
     const todo2 = dummyTodos.getTodoWithEmptyId(1);
     const todo3 = dummyTodos.getTodoWithEmptyId(2);
     const todo4 = dummyTodos.getTodoWithEmptyId(3);
-    const newTodo: Pick<TodoType, 'id' | 'title'> = {
+    const newTodo: Pick<Todo, 'id' | 'title'> = {
       id: '',
       title: '새 할 일',
     };

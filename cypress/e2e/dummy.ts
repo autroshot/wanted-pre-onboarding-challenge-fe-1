@@ -1,4 +1,4 @@
-import { TodoType } from '../../components/todo/types';
+import { Todo } from '../../components/todo/types';
 
 export class DummyTodos {
   readonly #todos: TodoWithoutId[] = [
@@ -104,7 +104,7 @@ export class DummyTodos {
     },
   ];
 
-  getTodoWithEmptyId(index: number): TodoType {
+  getTodoWithEmptyId(index: number): Todo {
     let targetTodo: TodoWithoutId = this.#todos[0];
 
     if (this.#todos[index] !== undefined) {
@@ -119,4 +119,4 @@ export class DummyTodos {
   }
 }
 
-type TodoWithoutId = Omit<TodoType, 'id'>;
+type TodoWithoutId = Omit<Todo, 'id'>;

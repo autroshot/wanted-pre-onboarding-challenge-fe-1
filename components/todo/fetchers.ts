@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Todo } from 'types/todo';
-import { TodoInput, TodoType } from './types';
+import { TodoInput } from './types';
 
 export async function getTodos(loginToken: string) {
   const axiosInstance = createAxiosInstance();
@@ -12,7 +12,7 @@ export async function getTodos(loginToken: string) {
   return res.data.data;
 
   interface GetResponseData {
-    data: TodoType[];
+    data: Todo[];
   }
 }
 
@@ -31,9 +31,9 @@ export async function createTodo(loginToken: string) {
 
   return res.data.data;
 
-  type PostRequestData = Pick<TodoType, 'title' | 'content'>;
+  type PostRequestData = Pick<Todo, 'title' | 'content'>;
   interface PostResponseData {
-    data: TodoType;
+    data: Todo;
   }
 }
 
@@ -52,13 +52,13 @@ export async function updateTodo(
 
   return res.data.data;
 
-  type PutRequestData = Pick<TodoType, 'title' | 'content'>;
+  type PutRequestData = Pick<Todo, 'title' | 'content'>;
   interface PutResponseData {
-    data: TodoType;
+    data: Todo;
   }
 }
 
-export async function deleteTodo(loginToken: string, todoId: TodoType['id']) {
+export async function deleteTodo(loginToken: string, todoId: Todo['id']) {
   const axiosInstance = createAxiosInstance();
 
   const res = await axiosInstance.delete<

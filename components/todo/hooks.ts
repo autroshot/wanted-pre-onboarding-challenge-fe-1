@@ -7,14 +7,14 @@ import {
   useTodosGet,
   useTodoUpdation,
 } from './queries';
-import { TodoType } from './types';
+import { Todo } from './types';
 
 export function useTodo(
   loginToken: string,
   onError?: UseQueryOptions<
-    TodoType[],
+    Todo[],
     AxiosError<ErrorResponseData>,
-    TodoType[],
+    Todo[],
     string[]
   >['onError']
 ) {

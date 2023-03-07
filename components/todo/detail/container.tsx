@@ -11,7 +11,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { TodoInput, TodoType } from '../types';
+import { Todo, TodoInput } from '../types';
 import Buttons from './buttons';
 import DefaultText from './default-text';
 import DeleteAlertDialog from './delete-alert-dialog';
@@ -48,9 +48,7 @@ export default function Container({
   ) {
     return <DefaultText />;
   }
-  const selectedTodo = todos.find(
-    (todo) => todo.id === selectedTodoId
-  ) as TodoType;
+  const selectedTodo = todos.find((todo) => todo.id === selectedTodoId) as Todo;
   setValue('title', selectedTodo.title);
   setValue('content', selectedTodo.content);
 
@@ -105,7 +103,7 @@ export default function Container({
     </>
   );
 
-  function isValidTodoId(todoId: string, todos: TodoType[]) {
+  function isValidTodoId(todoId: string, todos: Todo[]) {
     if (todoId.length !== 21) return false;
     return todos.some((todo) => {
       return todo.id === todoId;
@@ -114,7 +112,7 @@ export default function Container({
 }
 
 interface Props {
-  todos: null | TodoType[];
+  todos: null | Todo[];
   selectedTodoId: null | string;
   isLoading: boolean;
   isEditMode: boolean;

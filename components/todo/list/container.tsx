@@ -1,6 +1,6 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
-import { TodoSortBy, TodoSortOrder, TodoType } from '../types';
+import { Todo, TodoSortBy, TodoSortOrder } from '../types';
 import CreateButton from './create-button';
 import SortingMenu from './sorting-menu';
 import TodoSkeletons from './todo-skeletons';
@@ -62,7 +62,7 @@ export default function Container({
   }
 
   function sortTodos(
-    todos: null | TodoType[],
+    todos: null | Todo[],
     sortBy: TodoSortBy,
     order: TodoSortOrder
   ) {
@@ -77,7 +77,7 @@ export default function Container({
 }
 
 interface Props {
-  todos: null | TodoType[];
+  todos: null | Todo[];
   selectedTodoId: null | string;
   isLoading: boolean;
   onTodoClick: (todoId: string) => void;
