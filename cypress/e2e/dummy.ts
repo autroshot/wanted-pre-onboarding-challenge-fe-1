@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { Todo } from 'types/todo';
 
 export class DummyTodos {
@@ -114,7 +115,15 @@ export class DummyTodos {
     return { ...targetTodo };
   }
 
-  getTodosWithEmptyId() {
+  getTodosWithEmptyId(): Todo[] {
     return [...this.#TODOS_WITH_EMPTY_ID];
+  }
+
+  getTodosWithGeneratedId(): Todo[] {
+    const todosCopy = [...this.#TODOS_WITH_EMPTY_ID];
+
+    todosCopy.forEach((todo) => (todo.id = nanoid()));
+
+    return todosCopy;
   }
 }
