@@ -138,4 +138,14 @@ export class DummyUsers {
   getUserInputs(): UserInput[] {
     return [...this.#USER_INPUTS];
   }
+
+  getUserInput(index: number): UserInput {
+    let result = this.#USER_INPUTS[0];
+
+    if (this.#USER_INPUTS[index] !== undefined) {
+      result = this.#USER_INPUTS[index];
+    }
+
+    return { ...result };
+  }
 }
