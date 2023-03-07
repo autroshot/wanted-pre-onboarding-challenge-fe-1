@@ -93,14 +93,18 @@ export default function Container({ loginToken }: Props) {
       onError: handleError,
     });
   }
-  function handleTodoUpdate(inputs: TodoInput) {
+  function handleTodoUpdate(input: TodoInput) {
     if (todos === null) return;
+    if (selectedTodoId === null) return;
 
     setIsEditMode(false);
 
-    updationMutate(inputs, {
-      onError: handleError,
-    });
+    updationMutate(
+      { id: selectedTodoId, todoInput: input },
+      {
+        onError: handleError,
+      }
+    );
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;

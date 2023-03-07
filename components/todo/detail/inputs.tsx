@@ -8,7 +8,6 @@ export default function Inputs({ isEditMode, titleRef, register }: Props) {
 
   return (
     <>
-      <input type="hidden" {...register('id')} />
       <Input
         placeholder="제목"
         readOnly={isEditMode ? false : true}

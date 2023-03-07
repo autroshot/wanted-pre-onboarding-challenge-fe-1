@@ -51,7 +51,6 @@ export default function Container({
   const selectedTodo = todos.find(
     (todo) => todo.id === selectedTodoId
   ) as TodoType;
-  setValue('id', selectedTodo.id);
   setValue('title', selectedTodo.title);
   setValue('content', selectedTodo.content);
 

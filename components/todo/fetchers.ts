@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Todo } from 'types/todo';
 import { TodoInput, TodoType } from './types';
 
 export async function getTodos(loginToken: string) {
@@ -36,18 +37,18 @@ export async function createTodo(loginToken: string) {
   }
 }
 
-export async function updateTodo(loginToken: string, todoToUpdate: TodoInput) {
+export async function updateTodo(
+  loginToken: string,
+  id: Todo['id'],
+  todoInput: TodoInput
+) {
   const axiosInstance = createAxiosInstance();
 
   const res = await axiosInstance.put<
     PutResponseData,
     AxiosResponse<PutResponseData>,
     PutRequestData
-  >(
-    `/todos/${todoToUpdate.id}`,
-    { title: todoToUpdate.title, content: todoToUpdate.content },
-    createAxiosRequestConfigWithAuth(loginToken)
-  );
+  >(`/todos/${id}`, todoInput, createAxiosRequestConfigWithAuth(loginToken));
 
   return res.data.data;
 
