@@ -1,3 +1,4 @@
+import { validateToken } from 'controllers/jwt';
 import { deleteTodo, updateTodo } from 'controllers/todo';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,11 +9,11 @@ export default async function handler(
   try {
     switch (req.method) {
       case 'PUT':
-        await updateTodo(req, res);
+        await validateToken(req, res, updateTodo);
         break;
 
       case 'DELETE':
-        await deleteTodo(req, res);
+        await validateToken(req, res, deleteTodo);
         break;
 
       default:

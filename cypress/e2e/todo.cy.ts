@@ -1,3 +1,4 @@
+import { TOKEN_VALIDATION_ERROR } from 'controllers/jwt';
 import { Todo } from 'types/todo';
 import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
@@ -8,7 +9,7 @@ import { TodoSeed } from '../../db/seeds';
 
 const dummyTodos = new TodoSeed();
 
-describe('CRUD', () => {
+describe.only('CRUD', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
@@ -402,7 +403,7 @@ describe('오류 처리', () => {
 
     cy.get('[id^=toast][id$=description]').should(
       'contain',
-      'Token is missing'
+      TOKEN_VALIDATION_ERROR
     );
   });
 });
