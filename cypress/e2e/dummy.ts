@@ -1,7 +1,7 @@
 import { Todo } from 'types/todo';
 
 export class DummyTodos {
-  readonly #todos: TodoWithoutId[] = [
+  readonly #TODOS: TodoWithoutId[] = [
     {
       title: '할 일 1',
       content: `법률은 특별한 규정이 없는 한 공포한 날로부터 20일을 경과함으로써 효력을 발생한다. 사면·감형 및 복권에 관한 사항은 법률로 정한다. 대한민국의 경제질서는 개인과 기업의 경제상의 자유와 창의를 존중함을 기본으로 한다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.
@@ -92,17 +92,17 @@ export class DummyTodos {
   ];
 
   getTodoWithEmptyId(index: number): Todo {
-    let targetTodo: TodoWithoutId = this.#todos[0];
+    let targetTodo: TodoWithoutId = this.#TODOS[0];
 
-    if (this.#todos[index] !== undefined) {
-      targetTodo = this.#todos[index];
+    if (this.#TODOS[index] !== undefined) {
+      targetTodo = this.#TODOS[index];
     }
 
     return { id: '', ...targetTodo };
   }
 
   getTodos() {
-    return [...this.#todos];
+    return [...this.#TODOS];
   }
 }
 
