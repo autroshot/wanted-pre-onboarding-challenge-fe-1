@@ -1,12 +1,9 @@
 import { TodoSeed, UserSeed } from 'db/seeds';
 import { deleteAllTodos, insertSeedTodos } from 'db/todo';
 import { deleteAllUsers, insertUsers } from 'db/user';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { Controller } from './types';
 
-export async function seed(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
+export const seed: Controller = async (req, res) => {
   const dummyUserInputs = new UserSeed().getUserInputs();
   const dummyTodos = new TodoSeed().getTodosWithGeneratedId();
 
@@ -17,4 +14,4 @@ export async function seed(
   await insertSeedTodos(dummyTodos);
 
   res.status(200).end();
-}
+};

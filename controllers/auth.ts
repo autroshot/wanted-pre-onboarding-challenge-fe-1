@@ -1,16 +1,13 @@
 import { insertUser, selectUser } from 'db/user';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { UserInput } from 'types/user';
 import {
   login as loginValidator,
   USER_VALIDATION_ERRORS,
 } from 'utils/validators';
+import { Controller } from './types';
 import { createError, createToken } from './utils';
 
-export async function login(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
+export const login: Controller = async (req, res) => {
   const { email, password }: UserInput = req.body;
 
   const { isValid, message } = loginValidator({ email, password });
@@ -32,12 +29,9 @@ export async function login(
     message: '성공적으로 로그인 했습니다',
     token: createToken(email),
   });
-}
+};
 
-export async function signUp(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
+export const signUp: Controller = async (req, res) => {
   const userInput: UserInput = req.body;
 
   const { isValid, message } = loginValidator(userInput);
@@ -57,4 +51,4 @@ export async function signUp(
   }
 
   return res.status(409).send(createError(USER_VALIDATION_ERRORS.EXIST_USER));
-}
+};
