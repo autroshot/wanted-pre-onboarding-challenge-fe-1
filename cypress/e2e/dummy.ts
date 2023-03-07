@@ -107,13 +107,13 @@ export class DummyTodos {
   ];
 
   getTodoWithEmptyId(index: number): Todo {
-    let targetTodo = this.#TODOS_WITH_EMPTY_ID[0];
+    let result = this.#TODOS_WITH_EMPTY_ID[0];
 
     if (this.#TODOS_WITH_EMPTY_ID[index] !== undefined) {
-      targetTodo = this.#TODOS_WITH_EMPTY_ID[index];
+      result = this.#TODOS_WITH_EMPTY_ID[index];
     }
 
-    return { ...targetTodo };
+    return { ...result };
   }
 
   getTodosWithEmptyId(): Todo[] {
