@@ -13,5 +13,5 @@ export const seed: Controller = async (req, res) => {
   await deleteAllTodos();
   await insertSeedTodos(dummyTodos);
 
-  res.status(200).end();
+  return res.status(200).end();
 };
