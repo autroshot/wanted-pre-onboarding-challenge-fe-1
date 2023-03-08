@@ -1,5 +1,5 @@
 import { TOKEN_VALIDATION_ERROR } from 'controllers/contants';
-import { Todo } from 'types/todo';
+import { Todo, TodoInput } from 'types/todo';
 import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
   ORDER,
@@ -72,42 +72,31 @@ describe('CRUD', () => {
   });
 
   it('U', () => {
-    const updatedTodo: Pick<Todo, 'title' | 'content'> = {
+    const todoInput: TodoInput = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
-    const createdISOString = '2023-01-11T06:25:37.463Z';
+    const createdISOString = dummyTodos.getTodoWithEmptyId(9).createdAt;
+
+    let updatedDate = new Date();
 
     cy.contains('할 일 10').click();
     cy.get('[data-cy="editMode"]').click();
-    cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
-    cy.get('[data-cy="content"]').type(
-      `{selectAll}{del}${updatedTodo.content}`
-    );
-    cy.get('[data-cy="submit"]').click();
-
-    const currentTime = new Date();
-    const updatedISOString = currentTime.toISOString();
-    const updatedISOStringPlusOneSecond = new Date(
-      currentTime.getTime() + 1000
-    ).toISOString();
+    cy.get('[data-cy="title"]').type(`{selectAll}{del}${todoInput.title}`);
+    cy.get('[data-cy="content"]').type(`{selectAll}{del}${todoInput.content}`);
+    cy.get('[data-cy="submit"]')
+      .click()
+      .then(() => (updatedDate = new Date()));
 
     cy.visit('/todos/index');
-    cy.contains(updatedTodo.title).click();
-    cy.get('[data-cy="title"]').should('have.value', updatedTodo.title);
-    cy.get('[data-cy="content"]').should('have.value', updatedTodo.content);
+    cy.contains(todoInput.title).click();
+    cy.get('[data-cy="title"]').should('have.value', todoInput.title);
+    cy.get('[data-cy="content"]').should('have.value', todoInput.content);
     cy.get('[data-cy="createdAt"]').should(
       'contain',
       toKoreanTime(createdISOString)
     );
-    cy.get('[data-cy="updatedAt"]').then(($updatedAt) => {
-      const text = $updatedAt.text();
-
-      expect(text).to.be.oneOf([
-        toKoreanTime(updatedISOString),
-        toKoreanTime(updatedISOStringPlusOneSecond),
-      ]);
-    });
+    cy.get('[data-cy="updatedAt"]').then(matchElementTextWithDate(updatedDate));
   });
 
   it('D', () => {
@@ -416,6 +405,24 @@ function commonBeforeEach() {
   cy.visit('/todos/index');
 
   cy.get('[data-cy="todo"]');
+}
+
+function plusOneSecond(date: Date) {
+  return new Date(date.getTime() + 1000);
+}
+
+function matchElementTextWithDate(date: Date) {
+  const ISOString = date.toISOString();
+  const plusOneSecondISOString = plusOneSecond(date).toISOString();
+
+  return ($el: JQuery<HTMLElement>) => {
+    const text = $el.text();
+
+    expect(text).to.be.oneOf([
+      toKoreanTime(ISOString),
+      toKoreanTime(plusOneSecondISOString),
+    ]);
+  };
 }
 
 export {};
