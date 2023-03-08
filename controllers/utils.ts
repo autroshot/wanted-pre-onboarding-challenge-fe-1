@@ -1,4 +1,5 @@
 import JWT from 'jsonwebtoken';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { ErrorResponseData } from 'types/response';
 import { TOKEN_VALIDATION_ERROR } from './contants';
 import { Controller } from './types';
@@ -35,3 +36,59 @@ export const validateTokenDecorator = (controller: Controller) => {
 
   return wrappedController;
 };
+
+export async function controllerSwitch(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  {
+    POSTController,
+    GETController,
+    PUTController,
+    DELETEController,
+  }: ControllerByMethod
+): Promise<void> {
+  switch (req.method) {
+    case 'POST':
+      if (!POSTController) {
+        res.status(405).end();
+        break;
+      }
+      await POSTController(req, res);
+      break;
+
+    case 'GET':
+      if (!GETController) {
+        res.status(405).end();
+        break;
+      }
+      await GETController(req, res);
+      break;
+
+    case 'PUT':
+      if (!PUTController) {
+        res.status(405).end();
+        break;
+      }
+      await PUTController(req, res);
+      break;
+
+    case 'DELETE':
+      if (!DELETEController) {
+        res.status(405).end();
+        break;
+      }
+      await DELETEController(req, res);
+      break;
+
+    default:
+      res.status(405).end();
+      break;
+  }
+}
+
+interface ControllerByMethod {
+  POSTController?: Controller;
+  GETController?: Controller;
+  PUTController?: Controller;
+  DELETEController?: Controller;
+}
