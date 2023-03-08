@@ -42,8 +42,11 @@ describe('CRUD', () => {
       content: '이것은 새 할 일의 내용입니다.',
     };
 
-    cy.get('[data-cy="addTodo"]').click();
-    const createdISOString = new Date().toISOString();
+    let createdDate = new Date();
+
+    cy.get('[data-cy="addTodo"]')
+      .click()
+      .then(() => (createdDate = new Date()));
 
     cy.get('[data-cy-todo-index="0"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
@@ -61,14 +64,8 @@ describe('CRUD', () => {
     cy.contains(newTodo.title).click();
     cy.get('[data-cy="title"]').should('have.value', newTodo.title);
     cy.get('[data-cy="content"]').should('have.value', newTodo.content);
-    cy.get('[data-cy="createdAt"]').should(
-      'contain',
-      toKoreanTime(createdISOString)
-    );
-    cy.get('[data-cy="updatedAt"]').should(
-      'contain',
-      toKoreanTime(createdISOString)
-    );
+    cy.get('[data-cy="createdAt"]').then(matchElementTextWithDate(createdDate));
+    cy.get('[data-cy="updatedAt"]').then(matchElementTextWithDate(createdDate));
   });
 
   it('Update', () => {
