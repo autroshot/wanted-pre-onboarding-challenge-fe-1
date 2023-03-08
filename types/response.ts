@@ -1,3 +1,3 @@
 export interface ErrorResponseData {
-  details: string;
+  message: string;
 }

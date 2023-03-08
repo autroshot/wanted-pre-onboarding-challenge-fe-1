@@ -1,20 +1,21 @@
+import { UserInput } from 'types/user';
 import validator from 'validator';
 
-export const login = (loginForm: { email: string; password: string }) => {
-  if (Object.values(loginForm).some((v) => !v)) {
+export const login: Login = (userInput) => {
+  if (Object.values(userInput).some((value) => !value)) {
     return {
       isValid: false,
       message: USER_VALIDATION_ERRORS.EMPTY_FORM,
     };
   }
 
-  if (!validator.isEmail(loginForm.email)) {
+  if (!validator.isEmail(userInput.email)) {
     return {
       isValid: false,
       message: USER_VALIDATION_ERRORS.INVALID_EMAIL,
     };
   }
-  if (!validator.isLength(loginForm.password, { min: 8 })) {
+  if (!validator.isLength(userInput.password, { min: 8 })) {
     return {
       isValid: false,
       message: USER_VALIDATION_ERRORS.INVALID_PASSWORD,
@@ -24,6 +25,18 @@ export const login = (loginForm: { email: string; password: string }) => {
     isValid: true,
   };
 };
+
+type Login = (userInput: UserInput) => LoginResult;
+
+type LoginResult =
+  | {
+      isValid: true;
+      message?: string;
+    }
+  | {
+      isValid: false;
+      message: string;
+    };
 
 export const USER_VALIDATION_ERRORS = {
   EMPTY_FORM: '이메일 / 패스워드 값이 비어있습니다',

@@ -1,4 +1,5 @@
 import JWT from 'jsonwebtoken';
+import { ErrorResponseData } from 'types/response';
 import { TOKEN_VALIDATION_ERROR } from './contants';
 import { Controller } from './types';
 
@@ -8,9 +9,9 @@ export function createResponse<T>(data: T) {
   };
 }
 
-export function createError<T>(details: T) {
+export function createError(message: string): ErrorResponseData {
   return {
-    details,
+    message,
   };
 }
 

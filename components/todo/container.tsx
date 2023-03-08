@@ -117,7 +117,7 @@ export default function Container({ loginToken }: Props) {
   }
 
   function getErrorMessage(err: AxiosError<ErrorResponseData>) {
-    return err.response?.data.details ?? err.message ?? null;
+    return err.response?.data.message ?? err.message ?? null;
   }
 
   function handleError(err: AxiosError<ErrorResponseData>) {
