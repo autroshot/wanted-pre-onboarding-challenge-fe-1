@@ -17,6 +17,6 @@ export default async function handler(
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: '서버 오류' });
+    res.status(500).json({ message: '서버에서 오류가 발생했습니다.' });
   }
 }
