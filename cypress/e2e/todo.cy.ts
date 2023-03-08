@@ -14,7 +14,7 @@ describe('CRUD', () => {
     commonBeforeEach();
   });
 
-  it('R', () => {
+  it('Read', () => {
     const seedTodo10 = dummyTodos.getTodoWithEmptyId(9);
 
     cy.contains(seedTodo10.title).click();
@@ -36,7 +36,7 @@ describe('CRUD', () => {
     );
   });
 
-  it('C', () => {
+  it('Create', () => {
     const newTodo: Pick<Todo, 'title' | 'content'> = {
       title: '새 할 일',
       content: '이것은 새 할 일의 내용입니다.',
@@ -71,7 +71,7 @@ describe('CRUD', () => {
     );
   });
 
-  it('U', () => {
+  it('Update', () => {
     const todoInput: TodoInput = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
@@ -99,7 +99,7 @@ describe('CRUD', () => {
     cy.get('[data-cy="updatedAt"]').then(matchElementTextWithDate(updatedDate));
   });
 
-  it('D', () => {
+  it('Delete', () => {
     const deletedTodo = dummyTodos.getTodoWithEmptyId(6);
 
     cy.contains(deletedTodo.title).click();
