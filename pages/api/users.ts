@@ -1,4 +1,5 @@
 import { signUp } from 'controllers/auth';
+import { controllerSwitch } from 'controllers/utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -6,15 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    switch (req.method) {
-      case 'POST':
-        await signUp(req, res);
-        break;
-
-      default:
-        res.status(405).end();
-        break;
-    }
+    await controllerSwitch(req, res, { POSTController: signUp });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: '서버에서 오류가 발생했습니다.' });
