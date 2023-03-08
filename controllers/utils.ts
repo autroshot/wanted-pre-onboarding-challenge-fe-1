@@ -28,7 +28,7 @@ export const validateTokenDecorator = (controller: Controller) => {
     const token = req.headers.authorization;
 
     if (!token) {
-      return res.status(400).send(createError(TOKEN_VALIDATION_ERROR));
+      return res.status(400).json(createError(TOKEN_VALIDATION_ERROR));
     }
     return controller(req, res);
   };

@@ -14,7 +14,7 @@ let createTodo: Controller = async (req, res) => {
 
   const newTodo = await insertTodo(todoInput);
 
-  return res.status(200).send(createResponse(newTodo));
+  return res.status(200).json(createResponse(newTodo));
 };
 
 let getTodos: Controller = async (req, res) => {
@@ -23,10 +23,10 @@ let getTodos: Controller = async (req, res) => {
   if (!todos) {
     return res
       .status(400)
-      .send(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
+      .json(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
   }
 
-  return res.status(200).send(createResponse(todos));
+  return res.status(200).json(createResponse(todos));
 };
 
 let updateTodo: Controller = async (req, res) => {
@@ -42,10 +42,10 @@ let updateTodo: Controller = async (req, res) => {
   if (!isSuccess) {
     return res
       .status(400)
-      .send(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
+      .json(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
   }
 
-  return res.status(200).send(createResponse(updatedTodo));
+  return res.status(200).json(createResponse(updatedTodo));
 };
 
 let deleteTodo: Controller = async (req, res) => {
@@ -56,10 +56,10 @@ let deleteTodo: Controller = async (req, res) => {
   if (!isSuccess) {
     return res
       .status(400)
-      .send(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
+      .json(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
   }
 
-  return res.status(200).send(createResponse(null));
+  return res.status(200).json(createResponse(null));
 };
 
 createTodo = validateTokenDecorator(createTodo);

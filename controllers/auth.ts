@@ -12,7 +12,7 @@ export const login: Controller = async (req, res) => {
 
   const { isValid, message } = loginValidator({ email, password });
   if (!isValid) {
-    return res.status(400).send(createError(message));
+    return res.status(400).json(createError(message));
   }
 
   const foundUser = await selectUser(
@@ -22,10 +22,10 @@ export const login: Controller = async (req, res) => {
   if (!foundUser) {
     return res
       .status(400)
-      .send(createError(USER_VALIDATION_ERRORS.USER_NOT_FOUND));
+      .json(createError(USER_VALIDATION_ERRORS.USER_NOT_FOUND));
   }
 
-  return res.status(200).send({
+  return res.status(200).json({
     message: '성공적으로 로그인 했습니다',
     token: createToken(email),
   });
@@ -36,7 +36,7 @@ export const signUp: Controller = async (req, res) => {
 
   const { isValid, message } = loginValidator(userInput);
   if (!isValid) {
-    return res.status(400).send(createError(message));
+    return res.status(400).json(createError(message));
   }
 
   const existUser = await selectUser((user) => user.email === userInput.email);
@@ -44,11 +44,11 @@ export const signUp: Controller = async (req, res) => {
   if (!existUser) {
     const newUser = await insertUser(userInput);
 
-    return res.status(200).send({
+    return res.status(200).json({
       message: '계정이 성공적으로 생성되었습니다',
       token: createToken(newUser.email),
     });
   }
 
-  return res.status(409).send(createError(USER_VALIDATION_ERRORS.EXIST_USER));
+  return res.status(409).json(createError(USER_VALIDATION_ERRORS.EXIST_USER));
 };
