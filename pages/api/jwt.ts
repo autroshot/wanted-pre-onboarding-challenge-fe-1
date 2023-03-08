@@ -1,6 +1,6 @@
 import { login } from 'controllers/auth';
-import { controllerSwitch } from 'controllers/utils';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { controllerSwitch } from 'utils/api';
 
 export default async function handler(
   req: NextApiRequest,
