@@ -40,13 +40,11 @@ export const validateTokenDecorator = (controller: Controller) => {
 export async function controllerSwitch(
   req: NextApiRequest,
   res: NextApiResponse,
-  {
-    POSTController,
-    GETController,
-    PUTController,
-    DELETEController,
-  }: ControllerByMethod
+  controllerByMethod: ControllerByMethod
 ): Promise<void> {
+  const { POSTController, GETController, PUTController, DELETEController } =
+    controllerByMethod;
+
   switch (req.method) {
     case 'POST':
       if (!POSTController) {
