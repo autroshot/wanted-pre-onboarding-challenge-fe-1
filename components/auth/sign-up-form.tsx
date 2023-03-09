@@ -105,7 +105,7 @@ export default function SignUpForm() {
         onModalOpen();
       })
       .catch((err: AxiosError<ErrorResponseData>) => {
-        const message = err.response?.data.details;
+        const message = err.response?.data.message;
         setServerErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
       })
       .then(() => setIsLoading(false));

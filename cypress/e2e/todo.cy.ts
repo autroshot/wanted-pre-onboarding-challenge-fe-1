@@ -1,48 +1,52 @@
+import { TOKEN_VALIDATION_ERROR } from 'controllers/contants';
+import { Todo, TodoInput } from 'types/todo';
 import { toKoreanTime } from '../../components/todo/detail/display-time/utils';
 import {
   ORDER,
   SORT_BY,
 } from '../../components/todo/list/sorting-menu/contants';
-import { TodoType } from '../../components/todo/types';
-import { DummyTodos } from './dummy';
+import { TodoSeed } from '../../db/seeds';
 
-const dummyTodos = new DummyTodos();
+const dummyTodos = new TodoSeed();
 
 describe('CRUD', () => {
   beforeEach(() => {
     commonBeforeEach();
   });
 
-  it('R', () => {
-    const seededTodo10 = dummyTodos.getTodoWithEmptyId(9);
+  it('Read', () => {
+    const seedTodo10 = dummyTodos.getTodoWithEmptyId(9);
 
-    cy.contains(seededTodo10.title).click();
+    cy.contains(seedTodo10.title).click();
 
-    cy.contains<HTMLElement>(seededTodo10.title).then(($todo) => {
+    cy.contains<HTMLElement>(seedTodo10.title).then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
 
       cy.url().should('include', id);
     });
-    cy.get('[data-cy="title"]').should('have.value', seededTodo10.title);
-    cy.get('[data-cy="content"]').should('have.value', seededTodo10.content);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo10.title);
+    cy.get('[data-cy="content"]').should('have.value', seedTodo10.content);
     cy.get('[data-cy="createdAt"]').should(
       'contain',
-      toKoreanTime(seededTodo10.createdAt)
+      toKoreanTime(seedTodo10.createdAt)
     );
     cy.get('[data-cy="updatedAt"]').should(
       'contain',
-      toKoreanTime(seededTodo10.updatedAt)
+      toKoreanTime(seedTodo10.updatedAt)
     );
   });
 
-  it('C', () => {
-    const newTodo: Pick<TodoType, 'title' | 'content'> = {
+  it('Create', () => {
+    const newTodo: Pick<Todo, 'title' | 'content'> = {
       title: '새 할 일',
       content: '이것은 새 할 일의 내용입니다.',
     };
 
-    cy.get('[data-cy="addTodo"]').click();
-    const createdISOString = new Date().toISOString();
+    let createdDate = new Date();
+
+    cy.get('[data-cy="addTodo"]')
+      .click()
+      .then(() => (createdDate = new Date()));
 
     cy.get('[data-cy-todo-index="0"]').then(($todo) => {
       const id = $todo.attr('data-cy-todo-id');
@@ -60,56 +64,39 @@ describe('CRUD', () => {
     cy.contains(newTodo.title).click();
     cy.get('[data-cy="title"]').should('have.value', newTodo.title);
     cy.get('[data-cy="content"]').should('have.value', newTodo.content);
-    cy.get('[data-cy="createdAt"]').should(
-      'contain',
-      toKoreanTime(createdISOString)
-    );
-    cy.get('[data-cy="updatedAt"]').should(
-      'contain',
-      toKoreanTime(createdISOString)
-    );
+    cy.get('[data-cy="createdAt"]').then(matchElementTextWithDate(createdDate));
+    cy.get('[data-cy="updatedAt"]').then(matchElementTextWithDate(createdDate));
   });
 
-  it('U', () => {
-    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+  it('Update', () => {
+    const todoInput: TodoInput = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
-    const createdISOString = '2023-01-11T06:25:37.463Z';
+    const createdISOString = dummyTodos.getTodoWithEmptyId(9).createdAt;
+
+    let updatedDate = new Date();
 
     cy.contains('할 일 10').click();
     cy.get('[data-cy="editMode"]').click();
-    cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
-    cy.get('[data-cy="content"]').type(
-      `{selectAll}{del}${updatedTodo.content}`
-    );
-    cy.get('[data-cy="submit"]').click();
-
-    const currentTime = new Date();
-    const updatedISOString = currentTime.toISOString();
-    const updatedISOStringPlusOneSecond = new Date(
-      currentTime.getTime() + 1000
-    ).toISOString();
+    cy.get('[data-cy="title"]').type(`{selectAll}{del}${todoInput.title}`);
+    cy.get('[data-cy="content"]').type(`{selectAll}{del}${todoInput.content}`);
+    cy.get('[data-cy="submit"]')
+      .click()
+      .then(() => (updatedDate = new Date()));
 
     cy.visit('/todos/index');
-    cy.contains(updatedTodo.title).click();
-    cy.get('[data-cy="title"]').should('have.value', updatedTodo.title);
-    cy.get('[data-cy="content"]').should('have.value', updatedTodo.content);
+    cy.contains(todoInput.title).click();
+    cy.get('[data-cy="title"]').should('have.value', todoInput.title);
+    cy.get('[data-cy="content"]').should('have.value', todoInput.content);
     cy.get('[data-cy="createdAt"]').should(
       'contain',
       toKoreanTime(createdISOString)
     );
-    cy.get('[data-cy="updatedAt"]').then(($updatedAt) => {
-      const text = $updatedAt.text();
-
-      expect(text).to.be.oneOf([
-        toKoreanTime(updatedISOString),
-        toKoreanTime(updatedISOStringPlusOneSecond),
-      ]);
-    });
+    cy.get('[data-cy="updatedAt"]').then(matchElementTextWithDate(updatedDate));
   });
 
-  it('D', () => {
+  it('Delete', () => {
     const deletedTodo = dummyTodos.getTodoWithEmptyId(6);
 
     cy.contains(deletedTodo.title).click();
@@ -132,7 +119,7 @@ describe('정렬', () => {
       `${SORT_BY.createdAt} ${ORDER.descending}`
     );
 
-    const sortedTodos = dummyTodos.getTodos().reverse();
+    const sortedTodos = dummyTodos.getTodosWithEmptyId().reverse();
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
@@ -142,7 +129,7 @@ describe('정렬', () => {
     cy.get('[data-cy="sortingButton"]').click();
     cy.contains(ORDER.ascending).click();
 
-    const sortedTodos = dummyTodos.getTodos();
+    const sortedTodos = dummyTodos.getTodosWithEmptyId();
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
     });
@@ -153,7 +140,7 @@ describe('정렬', () => {
     cy.contains(SORT_BY.updatedAt).click();
 
     const sortedTodos = dummyTodos
-      .getTodos()
+      .getTodosWithEmptyId()
       .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
@@ -166,7 +153,7 @@ describe('정렬', () => {
     cy.contains(ORDER.ascending).click();
 
     const sortedTodos = dummyTodos
-      .getTodos()
+      .getTodosWithEmptyId()
       .sort((a, b) => a.title.localeCompare(b.title));
     sortedTodos.forEach((todo, index) => {
       cy.get(`[data-cy-todo-index="${index}"]`).should('have.text', todo.title);
@@ -180,13 +167,13 @@ describe('취소', () => {
   });
 
   it('수정 취소', () => {
-    const seededTodo13 = dummyTodos.getTodoWithEmptyId(12);
-    const updatedTodo: Pick<TodoType, 'title' | 'content'> = {
+    const seedTodo13 = dummyTodos.getTodoWithEmptyId(12);
+    const updatedTodo: Pick<Todo, 'title' | 'content'> = {
       title: '수정된 할 일',
       content: '이것은 수정된 할 일의 내용입니다.',
     };
 
-    cy.contains(seededTodo13.title).click();
+    cy.contains(seedTodo13.title).click();
     cy.get('[data-cy="editMode"]').click();
     cy.get('[data-cy="title"]').type(`{selectAll}{del}${updatedTodo.title}`);
     cy.get('[data-cy="content"]').type(
@@ -194,19 +181,19 @@ describe('취소', () => {
     );
     cy.get('[data-cy="cancel"]').click();
 
-    cy.get('[data-cy="title"]').should('have.value', seededTodo13.title);
-    cy.get('[data-cy="content"]').should('have.value', seededTodo13.content);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo13.title);
+    cy.get('[data-cy="content"]').should('have.value', seedTodo13.content);
   });
 
   it('삭제 취소', () => {
-    const seededTodo11 = dummyTodos.getTodoWithEmptyId(10);
+    const seedTodo11 = dummyTodos.getTodoWithEmptyId(10);
 
-    cy.contains(seededTodo11.title).click();
+    cy.contains(seedTodo11.title).click();
     cy.get('[data-cy="delete"]').click();
     cy.get('[data-cy="cancel"]').click();
 
-    cy.contains(seededTodo11.title);
-    cy.get('[data-cy="title"]').should('have.value', seededTodo11.title);
+    cy.contains(seedTodo11.title);
+    cy.get('[data-cy="title"]').should('have.value', seedTodo11.title);
   });
 });
 
@@ -254,7 +241,7 @@ describe('URL', () => {
     const todo2 = dummyTodos.getTodoWithEmptyId(1);
     const todo3 = dummyTodos.getTodoWithEmptyId(2);
     const todo4 = dummyTodos.getTodoWithEmptyId(3);
-    const newTodo: Pick<TodoType, 'id' | 'title'> = {
+    const newTodo: Pick<Todo, 'id' | 'title'> = {
       id: '',
       title: '새 할 일',
     };
@@ -402,19 +389,37 @@ describe('오류 처리', () => {
 
     cy.get('[id^=toast][id$=description]').should(
       'contain',
-      'Token is missing'
+      TOKEN_VALIDATION_ERROR
     );
   });
 });
 
 function commonBeforeEach() {
-  cy.request('GET', `${Cypress.env('server_url')}/seed`);
+  cy.request('GET', '/api/seed');
 
-  cy.seededUserLogin();
+  cy.seedUserLogin();
 
   cy.visit('/todos/index');
 
   cy.get('[data-cy="todo"]');
+}
+
+function plusOneMinute(date: Date) {
+  return new Date(date.getTime() + 60 * 1000);
+}
+
+function matchElementTextWithDate(date: Date) {
+  const ISOString = date.toISOString();
+  const plusOneSecondISOString = plusOneMinute(date).toISOString();
+
+  return ($el: JQuery<HTMLElement>) => {
+    const text = $el.text();
+
+    expect(text).to.be.oneOf([
+      toKoreanTime(ISOString),
+      toKoreanTime(plusOneSecondISOString),
+    ]);
+  };
 }
 
 export {};

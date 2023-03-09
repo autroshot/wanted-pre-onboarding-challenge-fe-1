@@ -11,7 +11,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { TodoInputs, TodoType } from '../types';
+import { Todo, TodoInput } from 'types/todo';
 import Buttons from './buttons';
 import DefaultText from './default-text';
 import DeleteAlertDialog from './delete-alert-dialog';
@@ -48,10 +48,7 @@ export default function Container({
   ) {
     return <DefaultText />;
   }
-  const selectedTodo = todos.find(
-    (todo) => todo.id === selectedTodoId
-  ) as TodoType;
-  setValue('id', selectedTodo.id);
+  const selectedTodo = todos.find((todo) => todo.id === selectedTodoId) as Todo;
   setValue('title', selectedTodo.title);
   setValue('content', selectedTodo.content);
 
@@ -106,7 +103,7 @@ export default function Container({
     </>
   );
 
-  function isValidTodoId(todoId: string, todos: TodoType[]) {
+  function isValidTodoId(todoId: string, todos: Todo[]) {
     if (todoId.length !== 21) return false;
     return todos.some((todo) => {
       return todo.id === todoId;
@@ -115,16 +112,16 @@ export default function Container({
 }
 
 interface Props {
-  todos: null | TodoType[];
+  todos: null | Todo[];
   selectedTodoId: null | string;
   isLoading: boolean;
   isEditMode: boolean;
   titleRef: MutableRefObject<null | HTMLInputElement>;
   alertDialogDisclosure: UseDisclosureReturn;
-  register: UseFormRegister<TodoInputs>;
-  setValue: UseFormSetValue<TodoInputs>;
+  register: UseFormRegister<TodoInput>;
+  setValue: UseFormSetValue<TodoInput>;
   onActivateEditModeClick: () => void;
   onDeactivateEditModeClick: () => void;
   onTodoDelete: (id: string) => void;
-  onSubmit: ReturnType<UseFormHandleSubmit<TodoInputs>>;
+  onSubmit: ReturnType<UseFormHandleSubmit<TodoInput>>;
 }

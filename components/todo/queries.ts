@@ -5,27 +5,22 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { Todo, TodoInput } from 'types/todo';
 import { ErrorResponseData } from '../../types/response';
 import { createTodo, deleteTodo, getTodos, updateTodo } from './fetchers';
-import { TodoInputs, TodoType } from './types';
 
 const TODOS_QUERY_KEY = ['todos'];
 
 export function useTodosGet(
   loginToken: string,
   onError?: UseQueryOptions<
-    TodoType[],
+    Todo[],
     AxiosError<ErrorResponseData>,
-    TodoType[],
+    Todo[],
     string[]
   >['onError']
 ) {
-  return useQuery<
-    TodoType[],
-    AxiosError<ErrorResponseData>,
-    TodoType[],
-    string[]
-  >({
+  return useQuery<Todo[], AxiosError<ErrorResponseData>, Todo[], string[]>({
     queryKey: TODOS_QUERY_KEY,
     queryFn: () => getTodos(loginToken),
     onError,
@@ -35,10 +30,10 @@ export function useTodosGet(
 export function useTodoCreation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation<TodoType, AxiosError<ErrorResponseData>, void>({
+  return useMutation<Todo, AxiosError<ErrorResponseData>, void>({
     mutationFn: () => createTodo(loginToken),
     onSuccess: (newTodo) => {
-      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+      queryClient.setQueryData<Todo[]>(TODOS_QUERY_KEY, (oldTodos) => {
         if (oldTodos) return [newTodo, ...oldTodos];
       });
     },
@@ -48,11 +43,11 @@ export function useTodoCreation(loginToken: string) {
 export function useTodoUpdation(loginToken: string) {
   const queryClient = useQueryClient();
 
-  return useMutation<TodoType, AxiosError<ErrorResponseData>, TodoInputs>({
-    mutationFn: (todoToUpdate: TodoInputs) =>
-      updateTodo(loginToken, todoToUpdate),
+  return useMutation<Todo, AxiosError<ErrorResponseData>, TodoIdAndInput>({
+    mutationFn: (todoIdAndInput) =>
+      updateTodo(loginToken, todoIdAndInput.id, todoIdAndInput.todoInput),
     onSuccess: (updatedTodo) => {
-      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+      queryClient.setQueryData<Todo[]>(TODOS_QUERY_KEY, (oldTodos) => {
         if (oldTodos) {
           return oldTodos.map((todo) => {
             if (todo.id === updatedTodo.id) return updatedTodo;
@@ -64,13 +59,18 @@ export function useTodoUpdation(loginToken: string) {
   });
 }
 
+interface TodoIdAndInput {
+  id: Todo['id'];
+  todoInput: TodoInput;
+}
+
 export function useTodoDeletion(loginToken: string) {
   const queryClient = useQueryClient();
 
   return useMutation<null, AxiosError<ErrorResponseData>, string>({
-    mutationFn: (todoId: TodoType['id']) => deleteTodo(loginToken, todoId),
+    mutationFn: (todoId: Todo['id']) => deleteTodo(loginToken, todoId),
     onSuccess: (data, todoId) => {
-      queryClient.setQueryData<TodoType[]>(TODOS_QUERY_KEY, (oldTodos) => {
+      queryClient.setQueryData<Todo[]>(TODOS_QUERY_KEY, (oldTodos) => {
         if (oldTodos) {
           return oldTodos.filter((todo) => todo.id !== todoId);
         }

@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import { createAxiosInstance } from 'utils/axios';
 
 export async function login(email: string, password: string) {
   const axiosInstance = createAxiosInstance();
@@ -7,7 +8,7 @@ export async function login(email: string, password: string) {
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/users/login', { email, password });
+  >('/jwt', { email, password });
 
   return res.data;
 
@@ -29,7 +30,7 @@ export async function signup(email: string, password: string) {
     PostResponseData,
     AxiosResponse<PostResponseData>,
     PostRequestData
-  >('/users/create', { email, password });
+  >('/users', { email, password });
 
   return res.data;
 
@@ -42,10 +43,4 @@ export async function signup(email: string, password: string) {
     message: string;
     token: string;
   }
-}
-
-function createAxiosInstance() {
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  });
 }

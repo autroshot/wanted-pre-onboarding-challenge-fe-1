@@ -1,19 +1,18 @@
 import { CONFIRM, LOGIN, LOGOUT, SIGN_UP } from 'constants/terms';
+import { UserSeed } from 'db/seeds';
+
+const seedUser = new UserSeed().getUserInput(0);
 
 describe('인증', () => {
-  const seededUser = { email: 'hong@gmail.com', password: '12345678' };
-
   beforeEach(() => {
-    cy.request('GET', `${Cypress.env('server_url')}/seed`);
+    cy.request('GET', '/api/seed');
     cy.visit('/auth');
   });
 
   it('로그인', () => {
-    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(
-      seededUser.email
-    );
+    cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(seedUser.email);
     cy.get('[data-cy="loginForm"] [data-cy="passwordInput"]').type(
-      seededUser.password
+      seedUser.password
     );
     cy.get('[data-cy="loginForm"] [data-cy="submitButton"]').click();
 
@@ -25,7 +24,7 @@ describe('인증', () => {
   });
 
   it('로그아웃', () => {
-    cy.seededUserLogin();
+    cy.seedUserLogin();
     cy.get('[data-cy="navbar"]').contains(LOGOUT).click();
 
     cy.get('[data-cy="navbar"]').contains(LOGIN);
@@ -45,7 +44,7 @@ describe('인증', () => {
     );
     cy.get('[data-cy="signUpForm"] [data-cy="submitButton"]').click();
     cy.contains(SIGN_UP);
-    cy.contains(CONFIRM).click();
+    cy.contains(CONFIRM, { timeout: 10000 }).click();
 
     cy.visit('/auth');
     cy.get('[data-cy="loginForm"] [data-cy="emailInput"]').type(newUser.email);

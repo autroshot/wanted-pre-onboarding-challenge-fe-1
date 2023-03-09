@@ -81,7 +81,7 @@ export default function LoginForm() {
       })
       .catch((err) => {
         if (err instanceof AxiosError<ErrorResponseData>) {
-          const message = err.response?.data.details;
+          const message = err.response?.data.message;
 
           setErrorMessage(message ? `${message}.` : '오류가 발생했습니다.');
 

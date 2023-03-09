@@ -8,12 +8,12 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { TodoInput } from 'types/todo';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import DetailContainer from './detail/container';
 import { useTodo } from './hooks';
 import ListContainer from './list/container';
-import { TodoInputs } from './types';
 
 export default function Container({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -25,7 +25,7 @@ export default function Container({ loginToken }: Props) {
 
   const router = useRouter();
 
-  const { register, handleSubmit, setValue } = useForm<TodoInputs>();
+  const { register, handleSubmit, setValue } = useForm<TodoInput>();
 
   const errorToast = useToast({
     status: 'error',
@@ -75,7 +75,7 @@ export default function Container({ loginToken }: Props) {
     router.push(`/todos/${todoId}`, undefined, { scroll: false });
   }
 
-  function onSubmit(data: TodoInputs): any | Promise<any> {
+  function onSubmit(data: TodoInput): any | Promise<any> {
     handleTodoUpdate({ ...data });
   }
 
@@ -93,14 +93,18 @@ export default function Container({ loginToken }: Props) {
       onError: handleError,
     });
   }
-  function handleTodoUpdate(inputs: TodoInputs) {
+  function handleTodoUpdate(input: TodoInput) {
     if (todos === null) return;
+    if (selectedTodoId === null) return;
 
     setIsEditMode(false);
 
-    updationMutate(inputs, {
-      onError: handleError,
-    });
+    updationMutate(
+      { id: selectedTodoId, todoInput: input },
+      {
+        onError: handleError,
+      }
+    );
   }
   function handleTodoDelete(id: string) {
     if (todos === null) return;
@@ -113,7 +117,7 @@ export default function Container({ loginToken }: Props) {
   }
 
   function getErrorMessage(err: AxiosError<ErrorResponseData>) {
-    return err.response?.data.details ?? err.message ?? null;
+    return err.response?.data.message ?? err.message ?? null;
   }
 
   function handleError(err: AxiosError<ErrorResponseData>) {

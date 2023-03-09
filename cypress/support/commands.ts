@@ -1,18 +1,15 @@
 /// <reference types="cypress" />
 
+import { UserSeed } from 'db/seeds';
 import { MyStorage } from '../../utils/storage';
 
-const seededUser = { email: 'hong@gmail.com', password: '12345678' };
+const seedUser = new UserSeed().getUserInput(0);
 
-Cypress.Commands.add('seededUserLogin', () => {
+Cypress.Commands.add('seedUserLogin', () => {
   cy.session(
-    'seededUser',
+    'seedUser',
     () => {
-      cy.request(
-        'POST',
-        `${Cypress.env('server_url')}/users/login`,
-        seededUser
-      ).then((res) => {
+      cy.request('POST', '/api/jwt', seedUser).then((res) => {
         login(res.body.token);
       });
     },
@@ -38,7 +35,7 @@ function login(loginToken: string) {
 declare global {
   namespace Cypress {
     interface Chainable {
-      seededUserLogin(): Chainable<void>;
+      seedUserLogin(): Chainable<void>;
     }
   }
 }
