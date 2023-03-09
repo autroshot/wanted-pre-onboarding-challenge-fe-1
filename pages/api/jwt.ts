@@ -6,10 +6,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    await controllerSwitch(req, res, { POSTController: login });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: '서버 오류' });
-  }
+  await controllerSwitch(req, res, { POSTController: login });
 }
