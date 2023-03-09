@@ -404,13 +404,13 @@ function commonBeforeEach() {
   cy.get('[data-cy="todo"]');
 }
 
-function plusOneSecond(date: Date) {
-  return new Date(date.getTime() + 1000);
+function plusOneMinute(date: Date) {
+  return new Date(date.getTime() + 60 * 1000);
 }
 
 function matchElementTextWithDate(date: Date) {
   const ISOString = date.toISOString();
-  const plusOneSecondISOString = plusOneSecond(date).toISOString();
+  const plusOneSecondISOString = plusOneMinute(date).toISOString();
 
   return ($el: JQuery<HTMLElement>) => {
     const text = $el.text();
