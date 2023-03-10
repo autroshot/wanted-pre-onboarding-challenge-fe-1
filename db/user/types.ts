@@ -1,32 +1,10 @@
-import {
-  GoogleSpreadsheetRow,
-  GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet';
+import { DB, MyRow } from 'db/types';
 
-export interface DBUser {
-  [index: string]: string;
+export interface DBUser extends DB {
   id: string;
   email: string;
   password: string;
   created_at: string;
 }
 
-export class UserRow extends GoogleSpreadsheetRow implements DBUser {
-  constructor(
-    parentSheet: GoogleSpreadsheetWorksheet,
-    rowNumber: number,
-    data: any
-  ) {
-    super(parentSheet, rowNumber, data);
-
-    this.id = data.id;
-    this.email = data.email;
-    this.password = data.password;
-    this.created_at = data.created_at;
-  }
-
-  id: string;
-  email: string;
-  password: string;
-  created_at: string;
-}
+export type UserRow = MyRow<DBUser>;
