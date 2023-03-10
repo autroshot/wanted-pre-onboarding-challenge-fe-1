@@ -5,35 +5,16 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { EMAIL } from 'constants/terms';
-import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { ERROR_MESSAGE } from './constants';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-export default function EmailInput<T>({
-  name,
-  errorMessage,
-  register,
-}: Props<T>) {
-  const EMAIL_REG_EXP =
-    /^[a-zA-Z0-9!#$%&'*+\-/=?^_`{|}~\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+$/;
-  let registerOptions: RegisterOptions = {
-    required: { value: true, message: ERROR_MESSAGE.REQUIRED },
-    pattern: {
-      value: EMAIL_REG_EXP,
-      message: ERROR_MESSAGE.EMAIL_PATTERN,
-    },
-  };
-
+export default function EmailInput({ errorMessage, registerReturn }: Props) {
   return (
     <FormControl
       variant="floating"
       isRequired
       isInvalid={Boolean(errorMessage)}
     >
-      <Input
-        placeholder=" "
-        {...register(name, registerOptions)}
-        data-cy="emailInput"
-      />
+      <Input placeholder=" " {...registerReturn} data-cy="emailInput" />
       <FormLabel>{EMAIL}</FormLabel>
       {errorMessage ? (
         <FormErrorMessage data-cy="emailErrorMessage">
@@ -44,8 +25,7 @@ export default function EmailInput<T>({
   );
 }
 
-interface Props<T> {
-  name: Path<T>;
+interface Props {
+  registerReturn: UseFormRegisterReturn;
   errorMessage: null | string;
-  register: UseFormRegister<T>;
 }

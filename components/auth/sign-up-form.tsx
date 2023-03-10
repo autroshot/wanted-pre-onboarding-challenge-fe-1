@@ -19,12 +19,12 @@ import { AxiosError } from 'axios';
 import { CONFIRM, NOTICE, SIGN_UP } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/email-input';
 import PasswordInput from './common/password-input';
 import { signup as signupFetcher } from './fetchers';
+import { useAuthForm } from './forms';
 import { Input } from './types';
 
 export default function SignUpForm() {
@@ -35,10 +35,12 @@ export default function SignUpForm() {
   );
 
   const {
-    register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<Input>({ mode: 'onTouched' });
+    emailUseFormRegisterReturn,
+    passwordUseFormRegisterReturn,
+  } = useAuthForm();
+
   const router = useRouter();
 
   return (
@@ -47,14 +49,12 @@ export default function SignUpForm() {
         <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="signUpForm">
           <VStack spacing="5">
             <EmailInput
-              name="email"
+              registerReturn={emailUseFormRegisterReturn}
               errorMessage={undefinedToNull(errors.email?.message)}
-              register={register}
             />
             <PasswordInput
-              name="password"
+              registerReturn={passwordUseFormRegisterReturn}
               errorMessage={undefinedToNull(errors.password?.message)}
-              register={register}
             />
 
             {serverErrorMessage ? (

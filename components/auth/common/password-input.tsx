@@ -10,20 +10,10 @@ import {
 } from '@chakra-ui/react';
 import { PASSWORD } from 'constants/terms';
 import { useState } from 'react';
-import { Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { ERROR_MESSAGE } from './constants';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-export default function PasswordInput<T>({
-  name,
-  errorMessage,
-  register,
-}: Props<T>) {
+export default function PasswordInput({ errorMessage, registerReturn }: Props) {
   const [show, setShow] = useState(false);
-
-  let registerOptions: RegisterOptions = {
-    required: { value: true, message: ERROR_MESSAGE.REQUIRED },
-    minLength: { value: 8, message: ERROR_MESSAGE.PASSWORD_MIN_LENGTH },
-  };
 
   return (
     <FormControl
@@ -36,7 +26,7 @@ export default function PasswordInput<T>({
           pr="3rem"
           type={show ? 'text' : 'password'}
           placeholder=" "
-          {...register(name, registerOptions)}
+          {...registerReturn}
           data-cy="passwordInput"
         />
         {/* CSS 선택자 때문에 레이블이 이곳에 위치해야 합니다. */}
@@ -60,8 +50,7 @@ export default function PasswordInput<T>({
   );
 }
 
-interface Props<T> {
-  name: Path<T>;
+interface Props {
+  registerReturn: UseFormRegisterReturn;
   errorMessage: null | string;
-  register: UseFormRegister<T>;
 }

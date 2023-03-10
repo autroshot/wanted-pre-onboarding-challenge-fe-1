@@ -10,13 +10,13 @@ import { AxiosError } from 'axios';
 import { LOGIN } from 'constants/terms';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useAuth } from '../../hooks/use-auth';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/email-input';
 import PasswordInput from './common/password-input';
 import { login as loginFetcher } from './fetchers';
+import { useAuthForm } from './forms';
 import { Input } from './types';
 
 export default function LoginForm() {
@@ -24,10 +24,11 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const {
-    register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<Input>({ mode: 'onTouched' });
+    emailUseFormRegisterReturn,
+    passwordUseFormRegisterReturn,
+  } = useAuthForm();
 
   const router = useRouter();
 
@@ -39,14 +40,12 @@ export default function LoginForm() {
         <form noValidate onSubmit={handleSubmit(onSubmit)} data-cy="loginForm">
           <VStack spacing="5">
             <EmailInput
-              name="email"
+              registerReturn={emailUseFormRegisterReturn}
               errorMessage={undefinedToNull(errors.email?.message)}
-              register={register}
             />
             <PasswordInput
-              name="password"
+              registerReturn={passwordUseFormRegisterReturn}
               errorMessage={undefinedToNull(errors.password?.message)}
-              register={register}
             />
 
             {errorMessage ? (
