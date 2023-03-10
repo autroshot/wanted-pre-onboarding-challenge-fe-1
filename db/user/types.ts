@@ -1,7 +1,3 @@
-export interface DBUser {
-  [index: string]: string;
-  id: string;
-  email: string;
-  password: string;
-  created_at: string;
-}
+import { MyRow, UserDB } from 'db/types';
+
+export type UserRow = MyRow<UserDB>;

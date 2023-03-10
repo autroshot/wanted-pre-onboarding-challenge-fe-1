@@ -1,5 +1,5 @@
 import { User, UserInput } from '../../types/user';
-import { getSheet } from '../utiles';
+import { getSheet } from '../utils';
 import {
   addUser,
   addUsers,

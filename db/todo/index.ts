@@ -1,5 +1,5 @@
 import { Todo, TodoInput } from '../../types/todo';
-import { getSheet } from '../utiles';
+import { getSheet } from '../utils';
 import { DeleteResult, UpdateResult } from './types';
 import {
   addTodo,
