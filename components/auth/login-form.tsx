@@ -17,6 +17,7 @@ import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/email-input';
 import PasswordInput from './common/password-input';
 import { login as loginFetcher } from './fetchers';
+import { Input } from './types';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<Inputs>({ mode: 'onTouched' });
+  } = useForm<Input>({ mode: 'onTouched' });
 
   const router = useRouter();
 
@@ -70,7 +71,7 @@ export default function LoginForm() {
     </>
   );
 
-  function onSubmit(data: Inputs): any | Promise<any> {
+  function onSubmit(data: Input): any | Promise<any> {
     setIsLoading(true);
 
     loginFetcher(data.email, data.password)
@@ -95,10 +96,5 @@ export default function LoginForm() {
         throw err;
       })
       .then(() => setIsLoading(false));
-  }
-
-  interface Inputs {
-    email: string;
-    password: string;
   }
 }

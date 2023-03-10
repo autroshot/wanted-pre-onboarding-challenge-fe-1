@@ -25,6 +25,7 @@ import { undefinedToNull } from '../../utils/general';
 import EmailInput from './common/email-input';
 import PasswordInput from './common/password-input';
 import { signup as signupFetcher } from './fetchers';
+import { Input } from './types';
 
 export default function SignUpForm() {
   const { isOpen: isModalOpen, onOpen: onModalOpen } = useDisclosure();
@@ -37,7 +38,7 @@ export default function SignUpForm() {
     register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<Inputs>({ mode: 'onTouched' });
+  } = useForm<Input>({ mode: 'onTouched' });
   const router = useRouter();
 
   return (
@@ -97,7 +98,7 @@ export default function SignUpForm() {
     </>
   );
 
-  function onSubmit(data: Inputs): any | Promise<any> {
+  function onSubmit(data: Input): any | Promise<any> {
     setIsLoading(true);
 
     signupFetcher(data.email, data.password)
@@ -113,10 +114,5 @@ export default function SignUpForm() {
 
   function handleModalClose() {
     router.push('/');
-  }
-
-  interface Inputs {
-    email: string;
-    password: string;
   }
 }
