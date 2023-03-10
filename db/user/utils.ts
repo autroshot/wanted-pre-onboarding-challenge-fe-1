@@ -1,8 +1,7 @@
-import { GoogleSpreadsheetRow } from 'google-spreadsheet';
 import { nanoid } from 'nanoid';
 import { User, UserInput } from '../../types/user';
 import { getSheet } from '../utiles';
-import { DBUser } from './types';
+import { DBUser, UserRow } from './types';
 
 export function createDBUser(userInput: UserInput): DBUser {
   return {
@@ -26,14 +25,14 @@ export async function addUsers(DBUsers: DBUser[]): Promise<void> {
   await userSheet.addRows(DBUsers);
 }
 
-export async function getUserRows(): Promise<GoogleSpreadsheetRow[]> {
+export async function getUserRows(): Promise<UserRow[]> {
   const userSheet = await getSheet('user');
   const userRows = await userSheet.getRows();
 
-  return userRows;
+  return userRows as UserRow[];
 }
 
-export function getUsers(userRows: GoogleSpreadsheetRow[]): User[] {
+export function getUsers(userRows: UserRow[]): User[] {
   return userRows.map((userRow) => {
     return {
       id: userRow.id,
