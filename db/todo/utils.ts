@@ -1,7 +1,7 @@
 import { TodoDB } from 'db/types';
 import { nanoid } from 'nanoid';
 import { Todo, TodoInput } from '../../types/todo';
-import { getSheet } from '../utiles';
+import { getSheet } from '../utils';
 import { TodoRow } from './types';
 
 export async function createDBTodo(todoInput: TodoInput): Promise<TodoDB> {

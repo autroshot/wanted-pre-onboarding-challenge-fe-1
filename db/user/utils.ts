@@ -1,7 +1,7 @@
 import { UserDB } from 'db/types';
 import { nanoid } from 'nanoid';
 import { User, UserInput } from '../../types/user';
-import { getSheet } from '../utiles';
+import { getSheet } from '../utils';
 import { UserRow } from './types';
 
 export function createDBUser(userInput: UserInput): UserDB {
