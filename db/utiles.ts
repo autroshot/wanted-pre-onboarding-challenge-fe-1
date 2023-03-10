@@ -1,9 +1,17 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { DBTodo } from './todo/types';
+import { MyWorkSheet } from './types';
+import { DBUser } from './user/types';
 
-export async function getSheet(title: SheetTitles) {
+export async function getSheet<T extends SheetTitles>(
+  title: T
+): Promise<ReturnTypeOfGetSheet<T>> {
   const doc = await getDoc();
+  const workSheet = doc.sheetsByTitle[title];
 
-  return doc.sheetsByTitle[title];
+  if (title === 'user') return workSheet as ReturnTypeOfGetSheet<T>;
+  if (title === 'todo') return workSheet as ReturnTypeOfGetSheet<T>;
+  throw new Error('잘못된 인수 값입니다.');
 }
 
 async function getDoc() {
@@ -31,3 +39,10 @@ async function getDoc() {
 }
 
 type SheetTitles = 'user' | 'todo';
+
+type ReturnTypeOfGetSheet<T extends SheetTitles> = SheetTitleToWorkSheet[T];
+
+interface SheetTitleToWorkSheet {
+  user: MyWorkSheet<DBUser>;
+  todo: MyWorkSheet<DBTodo>;
+}
