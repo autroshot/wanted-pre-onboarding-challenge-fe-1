@@ -1,15 +1,7 @@
-import { DB, MyRow } from 'db/types';
+import { MyRow, TodoDB } from 'db/types';
 import { Todo } from '../../types/todo';
 
-export interface DBTodo extends DB {
-  id: string;
-  title: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export type TodoRow = MyRow<DBTodo>;
+export type TodoRow = MyRow<TodoDB>;
 
 export type UpdateResult = UpdateSuccessResult | UpdateFailureResult;
 

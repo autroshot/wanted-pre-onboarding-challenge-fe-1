@@ -1,25 +1,26 @@
+import { UserDB } from 'db/types';
 import { nanoid } from 'nanoid';
 import { User, UserInput } from '../../types/user';
 import { getSheet } from '../utiles';
-import { DBUser, UserRow } from './types';
+import { UserRow } from './types';
 
-export function createDBUser(userInput: UserInput): DBUser {
+export function createDBUser(userInput: UserInput): UserDB {
   return {
     ...userInput,
     id: nanoid(),
     created_at: new Date().toISOString(),
   };
 }
-export function createDBUsers(userInputs: UserInput[]): DBUser[] {
+export function createDBUsers(userInputs: UserInput[]): UserDB[] {
   return userInputs.map(createDBUser);
 }
 
-export async function addUser(DBUser: DBUser): Promise<void> {
+export async function addUser(DBUser: UserDB): Promise<void> {
   const userSheet = await getSheet('user');
 
   await userSheet.addRow(DBUser);
 }
-export async function addUsers(DBUsers: DBUser[]): Promise<void> {
+export async function addUsers(DBUsers: UserDB[]): Promise<void> {
   const userSheet = await getSheet('user');
 
   await userSheet.addRows(DBUsers);
@@ -43,7 +44,7 @@ export function getUsers(userRows: UserRow[]): User[] {
   });
 }
 
-export function toUser(DBUser: DBUser): User {
+export function toUser(DBUser: UserDB): User {
   return {
     id: DBUser.id,
     email: DBUser.email,

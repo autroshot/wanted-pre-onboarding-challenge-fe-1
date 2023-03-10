@@ -1,7 +1,5 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
-import { DBTodo } from './todo/types';
-import { MyWorkSheet } from './types';
-import { DBUser } from './user/types';
+import { ReturnTypeOfGetSheet, SheetTitles } from './types';
 
 export async function getSheet<T extends SheetTitles>(
   title: T
@@ -36,13 +34,4 @@ async function getDoc() {
   await doc.loadInfo();
 
   return doc;
-}
-
-type SheetTitles = 'user' | 'todo';
-
-type ReturnTypeOfGetSheet<T extends SheetTitles> = SheetTitleToWorkSheet[T];
-
-interface SheetTitleToWorkSheet {
-  user: MyWorkSheet<DBUser>;
-  todo: MyWorkSheet<DBTodo>;
 }
