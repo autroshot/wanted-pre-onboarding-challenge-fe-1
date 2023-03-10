@@ -1,5 +1,5 @@
 import { RegisterOptions, useForm } from 'react-hook-form';
-import { ERROR_MESSAGE } from './common/constants';
+import { ERROR_MESSAGE } from './constants';
 import { Input } from './types';
 
 export function useAuthForm() {

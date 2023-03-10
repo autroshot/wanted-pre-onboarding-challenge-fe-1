@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../components/auth/common/constants';
+import { ERROR_MESSAGE } from '../../components/auth/constants';
 
 describe('로그인 폼 유효성 검사', () => {
   beforeEach(() => {
