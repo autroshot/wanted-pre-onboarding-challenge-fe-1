@@ -19,7 +19,7 @@ import DisplayTime from './display-time';
 import FlexSpinner from './flex-spinner';
 import Inputs from './inputs';
 
-export default function Container({
+export default function Detail({
   todos,
   selectedTodoId,
   isLoading,

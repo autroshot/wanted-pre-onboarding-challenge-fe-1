@@ -11,9 +11,9 @@ import { useForm } from 'react-hook-form';
 import { TodoInput } from 'types/todo';
 import { ErrorResponseData } from '../../types/response';
 import { undefinedToNull } from '../../utils/general';
-import DetailContainer from './detail/container';
+import Detail from './detail';
 import { useTodo } from './hooks';
-import ListContainer from './list/container';
+import List from './list';
 
 export default function Todo({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
@@ -45,14 +45,14 @@ export default function Todo({ loginToken }: Props) {
   return (
     <ChakraContainer maxW="container.md" my="5">
       <SimpleGrid columns={[1, null, 2]} spacing="5">
-        <ListContainer
+        <List
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
           isLoading={isLoading}
           onTodoClick={handleTodoClick}
           onTodoCreate={handleTodoCreate}
         />
-        <DetailContainer
+        <Detail
           todos={undefinedToNull(todos)}
           selectedTodoId={selectedTodoId}
           isLoading={isLoading}

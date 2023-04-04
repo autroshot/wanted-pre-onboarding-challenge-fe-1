@@ -7,7 +7,7 @@ import SortingMenu from './sorting-menu';
 import TodoSkeletons from './todo-skeletons';
 import Todos from './todos';
 
-export default function Container({
+export default function List({
   todos,
   selectedTodoId,
   isLoading,
