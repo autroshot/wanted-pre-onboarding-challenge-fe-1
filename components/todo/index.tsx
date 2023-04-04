@@ -15,7 +15,7 @@ import DetailContainer from './detail/container';
 import { useTodo } from './hooks';
 import ListContainer from './list/container';
 
-export default function Container({ loginToken }: Props) {
+export default function Todo({ loginToken }: Props) {
   const [selectedTodoId, setSelectedTodoId] = useState<null | string>(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
