@@ -1,4 +1,4 @@
 import { signUp } from 'controllers/auth';
-import { newControllerSwitch } from 'utils/api';
+import { handler } from 'utils/api';
 
-export default newControllerSwitch({ POSTController: signUp });
+export default handler({ POSTController: signUp });

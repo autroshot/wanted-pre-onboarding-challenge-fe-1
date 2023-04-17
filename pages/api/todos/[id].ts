@@ -1,7 +1,7 @@
 import { deleteTodo, updateTodo } from 'controllers/todo';
-import { newControllerSwitch } from 'utils/api';
+import { handler } from 'utils/api';
 
-export default newControllerSwitch({
+export default handler({
   PUTController: updateTodo,
   DELETEController: deleteTodo,
 });

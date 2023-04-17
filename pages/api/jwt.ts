@@ -1,4 +1,4 @@
 import { login } from 'controllers/auth';
-import { newControllerSwitch } from 'utils/api';
+import { handler } from 'utils/api';
 
-export default newControllerSwitch({ POSTController: login });
+export default handler({ POSTController: login });

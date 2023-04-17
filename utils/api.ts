@@ -2,11 +2,11 @@ import { isAxiosError } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Controller } from '../controllers/types';
 
-export function newControllerSwitch(controllerByMethod: ControllerByMethod) {
+export function handler(controllerByMethod: ControllerByMethod) {
   const { POSTController, GETController, PUTController, DELETEController } =
     controllerByMethod;
 
-  return async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       switch (req.method) {
         case 'POST':

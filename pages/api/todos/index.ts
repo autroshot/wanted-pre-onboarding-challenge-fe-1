@@ -1,7 +1,7 @@
 import { createTodo, getTodos } from 'controllers/todo';
-import { newControllerSwitch } from 'utils/api';
+import { handler } from 'utils/api';
 
-export default newControllerSwitch({
+export default handler({
   POSTController: createTodo,
   GETController: getTodos,
 });
