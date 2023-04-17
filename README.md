@@ -23,7 +23,22 @@
 
 구현 화면은 다음의 동영상으로도 확인할 수 있습니다.
 
+<details>
+  <summary>동영상 보기</summary>
+  
+  ### 인증
 
+  https://user-images.githubusercontent.com/95019875/232439528-1c50dabe-1b85-47b8-8e6b-cbbdd906780c.mp4
+
+  ### 할 일 CRUD
+  
+  https://user-images.githubusercontent.com/95019875/232439729-639a27e3-056d-47f6-8775-395b68e6995f.mp4
+
+  ### 할 일 URL
+
+  https://user-images.githubusercontent.com/95019875/232439822-e86a21ac-ba12-4e64-93d1-b75c9daa2596.mp4
+
+</details>
 
 ## 실행 방법
 
@@ -73,7 +88,7 @@ yarn dev
 
 - CRUD
 - 목록 정렬
-- ToDo 조회에 따른 URL 변화
+- 할 일 조회에 따른 URL 변화
 
 ## 기술 스택
 
