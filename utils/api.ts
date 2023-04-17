@@ -49,7 +49,7 @@ const controllerSwitch: ControllerSwitch = async (
   }
 };
 
-async function newControllerSwitch(controllerByMethod: ControllerByMethod) {
+function newControllerSwitch(controllerByMethod: ControllerByMethod) {
   const { POSTController, GETController, PUTController, DELETEController } =
     controllerByMethod;
 
