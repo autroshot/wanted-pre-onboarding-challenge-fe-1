@@ -25,13 +25,13 @@
 
 <details>
   <summary>동영상 보기</summary>
-  
+
   ### 인증
 
   https://user-images.githubusercontent.com/95019875/232439528-1c50dabe-1b85-47b8-8e6b-cbbdd906780c.mp4
 
   ### 할 일 CRUD
-  
+
   https://user-images.githubusercontent.com/95019875/232439729-639a27e3-056d-47f6-8775-395b68e6995f.mp4
 
   ### 할 일 URL
@@ -435,7 +435,91 @@ const decoratedControllerSwitch = handleErrorDecorator(controllerSwitch);
 
 이제 `decoratedControllerSwitch`는 Axios의 `429` 응답 코드를 비롯한 오류를 가공해서 다시 응답으로 보냅니다.
 
-유틸 함수의 전체 코드는 [Github](https://github.com/autroshot/wanted-pre-onboarding-challenge-fe-1/blob/main/utils/api.ts)에서 확인할 수 있습니다.
+#### 추가 개선
+
+API 페이지에서 `req`, `res`가 중복되는 것을 없애기 위해 유틸 함수를 추가적으로 개선했습니다.
+
+개선된 유틸 함수는 다음과 같습니다.
+
+```ts
+interface ControllerByMethod {
+  POSTController?: Controller;
+  GETController?: Controller;
+  PUTController?: Controller;
+  DELETEController?: Controller;
+}
+
+export function handler(controllerByMethod: ControllerByMethod) {
+  const { POSTController, GETController, PUTController, DELETEController } =
+    controllerByMethod;
+
+  return async function (req: NextApiRequest, res: NextApiResponse) {
+    try {
+      switch (req.method) {
+        case 'POST':
+          if (!POSTController) {
+            res.status(405).end();
+            break;
+          }
+          await POSTController(req, res);
+          break;
+
+        case 'GET':
+          if (!GETController) {
+            res.status(405).end();
+            break;
+          }
+          await GETController(req, res);
+          break;
+
+        case 'PUT':
+          if (!PUTController) {
+            res.status(405).end();
+            break;
+          }
+          await PUTController(req, res);
+          break;
+
+        case 'DELETE':
+          if (!DELETEController) {
+            res.status(405).end();
+            break;
+          }
+          await DELETEController(req, res);
+          break;
+
+        default:
+          res.status(405).end();
+          break;
+      }
+    } catch (err) {
+      if (isAxiosError(err) && err.response?.status === 429) {
+        res.status(429).json({
+          message: '너무 많은 요청이 발생했습니다. 1분 후에 다시 시도해주세요.',
+        });
+
+        return;
+      }
+
+      console.error(err);
+      res.status(500).json({ message: '서버에 오류가 발생했습니다.' });
+    }
+  };
+}
+```
+
+`handleErrorDecorator`의 오류 처리 논리도 이 함수에 포함되었습니다.
+
+이제 API 페이지의 코드가 더 간단해졌습니다.
+
+```ts
+// pages/api/todos.ts
+
+export default handler({
+  PUTController: updateTodo,
+  DELETEController: deleteTodo,
+});
+```
 
 ## 한계 및 개선 사항
 
