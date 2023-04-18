@@ -12,6 +12,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../hooks/use-auth';
 import ButtonLink from './button-link';
+import GithubLink from './github-link';
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -36,6 +37,7 @@ export default function Navbar() {
         {TODO}
       </Link>
       <Spacer display={{ base: 'none', md: 'block' }} />
+      <GithubLink />
       <IconButton
         aria-label="다크 모드"
         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
