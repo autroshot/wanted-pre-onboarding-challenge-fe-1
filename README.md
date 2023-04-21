@@ -109,7 +109,6 @@ yarn dev
 ### DB
 
 - [Google Sheets](https://www.google.com/intl/ko_kr/sheets/about/) - 자세한 내용은 [고민](#DB-마이그레이션) 참고
-
 - [google-spreadsheet](https://theoephraim.github.io/node-google-spreadsheet/#/) - [Google Sheets](https://www.google.com/intl/ko_kr/sheets/about/)의 래퍼
 
 ### 데이터 가져오기
