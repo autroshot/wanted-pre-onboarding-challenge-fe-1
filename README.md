@@ -4,22 +4,37 @@
 
 ## 목차
 
+- [구현 기능](#구현-기능)
 - [구현 화면](#구현-화면)
 - [실행 방법](#실행-방법)
-- [구현 기능](#구현-기능)
 - [기술 스택](#기술-스택)
 - [디렉터리 구조](#디렉터리-구조-1)
 - [고민](#고민)
 - [한계 및 개선 사항](#한계-및-개선-사항)
 
+## 구현 기능
+
+### 인증
+
+- 회원가입
+- 로그인 및 로그아웃
+- 입력 값에 대한 유효성 검사
+- 비로그인 사용자 차단
+
+### ToDo
+
+- CRUD
+- 목록 정렬
+- 할 일 조회에 따른 URL 변화
+
 ## 구현 화면
 
 배포된 [웹사이트](https://wanted-pre-onboarding-challenge-fe-1-kappa.vercel.app/)에서 직접 확인할 수 있습니다. 서비스 이용을 위한 인증은 다음을 사용할 수 있습니다.
 
-- 이메일 - test@test.com
-- 비밀번호 - 12345678
+- 이메일 - `test@test.com`
+- 비밀번호 - `12345678`
 
-또는 회원가입을 통한 인증도 가능합니다.
+또는 직접 회원가입을 통한 인증도 가능합니다.
 
 구현 화면은 다음의 동영상으로도 확인할 수 있습니다.
 
@@ -75,21 +90,6 @@ yarn dev
 
 이제 `http://localhost:3000`에서 앱이 실행되는 것을 확인할 수 있습니다.
 
-## 구현 기능
-
-### 인증
-
-- 회원가입
-- 로그인 및 로그아웃
-- 입력 값에 대한 유효성 검사
-- 비로그인 사용자 차단
-
-### ToDo
-
-- CRUD
-- 목록 정렬
-- 할 일 조회에 따른 URL 변화
-
 ## 기술 스택
 
 ### 언어
@@ -109,7 +109,6 @@ yarn dev
 ### DB
 
 - [Google Sheets](https://www.google.com/intl/ko_kr/sheets/about/) - 자세한 내용은 [고민](#DB-마이그레이션) 참고
-
 - [google-spreadsheet](https://theoephraim.github.io/node-google-spreadsheet/#/) - [Google Sheets](https://www.google.com/intl/ko_kr/sheets/about/)의 래퍼
 
 ### 데이터 가져오기
@@ -144,7 +143,7 @@ wanted-pre-onboarding-challenge-fe-1
 └─ utils # 공통 유틸
 ```
 
-자세한 내용은 [고민의 디렉터리 구조](#디렉터리-구조-2)를 참고하세요.
+자세한 내용은 [고민의 디렉터리 구조](#디렉터리-구조-1)를 참고하세요.
 
 ## 고민
 
@@ -204,7 +203,7 @@ todo # 할 일 컴포넌트
 
 ### TanStack Query 적용
 
-[TanStack Query](https://github.com/tanstack/query)는 이전에 '리액트 쿼리'로 불렸던 데이터 가져오기 라이브러리입니다. 구체적으로는 **서버 상태**를 가져오고, 캐싱하고, 동기화하고, 업데이트하는 작업을 쉽게 만들어줍니다.
+[TanStack Query](https://github.com/tanstack/query)는 이전에 'React Query'로 불렸던 데이터 가져오기 라이브러리입니다. 구체적으로는 **서버 상태**를 가져오고, 캐싱하고, 동기화하고, 업데이트하는 작업을 쉽게 만들어줍니다.
 
 '할 일'이라는 서버 상태를 TanStack Query로 관리함으로써 코드가 선언적이고 간결해졌습니다.
 
@@ -216,7 +215,7 @@ todo # 할 일 컴포넌트
 
 ### 백엔드 마이그레이션
 
-[기존의 백엔드](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api)는 [Express.js](https://expressjs.com/)로, 프론트엔드는 [Next.js](https://nextjs.org/)로 작성되었습니다. 하지만 배포 환경인 [Vercel](https://vercel.com/)에서 Express.js를 적용하는 과정이 순탄치 않았고, 프론트엔드와 백엔드가 따로 있다 보니 CORS 문제도 발생했습니다. 그리고 Vercel에서도 백엔드를 Next.js의 [API 경로](https://nextjs.org/docs/api-routes/introduction)로 구현하는 것을 권장했기 때문에, 기존의 Express.js를 Next.js로 옮기는 백엔드 마이그레이션을 수행하게 되었습니다.
+[기존의 백엔드](https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api)는 [Express.js](https://expressjs.com/)로, 프런트엔드는 [Next.js](https://nextjs.org/)로 작성되었습니다. 하지만 배포 환경인 [Vercel](https://vercel.com/)에서 Express.js를 적용하는 과정이 순탄치 않았고, 프런트엔드와 백엔드가 따로 있다 보니 CORS 문제도 발생했습니다. 그리고 Vercel에서도 백엔드를 Next.js의 [API 경로](https://nextjs.org/docs/api-routes/introduction)로 구현하는 것을 권장했기 때문에, 기존의 Express.js를 Next.js로 옮기는 백엔드 마이그레이션을 수행하게 되었습니다.
 
 Express.js와 Next.js 모두 Node.js 기반 프레임워크라는 공통점이 있어 마이그레이션이 크게 어렵지는 않았습니다. 다만 기존의 백엔드에서 [lowdb](https://github.com/typicode/lowdb)를 사용하는 것이 문제가 되어, 결국 [DB 마이그레이션](#DB-마이그레이션)도 필요하게 되었습니다.
 
@@ -520,6 +519,10 @@ export default handler({
   DELETEController: deleteTodo,
 });
 ```
+
+관련 문제는 다음과 같습니다.
+
+- [[리팩터링] API 페이지 개선](https://github.com/autroshot/wanted-pre-onboarding-challenge-fe-1/issues/34)
 
 ## 한계 및 개선 사항
 
